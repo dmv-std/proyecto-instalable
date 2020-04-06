@@ -1,0 +1,5 @@
+config.php
+instalador/config.json
+rrhh/firmas/*
+html2pdf/*.pdf
+presupuestos/archivos/*
