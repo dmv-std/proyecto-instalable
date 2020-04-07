@@ -77,9 +77,9 @@ registrar otra cuenta de reCAPTCHA, todo lo podríamos hacer con una sola cuenta
 https://www.google.com/recaptcha/admin, escoger la cuenta, y agregar tantos dominios como se desee, tal y como se puede
 apreciar en las imágenes:
 
-[Añadiendo Múltiples Dominios 1](https://i.imgur.com/NpAkZ08.jpg)
+![Añadiendo Múltiples Dominios 1](https://i.imgur.com/NpAkZ08.jpg)
 
-[Añadiendo Múltiples Dominios 2](https://i.imgur.com/Y8Qrm7U.png)
+![Añadiendo Múltiples Dominios 2](https://i.imgur.com/Y8Qrm7U.png)
 
 Una vez se tenga acceso a las 2 claves, se ingresan en la pantalla de habilitar reCAPTCHA, para poder realizar la
 validación. Si ésta se ha hecho bien, se nos permitirá avanzar a la siguiente etapa.
