@@ -12,7 +12,7 @@ para luego acceder a la página desde este subdominio.
 
 ### Accediendo al asistente de instalación
 
-Una vez se hayan sido subidos todos los archivos al servidor, se podrá acceder al asistente de instalación
+Una vez hayan sido subidos todos los archivos al servidor, se podrá acceder al asistente de instalación
 desde la url que haya sido asignada para el proyecto `http(s)://mi-dominio-o-subdominio`, y ésta
 redirigirá al asistente de instalación (alternativamente se puede acceder directamente a éste desde
 `http(s)://mi-dominio-o-subdominio/instalador`).
