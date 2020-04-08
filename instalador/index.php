@@ -213,7 +213,8 @@
 			<div class="subtext">
 				Necesitas habilitar una cuenta de reCAPTCHA para poder tener una página de login funcional.<br/>
 				Ingresa a <a href="https://www.google.com/recaptcha/admin/create">https://www.google.com/recaptcha/admin/create</a>,
-				y completa los datos para poder recibir las claves necesarias, luego valídalas.
+				y completa los datos para poder recibir las claves necesarias, luego valídalas.<br/><br/>
+				<strong>NOTA:</strong> es necesario elegir la opción <code>reCAPTCHA v2 > Casilla No soy un robot</code>.
 			</div>
 			<form id="form-detalles-recaptcha">
 				<div class="form-group"><h4>Datos de la cuenta de reCAPTCHA:</h4></div>
@@ -290,6 +291,7 @@
 				</div>
 			</div>
 			<div class="subtext estado-de-instalacion"><em>Iniciando instalación...</em></div>
+			<div class="install-error text-red"></div>
 		</section>
 
 	<?php elseif (isset($_GET['fase']) && $_GET['fase']==7): ?>
@@ -467,9 +469,9 @@
 					r = JSON.parse(r)
 					let progress = Math.round(step / r.total * 100);
 					console.log(`${step}/${r.total} ${progress}% - ${r.estado}`)
-					if (progress < 100 && !isNaN(r.total)) {
+					if (!r.error && progress < 100 && !isNaN(r.total)) {
 						performInstallAction(step+1)
-					} else if (progress >= 100) {
+					} else if (!r.error && progress >= 100) {
 						setTimeout(function(){
 							$('.progress-bar').css('width', '100%')
 							$('.estado-de-instalacion').html(`<h1>100%</h1><em>Instalación completa!</em>`)
@@ -480,6 +482,9 @@
 					}
 					$('.progress-bar').css('width', progress+'%')
 					$('.estado-de-instalacion').html(`<h1>${progress}%</h1><em>${r.estado}</em>`)
+					
+					if ( r.error )
+						$('.install-error').html( r.error )
 				},
 				error: function(xhr, status) {
 					alert('Un error inesperado ha ocurrido.');

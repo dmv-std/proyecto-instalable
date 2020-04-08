@@ -5,6 +5,7 @@ if (isset($_POST['step'])) {
 	$paso = $_POST['step'];
 	$pasos = 0;
 	$estados = [];
+	$error = "";
 
 	require_once("config.php");
 	require_once("db-modulos.php");
@@ -56,7 +57,17 @@ if (isset($_POST['step'])) {
 			die("Connection failed: " . $conn->connect_error);
 		}
 		if(!$conn->query("CREATE DATABASE IF NOT EXISTS ".$config_data['db-name']."")) {
-			echo "Error creating database: " . $conn->error;
+			$res=$conn->query("SELECT SCHEMA_NAME
+							FROM INFORMATION_SCHEMA.SCHEMATA
+							WHERE SCHEMA_NAME = '".$config_data['db-name']."'");
+			if ($res->num_rows==0) {
+				$error = "<strong>Ha ocurrido un error:</strong>
+		la base de datos <code>".$config_data['db-name']."</code> no ha podido ser creada automáticamente
+		por falta de permisos.<br/><br/>Deberás crearla manualmente desde PhpMyAdmin.
+		Cuando estés listo, refresca esta página.<br/>Recuerda que los datos previamente ingresados de
+		usuario y contraseña (base de datos) tienen que seguir siendo los mismos, si no es asi,
+		Reinicia el instalador (Click <a href=\"/instalador\">aquí</a>).";
+			}
 		}
 		$conn->close();
 	}
@@ -65,6 +76,18 @@ if (isset($_POST['step'])) {
 
 	// Es en el paso 2 cuando la base de datos es creada, antes de eso no se puede abrir/cerrar conexión...
 	$init_db = $paso>=2 ? true : false;
+	$conn = new mysqli($server, $user, $pass);
+	$res=$conn->query("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '".$config_data['db-name']."'");
+	if ($res->num_rows==0) {
+		$error = "<strong>Ha ocurrido un error:</strong>
+		la base de datos <code>".$config_data['db-name']."</code> no ha podido ser creada automáticamente
+		por falta de permisos.<br/><br/>Deberás crearla manualmente desde PhpMyAdmin.
+		Cuando estés listo, refresca esta página.<br/>Recuerda que los datos previamente ingresados de
+		usuario y contraseña (base de datos) tienen que seguir siendo los mismos, si no es asi,
+		Reinicia el instalador (Click <a href=\"/instalador\">aquí</a>).";
+		$init_db=false;
+	}
+	$conn->close();
 
 	// Abriendo conexión con base de datos previamente inicializada.
 	if ($init_db) {
@@ -77,7 +100,7 @@ if (isset($_POST['step'])) {
 	// Creando tablas
 	if (isset($config_data['queries'])) {
 		foreach ($config_data['queries'] as $query) {
-			if ($paso == $pasos+1) {
+			if ($init_db && $paso == $pasos+1) {
 				if (!$conn->query($query["query"])) {
 					exit("Error creating table: " . $conn->error);
 				}
@@ -122,6 +145,7 @@ if (isset($_POST['step'])) {
 		"paso" => $paso,
 		"total" => $pasos,
 		"estado" => $estados[$paso-1],
+		"error" => $error,
 	]);
 }
 

@@ -21,6 +21,11 @@ body ul {
     padding-left: 10px;
 }
 
+body code {
+    background: #6a6adb;
+    color: #fff;
+}
+
 body.flex-body{
 	display: flex;
 	justify-content: space-around;
