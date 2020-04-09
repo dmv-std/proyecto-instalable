@@ -10,8 +10,11 @@
 		}
 		else {
 			
-			$upload_path = 'assets/images/';
-			$filename = 'logo';
+			$cotizador2_pdf_logo = explode("/", $cotizador2_pdf_logo);
+			$filename = array_pop($cotizador2_pdf_logo);
+			$cotizador2_pdf_logo = implode("/", $cotizador2_pdf_logo);
+
+			$upload_path = $basepath.$cotizador2_pdf_logo;
 			
 			$explode = explode(".", $_FILES['logo']['name']);
 			$extension = $explode[count($explode) - 1];
@@ -48,9 +51,11 @@
 	// Eliminar logo
 	else if ( isset($_GET['logo']) && isset($_GET['action']) && $_GET['action']=='delete' ) {
 		
-		$logo = $_GET['logo'];
-		
-		include ("conexion.php");
+		$cotizador2_pdf_logo = explode("/", $cotizador2_pdf_logo);
+		array_pop($cotizador2_pdf_logo);
+		$cotizador2_pdf_logo = implode("/", $cotizador2_pdf_logo);
+
+		$logo = $basepath."/".$cotizador2_pdf_logo."/".$_GET['logo'];
 		
 		$mysqli = new mysqli($dbserver, $dbuser, $dbpass, $dbname);
 		if($mysqli->connect_errno > 0){

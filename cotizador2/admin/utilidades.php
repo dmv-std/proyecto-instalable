@@ -19,13 +19,13 @@
     <!-- Open Sans font from Google CDN -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
     <!-- Pixel Admin's stylesheets -->
-    <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/pixel-admin.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/widgets.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/rtl.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/themes.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/pixel-admin.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/widgets.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/rtl.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/themes.min.css" rel="stylesheet" type="text/css">
     <!--[if lt IE 9]>
-    <script src="assets/javascripts/ie.min.js"></script>
+    <script src="<?php echo $js_url ?>/ie.min.js"></script>
     <![endif]-->
 </head>
 <body class="theme-frost no-main-menu">
@@ -198,19 +198,22 @@
         <div id="main-menu-bg"></div>
     </div> <!-- / #main-wrapper -->
 
+    <?php if ($load_resources_locally): ?>
+        <script src="<?php echo $js_url?>/jquery-2.0.3.min.js"></script>
+    <?php else: ?>
     <!-- Get jQuery from Google CDN -->
     <!--[if !IE]> -->
-    <?php //<script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">'+"<"+"/script>"); </script> ?>
-    <script type="text/javascript"> window.jQuery || document.write('<script src="assets/js/jquery.min.js">'+"<"+"/script>"); </script>
+    <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">'+"<"+"/script>"); </script>
     <!-- <![endif]-->
     <!--[if lte IE 9]>
     <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">'+"<"+"/script>"); </script>
     <![endif]-->
+    <?php endif ?>
 
 
     <!-- Pixel Admin's javascripts -->
-    <script src="assets/javascripts/bootstrap.min.js"></script>
-    <script src="assets/javascripts/pixel-admin.min.js"></script>
+    <script src="<?php echo $js_url ?>/bootstrap.min.js"></script>
+    <script src="<?php echo $js_url ?>/pixel-admin.min.js"></script>
 
     <script type="text/javascript">
         init.push(function () {

@@ -17,7 +17,7 @@
 
 			$tempFile = $_FILES['archivos']['tmp_name'][$i];
 			$file = $id_presupuesto.'_'.$_FILES['archivos']['name'][$i];
-			$targetFile = "$basepath/presupuestos/archivos/$file";
+			$targetFile = "$basepath/$presupuestos_archivos_path/$file";
 
 			$mimetype = $_FILES['archivos']['type'][$i];
 			$size = $_FILES['archivos']['size'][$i];

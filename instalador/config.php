@@ -1,5 +1,8 @@
 <?php
 
+$assets_url = "../assets";
+$load_resources_locally = true;
+
 $fases = array(
 	'Validar licencia',
 	'Configuracion del server',

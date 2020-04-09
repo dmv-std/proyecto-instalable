@@ -2,12 +2,12 @@
 set_time_limit(3000);
 ini_set("memory_limit","50M");
 	$rutaarch = 'catmax.xlsx';
-	require_once("../Classes/PHPExcel.php");
+	require_once ("../../config.php");
+	require_once($basepath."/librerias/Classes/PHPExcel.php");
 	$objReader = new PHPExcel_Reader_Excel2007();
 	$objPHPExcel = $objReader->load($rutaarch);
 	$objPHPExcel->setActiveSheetIndex(0);
 	$i=1;
-	require_once ("../../config.php");
 	
 	header("Content-Type: text/html;charset=utf-8");
 	echo "<html>";

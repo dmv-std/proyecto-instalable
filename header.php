@@ -10,7 +10,7 @@
       <span class="icon-bar"></span>
     </button>
     <a class="navbar-brand" href="<?php echo $basehttp ?>">
-    Bienvenido <?php echo $_SESSION['nombrePersona']; ?>
+      Bienvenido <?php echo $_SESSION['nombrePersona']; ?>
     </a>
   </div>
   
@@ -23,11 +23,11 @@
       <p class="navbar-text pull-left">
       
       </p>
-	  <?php if($_SESSION['permisosPersona'] != "externo") { ?><li><a href="enlaces">Enlaces</a></li> <?php } ?>
-      <?php if($_SESSION['permisosPersona'] == "admin") { ?><li><a href="usuarios">Administrar Usuarios</a></li> <?php } ?>
-      <?php if($_SESSION['permisosPersona'] == "admin") { ?><li><a href="acceso">Registro Accesos</a></li> <?php } ?>
+	  <?php if($_SESSION['permisosPersona'] != "externo") { ?><li><a href="<?php echo $basehttp ?>/enlaces">Enlaces</a></li> <?php } ?>
+      <?php if($_SESSION['permisosPersona'] == "admin") { ?><li><a href="<?php echo $basehttp ?>/usuarios">Administrar Usuarios</a></li> <?php } ?>
+      <?php if($_SESSION['permisosPersona'] == "admin") { ?><li><a href="<?php echo $basehttp ?>/acceso">Registro Accesos</a></li> <?php } ?>
       <?php /*if($_SESSION['permisosPersona'] == "admin") { ?><li><a href="http://sistemas.evamagic.com.ar/formularios/cron.php" target="_blank">CRON</a></li> <?php }*/ ?>
-      <li><a href="salir">Cerrar Sesión.</a></li>
+      <li><a href="<?php echo $basehttp ?>/salir">Cerrar Sesión.</a></li>
     </ul>
  
   </div>

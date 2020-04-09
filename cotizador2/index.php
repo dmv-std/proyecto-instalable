@@ -32,16 +32,16 @@
     <title>Cotizador - <?php echo $sitename ?></title>
 
     <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $styles_url ?>/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
-    <link href="assets/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="<?php echo $styles_url ?>/bootstrap-theme.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="assets/css/theme.css" rel="stylesheet">
+    <link href="<?php echo $styles_url ?>/theme.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+    <!--[if lt IE 9]><script src="<?php echo $js_url ?>/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="<?php echo $js_url ?>/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -257,12 +257,15 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <?php //<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> ?>
-    <script src="admin/assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/docs.min.js"></script>
+    <?php if ($load_resources_locally): ?>
+    	<script src="<?php echo $js_url ?>/jquery.min.js"></script>
+    <?php else: ?>
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <?php endif ?>
+    <script src="<?php echo $js_url ?>/bootstrap.min.js"></script>
+    <script src="<?php echo $js_url ?>/docs.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="<?php echo $js_url ?>/ie10-viewport-bug-workaround.js"></script>
     <script type="text/javascript">
 		$(document).ready(function() {
 			$.ajax({

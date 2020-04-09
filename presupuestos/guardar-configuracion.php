@@ -9,8 +9,11 @@
 		}
 		else {
 			
-			$upload_path = 'assets/images/';
-			$filename = 'logo';
+			$presupuestos_pdf_logo = explode("/", $presupuestos_pdf_logo);
+			$filename = array_pop($presupuestos_pdf_logo);
+			$presupuestos_pdf_logo = implode("/", $presupuestos_pdf_logo);
+
+			$upload_path = $basepath.$presupuestos_pdf_logo;
 			
 			$explode = explode(".", $_FILES['logo']['name']);
 			$extension = $explode[count($explode) - 1];
@@ -32,6 +35,7 @@
 				$response = array(
 					"result" => "SUCCESS",
 					"filename" => "$filename.$extension",
+					"extension" => "$extension",
 				);
 			}else{
 				$response = array(
@@ -46,7 +50,11 @@
 	
 	else if ( isset($_GET['logo']) && isset($_GET['action']) && $_GET['action']=='delete' ) {
 		
-		$logo = $_GET['logo'];
+		$presupuestos_pdf_logo = explode("/", $presupuestos_pdf_logo);
+		array_pop($presupuestos_pdf_logo);
+		$presupuestos_pdf_logo = implode("/", $presupuestos_pdf_logo);
+
+		$logo = $basepath."/".$presupuestos_pdf_logo."/".$_GET['logo'];
 		
 		$mysqli = new mysqli($dbserver, $dbuser, $dbpass, $dbname);
 		if($mysqli->connect_errno > 0){

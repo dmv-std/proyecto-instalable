@@ -57,17 +57,11 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/pixel-admin.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/widgets.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/rtl.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/themes.min.css" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" type="text/css" href="css/calendario.css">
-    <script type="text/javascript" src="assets/js/jquery.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
-	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <link href="<?php echo $styles_url ?>/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/pixel-admin.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/widgets.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/rtl.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/themes.min.css" rel="stylesheet" type="text/css">
 	
 	<style type="text/css">
 		td input[type=checkbox] {
@@ -223,19 +217,22 @@
 		</div>
 	</div>
 
+    <?php if ($load_resources_locally): ?>
+        <script src="<?php echo $js_url?>/jquery-2.0.3.min.js"></script>
+    <?php else: ?>
     <!-- Get jQuery from Google CDN -->
     <!--[if !IE]> -->
-    <?php //<script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">'+"<"+"/script>"); </script> ?>
-    <script type="text/javascript"> window.jQuery || document.write('<script src="assets/js/jquery.min.js">'+"<"+"/script>"); </script>
+    <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">'+"<"+"/script>"); </script>
     <!-- <![endif]-->
     <!--[if lte IE 9]>
     <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">'+"<"+"/script>"); </script>
     <![endif]-->
+    <?php endif ?>
 
 
     <!-- Pixel Admin's javascripts -->
-    <script src="assets/javascripts/bootstrap.min.js"></script>
-    <script src="assets/javascripts/pixel-admin.js"></script>
+    <script src="<?php echo $js_url ?>/bootstrap.min.js"></script>
+    <script src="<?php echo $js_url ?>/pixel-admin.js"></script>
 
 
     <script type="text/javascript">

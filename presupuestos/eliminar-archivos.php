@@ -18,7 +18,7 @@
 				
 				$results1 = $mysqli->query("SELECT * FROM presupuestos_archivos WHERE id_presupuesto = $borrada");
 				while($row = $results1->fetch_assoc()){
-					$file = $basehttp . "/presupuestos/archivos/" . $row['file'];
+					$file = $basepath . "/". $presupuestos_archivos_path . "/" . $row['file'];
 					if ( file_exists($file) )
 						unlink( $file );
 				}

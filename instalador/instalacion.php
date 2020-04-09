@@ -164,7 +164,24 @@ $archivo = '<?php
 	$basepath = "' . $config_data['basepath'] . '";
 	$basehttp = "' . $config_data['basehttp'] . '";
 
-	// reCAPTCHA
+	$assets_url = $basehttp."/assets";
+	$styles_url = $basehttp."/assets/stylesheets";
+	$css_url = $basehttp."/assets/css";
+	$js_url = $basehttp."/assets/js";
+	$fontawesome_url = $basehttp."/assets/font-awesome";
+	$images_url = $basehttp."/assets/images";
+
+	// Some resources
+	$load_resources_locally = false;
+
+	'.(in_array("presupuestos", $config_data['modulos'])?'// Presupuestos
+	$presupuestos_archivos_path = "/assets/presupuestos";
+	$presupuestos_pdf_logo = "/assets/logos/" . "presupuestos-logo";
+
+	':'').(in_array("cotizador2", $config_data['modulos'])?'// Cotizador2
+	$cotizador2_pdf_logo = "/assets/logos/" . "cotizador2-logo";
+	
+	':'').'// reCAPTCHA
 	$captcha_front_code = "' .  $config_data['captcha_front_code'] . '";
 	$captcha_back_code = "' .  $config_data['captcha_back_code'] . '";
 

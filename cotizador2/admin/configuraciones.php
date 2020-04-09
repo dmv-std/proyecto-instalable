@@ -44,6 +44,13 @@
 		$web = $row2['web'];
 		$email = $row2['email'];
 		$logo = $row2['logo'];
+        
+        $cotizador2_pdf_logo = explode("/", $cotizador2_pdf_logo);
+        array_pop($cotizador2_pdf_logo);
+        $cotizador2_pdf_logo = implode("/", $cotizador2_pdf_logo);
+
+        $logo_url = $basehttp.$cotizador2_pdf_logo."/".$logo;
+
         mysqli_close($mysqli2);
 ?>
 <!DOCTYPE html>
@@ -58,14 +65,14 @@
     <!-- Open Sans font from Google CDN -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
     <!-- Pixel Admin's stylesheets -->
-    <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/pixel-admin.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/widgets.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/rtl.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/themes.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/pixel-admin.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/widgets.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/rtl.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/themes.min.css" rel="stylesheet" type="text/css">
 	<script src="https://kit.fontawesome.com/b8c47e2cca.js" crossorigin="anonymous"></script><!-- Font Awesome kit latest -->
     <!--[if lt IE 9]>
-    <script src="assets/javascripts/ie.min.js"></script>
+    <script src="<?php echo $js_url ?>/ie.min.js"></script>
     <![endif]-->
 	<style type="text/css">
 	textarea#direccion {
@@ -609,7 +616,7 @@
 									<button class="btn btn-primary btn-file-upload" style="margin-right:15px">Subir</button>
 									<span class="sin-logo" style="<?php echo $logo?'display:none':'' ?>"><em>Ninguno</em></span>
 									<span class="logo" style="<?php echo $logo?'':'display:none' ?>">
-										<img style="height:31px" src="<?php echo $logo ? "assets/images/$logo" : "" ?>" />
+										<img style="height:31px" src="<?php echo $logo ? "$logo_url" : "" ?>" />
 										<a class="btn-remover-logo" style="font-size:1.5rem;color:#ae6767" href="#" data-toggle="tooltip" data-placement="bottom" title="Remover Logo"><i class="fa fa-trash-alt"></i></a>
 									</span>
 									<input type="file" style="display:none" id="logo" name="logo" />
@@ -710,7 +717,7 @@
 									<button class="btn btn-primary btn-file-upload2" style="margin-right:15px">Subir</button>
 									<span class="sin-logo2" style="<?php echo $mail_logo?'display:none':'' ?>"><em>Ninguno</em></span>
 									<span class="logo2" style="<?php echo $mail_logo?'':'display:none' ?>">
-										<img style="height:31px" src="<?php echo $mail_logo ? "assets/images/$mail_logo" : "" ?>" />
+										<img style="height:31px" src="<?php echo $mail_logo ? "$images_url/$mail_logo" : "" ?>" />
 										<a class="btn-remover-logo2" style="font-size:1.5rem;color:#ae6767" href="#" data-toggle="tooltip" data-placement="bottom" title="Remover Logo"><i class="fa fa-trash-alt"></i></a>
 									</span>
 									<input type="file" style="display:none" id="mail_logo" name="mail_logo" />
@@ -743,24 +750,32 @@
         <div id="main-menu-bg"></div>
     </div> <!-- / #main-wrapper -->
 
+    <?php if ($load_resources_locally): ?>
+        <script src="<?php echo $js_url?>/jquery-2.0.3.min.js"></script>
+    <?php else: ?>
     <!-- Get jQuery from Google CDN -->
     <!--[if !IE]> -->
-    <?php //<script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">'+"<"+"/script>"); </script> ?>
-    <script type="text/javascript"> window.jQuery || document.write('<script src="assets/js/jquery.min.js">'+"<"+"/script>"); </script>
+    <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">'+"<"+"/script>"); </script>
     <!-- <![endif]-->
     <!--[if lte IE 9]>
     <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">'+"<"+"/script>"); </script>
     <![endif]-->
+    <?php endif ?>
 
 
     <!-- Pixel Admin's javascripts -->
-    <script src="assets/javascripts/bootstrap.min.js"></script>
-    <script src="assets/javascripts/pixel-admin.min.js"></script>
+    <script src="<?php echo $js_url ?>/bootstrap.min.js"></script>
+    <script src="<?php echo $js_url ?>/pixel-admin.min.js"></script>
      <script type="text/javascript">
         init.push(function () {
             // Javascript code here
         })
         window.PixelAdmin.start(init);
+
+        Array.prototype.last = function(){
+            return this[this.length - 1];
+            //return this.slice(-1); // alternative!
+        };
 
         $(".btn-modificarsubrubros").on( "click", function() {
             tr = $(this).closest("tr");
@@ -1322,7 +1337,7 @@
 							$('.btn-file-upload').prop('disabled', '').text("Subir");
 							$('.sin-logo').hide();
 							$('.logo').show();
-							$('.logo img').attr("src", "assets/images/" + rsp.filename);
+							$('.logo img').attr("src", "<?php echo $basehttp.$cotizador2_pdf_logo?>/" + rsp.filename);
 						}
 					},
 					error: function (xhr, ajaxOptions, thrownError) {
@@ -1340,7 +1355,7 @@
 			$.ajax({
                 url : 'guardarconfig-pdf.php',
                 data : {
-					logo: $('.logo img').attr('src'),
+					logo: $('.logo img').attr('src').split('/').last(),
 					action: "delete",
 				},
                 type : 'GET',
@@ -1406,7 +1421,7 @@
 							$('.btn-file-upload2').prop('disabled', '').text("Subir");
 							$('.sin-logo2').hide();
 							$('.logo2').show();
-							$('.logo2 img').attr("src", "assets/images/" + rsp.filename);
+							$('.logo2 img').attr("src", "<?php echo $images_url?>/" + rsp.filename);
 						}
 					},
 					error: function (xhr, ajaxOptions, thrownError) {
@@ -1424,7 +1439,7 @@
 			$.ajax({
                 url : 'guardar-mail-logo.php',
                 data : {
-					mail_logo: $('.logo2 img').attr('src'),
+					mail_logo: $('.logo2 img').attr('src').split('/').last(),
 					action: "delete",
 				},
                 type : 'GET',

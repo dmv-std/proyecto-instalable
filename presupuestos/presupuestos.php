@@ -52,20 +52,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Presupuestos - <?php echo $sitename ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <link href="assets/css/main.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $css_url ?>/presupuestos.css" rel="stylesheet" type="text/css">
     <!-- Open Sans font from Google CDN -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
     <!-- Pixel Admin's stylesheets -->
-    <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/pixel-admin.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/widgets.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/rtl.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/themes.min.css" rel="stylesheet" type="text/css">
-	<link href="assets/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/pixel-admin.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/widgets.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/rtl.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/themes.min.css" rel="stylesheet" type="text/css">
+	<link href="<?php echo $js_url ?>/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css">
 	<!--<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">-->
 	<script src="https://kit.fontawesome.com/b8c47e2cca.js" crossorigin="anonymous"></script><!-- Font Awesome kit latest -->
     <!--[if lt IE 9]>
-    <script src="assets/javascripts/ie.min.js"></script>
+    <script src="<?php echo $js_url ?>/ie.min.js"></script>
     <![endif]-->
 	<style type="text/css">
 		.w-auto{width:auto}
@@ -422,7 +422,7 @@
 													<a class="" href="<?php echo $presupuesto['id'] ?>/pdf/exportar" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Descargar presupuesto"><i class="fas fa-file-pdf"></i></a>
 													<a class="btn-editar" href="#" data-toggle="tooltip" data-placement="bottom" title="Modificar"><i class="fas fa-pen"></i></a>
 													<?php if($presupuesto['archivos'] > 0): ?>
-														<a href="#" data-toggle="tooltip" data-placement="bottom" title="<?php echo $presupuesto['archivos'] ?> archivos"><i class="fa fa-paperclip"></i></a>
+														<a class="btn-archivos" href="#" data-toggle="tooltip" data-placement="bottom" title="<?php echo $presupuesto['archivos'] ?> archivos"><i class="fa fa-paperclip"></i></a>
 													<?php endif ?>
 												</div>
 											</td>
@@ -450,20 +450,24 @@
         <div id="main-menu-bg"></div>
     </div> <!-- / #main-wrapper -->
 
+    <?php if ($load_resources_locally): ?>
+        <script src="<?php echo $js_url?>/jquery-2.0.3.min.js"></script>
+    <?php else: ?>
     <!-- Get jQuery from Google CDN -->
     <!--[if !IE]> -->
-    <?php //<script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">'+"<"+"/script>"); </script> ?>
-    <script type="text/javascript"> window.jQuery || document.write('<script src="assets/js/jquery-2.0.3.min.js">'+"<"+"/script>"); </script>
+    <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">'+"<"+"/script>"); </script>
     <!-- <![endif]-->
     <!--[if lte IE 9]>
     <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">'+"<"+"/script>"); </script>
     <![endif]-->
+    <?php endif ?>
 
-	<script src="assets/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 
     <!-- Pixel Admin's javascripts -->
-    <script src="assets/javascripts/bootstrap.min.js"></script>
-    <script src="assets/javascripts/pixel-admin.min.js"></script>
+    <script src="<?php echo $js_url ?>/bootstrap.min.js"></script>
+    <script src="<?php echo $js_url ?>/pixel-admin.min.js"></script>
+
+	<script src="<?php echo $js_url ?>/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 
     <script type="text/javascript">
         init.push(function () {
@@ -523,6 +527,10 @@
                 },
             });
 		});
+
+		$('.btn-archivos,.btn-editar').on('click', function(e){
+			e.preventDefault()
+		})
 		
 		$(".btn-editar").on('click', function(){
 			let id			= $(this).closest('tr').data('id'),

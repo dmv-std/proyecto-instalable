@@ -1,3 +1,4 @@
+<?php include('config.php') ?>
 <!DOCTYPE html>
 <!--[if IE 8]><html class="ie8"><![endif]-->
 <!--[if IE 9]><html class="ie9 gt-ie8"><![endif]-->
@@ -10,22 +11,18 @@
 	<!-- Open Sans font from Google CDN -->
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css"/>
 	<!-- Pixel Admin's stylesheets -->
-	<link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-	<!--<link href="assets/stylesheets/pixel-admin.min.css" rel="stylesheet" type="text/css"/>-->
-	<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-	<link href="assets/stylesheets/widgets.min.css" rel="stylesheet" type="text/css"/>
-	<link href="assets/stylesheets/rtl.min.css" rel="stylesheet" type="text/css"/>
-	<link href="assets/stylesheets/themes.min.css" rel="stylesheet" type="text/css"/>
-	<link href="assets/css/main.css" rel="stylesheet" type="text/css"/>
+	<link href="<?php echo $assets_url?>/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<!--<link href="<?php echo $assets_url?>/stylesheets/pixel-admin.min.css" rel="stylesheet" type="text/css"/>-->
+	<link rel="stylesheet" href="<?php echo $assets_url?>/font-awesome/css/font-awesome.min.css">
+	<link href="<?php echo $assets_url?>/stylesheets/widgets.min.css" rel="stylesheet" type="text/css"/>
+	<link href="<?php echo $assets_url?>/stylesheets/rtl.min.css" rel="stylesheet" type="text/css"/>
+	<link href="<?php echo $assets_url?>/stylesheets/themes.min.css" rel="stylesheet" type="text/css"/>
+	<link href="<?php echo $assets_url?>/css/instalador.css" rel="stylesheet" type="text/css"/>
 	<!--[if lt IE 9]>
-	<script src="assets/javascripts/ie.min.js"></script>
+	<script src="<?php echo $assets_url?>/js/ie.min.js"></script>
 	<![endif]-->
-	<style type="text/css">
-	.text-red{color:#ffbf00}
-	</style>
 </head>
 <body class="<?php echo isset($_GET['fase']) ? "flex-body" : "" ?>">
-	<?php include('config.php') ?>
 	<script>var init = [];</script>
 
 	<?php if (isset($_GET['fase'])): ?>
@@ -311,6 +308,9 @@
 		<section class="main2"></section>
 	<?php endif ?>
 
+    <?php if ($load_resources_locally): ?>
+        <script src="<?php echo $assets_url?>/js/jquery-2.0.3.min.js"></script>
+    <?php else: ?>
 	<!-- Get jQuery from Google CDN -->
 	<!--[if !IE]> -->
 	<script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">'+"<"+"/script>"); </script>
@@ -318,11 +318,12 @@
 	<!--[if lte IE 9]>
 	<script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">'+"<"+"/script>"); </script>
 	<![endif]-->
+    <?php endif ?>
 
 
 	<!-- Pixel Admin's javascripts -->
-	<script src="assets/javascripts/bootstrap.min.js"></script>
-	<script src="assets/javascripts/pixel-admin.min.js"></script>
+	<script src="<?php echo $assets_url?>/js/bootstrap.min.js"></script>
+	<script src="<?php echo $assets_url?>/js/pixel-admin.min.js"></script>
 	<script type="text/javascript">
 		init.push(function () {
 			// Javascript code here

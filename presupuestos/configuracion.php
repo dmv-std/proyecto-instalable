@@ -27,6 +27,12 @@ if($_SESSION['rrhh'] != 1){
 		$web = $row['web'];
 		$email = $row['email'];
 		$logo = $row['logo'];
+
+        $presupuestos_pdf_logo = explode("/", $presupuestos_pdf_logo);
+        array_pop($presupuestos_pdf_logo);
+        $presupuestos_pdf_logo = implode("/", $presupuestos_pdf_logo);
+
+        $logo_url = $basehttp.$presupuestos_pdf_logo."/".$logo;
 		
 		// Email
 		$emailremitente = $row['emailremitente'];
@@ -65,18 +71,18 @@ if($_SESSION['rrhh'] != 1){
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Presupuestos - <?php echo $sitename ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <link href="assets/css/main.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $css_url ?>/presupuestos.css" rel="stylesheet" type="text/css">
     <!-- Open Sans font from Google CDN -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
     <!-- Pixel Admin's stylesheets -->
-    <link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/pixel-admin.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/widgets.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/rtl.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/stylesheets/themes.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/pixel-admin.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/widgets.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/rtl.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $styles_url ?>/themes.min.css" rel="stylesheet" type="text/css">
 	<script src="https://kit.fontawesome.com/b8c47e2cca.js" crossorigin="anonymous"></script><!-- Font Awesome kit latest -->
     <!--[if lt IE 9]>
-    <script src="assets/javascripts/ie.min.js"></script>
+    <script src="<?php echo $js_url ?>/ie.min.js"></script>
     <![endif]-->
     <style type="text/css">
     .mb-1 {margin-bottom: 0.25rem}
@@ -201,7 +207,7 @@ if($_SESSION['rrhh'] != 1){
 									<button class="btn btn-primary btn-file-upload" style="margin-right:15px">Subir</button>
 									<span class="sin-logo" style="<?php echo $logo?'display:none':'' ?>"><em>Ninguno</em></span>
 									<span class="logo" style="<?php echo $logo?'':'display:none' ?>">
-										<img style="height:31px" src="<?php echo $logo ? "assets/images/$logo" : "" ?>" />
+										<img style="height:31px" src="<?php echo $logo ? "$logo_url" : "" ?>" />
 										<a class="btn-remover-logo" style="font-size:1.5rem;color:#ae6767" href="#" data-toggle="tooltip" data-placement="bottom" title="Remover Logo"><i class="fa fa-trash-alt"></i></a>
 									</span>
 									<input type="file" style="display:none" id="logo" name="logo" />
@@ -571,25 +577,32 @@ if($_SESSION['rrhh'] != 1){
         <div id="main-menu-bg"></div>
     </div> <!-- / #main-wrapper -->
 
+    <?php if ($load_resources_locally): ?>
+        <script src="<?php echo $js_url?>/jquery-2.0.3.min.js"></script>
+    <?php else: ?>
     <!-- Get jQuery from Google CDN -->
     <!--[if !IE]> -->
-    <?php //<script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">'+"<"+"/script>"); </script> ?>
-    <script type="text/javascript"> window.jQuery || document.write('<script src="assets/js/jquery-2.0.3.min.js">'+"<"+"/script>"); </script>
+    <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">'+"<"+"/script>"); </script>
     <!-- <![endif]-->
     <!--[if lte IE 9]>
     <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">'+"<"+"/script>"); </script>
     <![endif]-->
+    <?php endif ?>
 
 
     <!-- Pixel Admin's javascripts -->
-    <script src="assets/javascripts/bootstrap.min.js"></script>
-    <script src="assets/javascripts/pixel-admin.min.js"></script>
+    <script src="<?php echo $js_url ?>/bootstrap.min.js"></script>
+    <script src="<?php echo $js_url ?>/pixel-admin.min.js"></script>
 
     <script type="text/javascript">
         init.push(function () {
             // Javascript code here
         })
         window.PixelAdmin.start(init);
+        Array.prototype.last = function(){
+            return this[this.length - 1];
+            //return this.slice(-1); // alternative!
+        };
 		$(".bt-email").on( "click", function() {
             $("#modalemail").modal("show");
         });
@@ -639,8 +652,7 @@ if($_SESSION['rrhh'] != 1){
 				web			= "&web="		+ $("#web").val(),
 				email		= "&email="		+ $("#email").val();
 			
-			let logo = $('.logo img').attr('src').split("/");
-			logo = "&logo=" + logo[logo.length-1];
+			let logo = "&logo=" + $('.logo img').attr('src').split("/").last();
 			
 			let url_params = empresa + direccion + telefonos + web + email + logo;
 			window.open("generar-pdf.php" + "?" + url_params, "_blank");
@@ -713,7 +725,7 @@ if($_SESSION['rrhh'] != 1){
 							$('.btn-file-upload').prop('disabled', '').text("Subir");
 							$('.sin-logo').hide();
 							$('.logo').show();
-							$('.logo img').attr("src", "assets/images/" + rsp.filename);
+							$('.logo img').attr("src", "<?php echo $basehttp.$presupuestos_pdf_logo ?>" + '/' + rsp.filename);
 						}
 					},
 					error: function (xhr, ajaxOptions, thrownError) {
@@ -732,7 +744,7 @@ if($_SESSION['rrhh'] != 1){
 			$.ajax({
                 url : 'guardar-configuracion.php',
                 data : {
-					logo: $('.logo img').attr('src'),
+					logo: $('.logo img').attr('src').split('/').last(),
 					action: "delete",
 				},
                 type : 'GET',

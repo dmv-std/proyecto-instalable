@@ -8,10 +8,10 @@
 		$archivo = $_GET['archivo'];
 		$rest = substr($archivo, -4);
 		if($rest ==".xls"){
-			require_once("../Classes/PHPExcel/Reader/Excel5.php");
+			require_once($basepath."/librerias/Classes/PHPExcel/Reader/Excel5.php");
 			$objReader = new PHPExcel_Reader_Excel5();			
 		}elseif($rest =="xlsx"){
-			require_once("../Classes/PHPExcel.php");
+			require_once($basepath."/librerias/Classes/PHPExcel.php");
 			$objReader = new PHPExcel_Reader_Excel2007();
 		}
 		$objPHPExcel = $objReader->load($archivo);

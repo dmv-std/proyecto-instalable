@@ -10,13 +10,11 @@
 		}
 		else {
 			
-			$upload_path = 'assets/images/';
+			$upload_path = $basepath.'/assets/images/';
 			$filename = 'mail_logo';
 			
 			$explode = explode(".", $_FILES['mail_logo']['name']);
 			$extension = $explode[count($explode) - 1];
-			
-			include ("conexion.php");
 			
 			$mysqli = new mysqli($dbserver, $dbuser, $dbpass, $dbname);
 			if($mysqli->connect_errno > 0){
@@ -50,9 +48,7 @@
 	// Eliminar logo
 	else if ( isset($_GET['mail_logo']) && isset($_GET['action']) && $_GET['action']=='delete' ) {
 		
-		$logo = $_GET['mail_logo'];
-		
-		include ("conexion.php");
+		$logo = $basepath."/assets/images/".$_GET['mail_logo'];
 		
 		$mysqli = new mysqli($dbserver, $dbuser, $dbpass, $dbname);
 		if($mysqli->connect_errno > 0){
