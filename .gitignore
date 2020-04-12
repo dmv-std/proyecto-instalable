@@ -1,10 +1,10 @@
-.htaccess
-config.php
-instalador/config.json
+public_html/.htaccess
+public_html/config.php
+public_html/instalador/config.json
 
-assets/firmas/*
-assets/pdf/*
-assets/presupuestos/*
-assets/banners/*
-assets/logos/*
-cotizador2/admin/archivos/*
+public_html/assets/firmas/*
+public_html/assets/pdf/*
+public_html/assets/presupuestos/*
+public_html/assets/banners/*
+public_html/assets/logos/*
+public_html/cotizador2/admin/archivos/*
