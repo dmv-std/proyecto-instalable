@@ -1,5 +1,9 @@
 config.php
 instalador/config.json
-rrhh/firmas/*
-html2pdf/*.pdf
-presupuestos/archivos/*
+
+assets/firmas/*
+assets/pdf/*
+assets/presupuestos/*
+assets/banners/*
+assets/logos/*
+cotizador2/admin/archivos/*
