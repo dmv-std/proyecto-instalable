@@ -55,6 +55,9 @@
 		background: #197999;
 		outline: 6px solid #197999;
 	}
+	a.logo:focus {
+		text-decoration: none;
+	}
 	a.logo img{
 		width: 220px;
 	}

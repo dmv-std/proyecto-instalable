@@ -462,7 +462,7 @@
             var idUsuario = idUserSistemasModificaAccesos;
 
             $.ajax({
-                url : 'userSistemasModificaAccesos.php',
+                url : 'guardar-permisos.php',
                 data : {sistema: sistema , idUsuario: idUsuario},
                 type : 'GET',
                 dataType : 'html',
@@ -490,7 +490,7 @@
             idUserSistemasModificaAccesos = sistemasUser;
 
             $.ajax({
-                url : 'consultarPermisosSistemasUsuario.php',
+                url : 'verpermisos.php',
                 data : { 'id' : sistemasUser },
                 type : 'GET',
                 dataType : 'html',

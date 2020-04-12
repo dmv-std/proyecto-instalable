@@ -66,7 +66,7 @@
 			</div>
 		</section>
 
-	<?php elseif ($fases[$fase-1]=='Validar licencia'): ?>
+	<?php elseif ($fase < count($fases) && $fases[$fase-1]=='Validar licencia'): ?>
 	<?php /*************************
 	* FASE: VALIDAR LICENCIA
 	********************************/ ?>
@@ -83,7 +83,7 @@
 			</form>
 		</section>
 
-	<?php elseif ($fases[$fase-1]=='Comprobación del Sistema'): ?>
+	<?php elseif ($fase < count($fases) && $fases[$fase-1]=='Comprobación del Sistema'): ?>
 	<?php /*************************
 	* FASE: COMPROBACIÓN DEL SISTEMA
 	********************************/ ?>
@@ -129,7 +129,7 @@
 			</div>
 		</section>
 
-	<?php elseif ($fases[$fase-1]=='Configuracion del server'): ?>
+	<?php elseif ($fase < count($fases) && $fases[$fase-1]=='Configuracion del server'): ?>
 	<?php /*************************
 	* FASE: CONFIGURAR SERVIDOR
 	********************************/ ?>
@@ -214,7 +214,7 @@
 			</form>
 		</section>
 
-	<?php elseif ($fases[$fase-1]=='Cuenta del admin'): ?>
+	<?php elseif ($fase < count($fases) && $fases[$fase-1]=='Cuenta del admin'): ?>
 	<?php /*************************
 	* FASE: CREAR CUENTA DE ADMINISTRADOR
 	********************************/ ?>
@@ -268,7 +268,7 @@
 			</form>
 		</section>
 
-	<?php elseif ($fases[$fase-1]=='activar reCAPTCHA'): ?>
+	<?php elseif ($fase < count($fases) && $fases[$fase-1]=='activar reCAPTCHA'): ?>
 	<?php /*************************
 	* FASE: HABILITAR RECAPTCHA
 	********************************/ ?>
@@ -320,7 +320,7 @@
 
 		<script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
 
-	<?php elseif ($fases[$fase-1]=='Elegir módulos'): ?>
+	<?php elseif ($fase < count($fases) && $fases[$fase-1]=='Elegir módulos'): ?>
 	<?php /*************************
 	* FASE: PERSONALIZAR MÓDULOS
 	********************************/ ?>
@@ -344,7 +344,7 @@
 			</form>
 		</section>
 
-	<?php elseif ($fases[$fase-1]=='Instalación'): ?>
+	<?php elseif ($fase < count($fases) && $fases[$fase-1]=='Instalación'): ?>
 	<?php /*************************
 	* FASE: REALIZANDO INSTALACIÓN
 	********************************/ ?>
@@ -360,7 +360,7 @@
 			<div class="install-error text-red"></div>
 		</section>
 
-	<?php elseif ($fase > count($fases)): ?>
+	<?php elseif ($fase >= count($fases)): ?>
 	<?php /*************************
 	* FASE: INSTALACIÓN COMPLETA
 	********************************/ ?>

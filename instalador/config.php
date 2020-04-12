@@ -54,7 +54,7 @@ $system_checks = array(
 
 
 
-function comprobarPermisosDB($server, $user, $pass) {return false;
+function comprobarPermisosDB($server, $user, $pass) {
 	$conn = new mysqli($server, $user, $pass);
 	if ($conn->connect_error) {
 		$error = "Connection failed: " . $conn->connect_error;

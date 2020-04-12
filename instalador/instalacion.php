@@ -26,7 +26,7 @@ if (isset($_POST['step'])) {
 	$db = $config_data['db-name'];
 
 	// Inicializando queries
-	if ($paso == $pasos+1) {
+	if ($paso == ++$pasos) {
 		$queries = [];
 		foreach ($modulosPorDefecto as $modulo) {
 			foreach (explode(";", $db_modulos[$modulo]) as $query) {
@@ -55,11 +55,10 @@ if (isset($_POST['step'])) {
 		$config_data['queries'] = $queries;
 		file_put_contents("config.json", json_encode($config_data));
 	}
-	$pasos++;
 	array_push($estados, "Inicializando lista de consultas...");
 
 	// Creando base de datos (si no existe)
-	if ($paso == $pasos+1) {
+	if ($paso == ++$pasos) {
 		$conn = new mysqli($server, $user, $pass);
 		if ($conn->connect_error) {
 			$error = "Connection failed: " . $conn->connect_error;
@@ -69,7 +68,6 @@ if (isset($_POST['step'])) {
 		}
 		$conn->close();
 	}
-	$pasos++;
 	array_push($estados, "Creando base de datos...");
 
 	// Es en el paso 2 cuando la base de datos es creada, antes de eso no se puede abrir/cerrar conexión...
@@ -100,15 +98,24 @@ if (isset($_POST['step'])) {
 	}
 
 	// Crear archivo config.php
-	if ($paso == $pasos+1) {
+	if ($paso == ++$pasos) {
 		$basepath = $config_data['basepath'];
 		file_put_contents("$basepath/config.php", generarArchivoConfig($config_data));
 	}
-	$pasos++;
 	array_push($estados, "Creando archivo config.php... ");
 
+	// Crear archivo .htaccess
+	if ($paso == ++$pasos) {
+		$basepath = $config_data['basepath'];
+		ob_start();
+		include "htaccess.php";
+		$htaccess = ob_get_clean();
+		file_put_contents("$basepath/.htaccess", $htaccess);
+	}
+	array_push($estados, "Creando archivo .htaccess ... ");
+
 	// Crear cuenta de usuario administrador
-	if ($paso == $pasos+1) {
+	if ($paso == ++$pasos) {
 		$config_data['pass'] = md5($config_data['pass']);
 		$permisos="admin"; $id_empleado=0; $idCal=3; $rolCal=2; $rolPag=1; $rolPro=2;
 		$stmt = $conn->prepare("INSERT INTO sist_usuarios (nombre, user, pass, permisos, email, apellido, id_empleado,
@@ -121,7 +128,6 @@ if (isset($_POST['step'])) {
 
 		unlink( "config.json" );
 	}
-	$pasos++;
 	array_push($estados, "Creando cuenta de usuario administrador... ");
 
 	if ($init_db)
