@@ -120,6 +120,24 @@
 		.gray {
 			color: gray;
 		}
+
+		/*Breakpoints*/
+		@media (min-width: 100px) and (max-width: 691px) {
+			/* ocultando columna: función */
+			#jq-datatables-example tr td:nth-of-type(3), #jq-datatables-example tr th:nth-of-type(3){display:none!important}
+		}
+		@media (min-width: 100px) and (max-width: 614px) {
+			/* ocultando columna: estado */
+			#jq-datatables-example tr td:nth-of-type(6), #jq-datatables-example tr th:nth-of-type(6){display:none!important}
+		}
+		@media (min-width: 100px) and (max-width: 532px) {
+			/* ocultando columna: envío */
+			#jq-datatables-example tr td:nth-of-type(4), #jq-datatables-example tr th:nth-of-type(4){display:none!important}
+		}
+		@media (min-width: 100px) and (max-width: 474px) {
+			/* ocultando columna: id */
+			#jq-datatables-example tr td:nth-of-type(1), #jq-datatables-example tr th:nth-of-type(1){display:none!important}
+		}
 	</style>
 </head>
 <body class="theme-frost no-main-menu">

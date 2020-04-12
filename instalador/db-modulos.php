@@ -101,6 +101,7 @@
 								`email` varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
 								`telefonos` varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
 								`logo` varchar(250) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+								`titulo-pdf` varchar(250) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
 								`estados` varchar(1000) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
 								`max_size` int(11) NOT NULL,
 								`dias_borrado` int(11) NOT NULL
@@ -124,8 +125,8 @@
 								`id_accion` int(11) NOT NULL
 							) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-							INSERT INTO `presupuestos_configuracion` (`id`, `emailremitente`, `emailconf`, `mensajeprincipal`, `mensajefinal`, `mensajeintermedio`, `asuntoemail`, `mail_logo`, `reenvio_remitente_nombre`, `reenvio_remitente_email`, `reenvio_datos_json`, `empresa`, `web`, `direccion`, `email`, `telefonos`, `logo`, `estados`, `max_size`, `dias_borrado`) VALUES
-							(1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 500000, 30);
+							INSERT INTO `presupuestos_configuracion` (`id`, `emailremitente`, `emailconf`, `mensajeprincipal`, `mensajefinal`, `mensajeintermedio`, `asuntoemail`, `mail_logo`, `reenvio_remitente_nombre`, `reenvio_remitente_email`, `reenvio_datos_json`, `empresa`, `web`, `direccion`, `email`, `telefonos`, `logo`, `titulo-pdf`, `estados`, `max_size`, `dias_borrado`) VALUES
+							(1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 500000, 30);
 							",
 
 
@@ -203,6 +204,7 @@
 							  `email` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
 							  `telefonos` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
 							  `logo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+							  `titulo-pdf` varchar(250) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
 							  `iva` int(11) NOT NULL
 							) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -356,8 +358,8 @@
 							  ADD CONSTRAINT `fky_cai_cat_id` FOREIGN KEY (`cat_id`) REFERENCES `cot2_catalytics` (`cat_id`) ON UPDATE CASCADE;
 							COMMIT;
 
-							INSERT INTO `cot2_configuraciones` (`id`, `emailconf`, `mensajeprincipal`, `mensajefinal`, `mensajecotizador`, `asuntoemail`, `mail_logo`, `descuento`, `activardescuento`, `reenvio_remitente_nombre`, `reenvio_remitente_email`, `reenvio_datos_json`, `habilitar_impresion`, `empresa`, `web`, `direccion`, `email`, `telefonos`, `logo`, `iva`) VALUES
-							(1, '', '', '', '', '', '', 0, 0, '', '', '[]', 0, '', '', '', '', '', '', 0);
+							INSERT INTO `cot2_configuraciones` (`id`, `emailconf`, `mensajeprincipal`, `mensajefinal`, `mensajecotizador`, `asuntoemail`, `mail_logo`, `descuento`, `activardescuento`, `reenvio_remitente_nombre`, `reenvio_remitente_email`, `reenvio_datos_json`, `habilitar_impresion`, `empresa`, `web`, `direccion`, `email`, `telefonos`, `logo`, `titulo-pdf`, `iva`) VALUES
+							(1, '', '', '', '', '', '', 0, 0, '', '', '[]', 0, '', '', '', '', '', '', '', 0);
 
 							INSERT INTO `cot2_colores` (`id`, `preciounitario`, `cantidades100`, `cantidades200`, `cantidades500`, `cantidades1000`, `cantidades5000`, `cantidades10000`) VALUES
 							(1, 15, 12, 8, 6, 5, 4, 4);

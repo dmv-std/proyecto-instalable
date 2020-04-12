@@ -15,6 +15,9 @@
 
 			$upload_path = $basepath.$presupuestos_pdf_logo;
 			
+			if (!file_exists($upload_path))
+				mkdir($upload_path);
+			
 			$explode = explode(".", $_FILES['logo']['name']);
 			$extension = $explode[count($explode) - 1];
 			
@@ -80,13 +83,14 @@
 		echo json_encode($response);
 	}
 	
-	else if ( isset($_GET['empresa']) && isset($_GET['direccion']) && isset($_GET['telefonos']) && isset($_GET['web']) && isset($_GET['email']) ){
+	else if ( isset($_GET['empresa']) && isset($_GET['direccion']) && isset($_GET['telefonos']) && isset($_GET['web']) && isset($_GET['email']) && isset($_GET['titulo_pdf']) ){
 		
 		$empresa = $_GET['empresa'];
 		$direccion = $_GET['direccion'];
 		$telefonos = $_GET['telefonos'];
 		$web = $_GET['web'];
 		$email = $_GET['email'];
+		$titulo_pdf = $_GET['titulo_pdf'];
 
 		$mysqli = new mysqli($dbserver, $dbuser, $dbpass, $dbname);
 		if($mysqli->connect_errno > 0){
@@ -99,7 +103,8 @@
 				direccion = '$direccion',
 				telefonos = '$telefonos',
 				web = '$web',
-				email = '$email'
+				email = '$email',
+				`titulo-pdf` = '$titulo_pdf'
 			WHERE id = 1");
 
 		if($results) {

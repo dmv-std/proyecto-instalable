@@ -5,7 +5,7 @@
         <!-- Main navbar header -->
         <div class="navbar-header">
             <!-- Logo -->
-            <a href="<?php echo $basehttp ?>/presupuestos/" class="navbar-brand"><div><img alt="Pixel Admin" src="assets/images/pixel-admin/main-navbar-logo.png"></div>Presupuestos</a>
+            <a href="<?php echo $basehttp ?>/presupuestos/" class="navbar-brand"><div><img alt="Pixel Admin" src="<?php echo $basehttp ?>/assets/images/pixel-admin/main-navbar-logo.png"></div>Presupuestos</a>
             <!-- Main navbar toggle -->
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse"><i class="navbar-icon fa fa-bars"></i></button>
         </div> <!-- / .navbar-header -->

@@ -1,6 +1,16 @@
 <?php if (file_exists("config.php"))
         include("config.php");
     else { header("location: instalador"); exit(); }
+
+    $logo="";
+    foreach (explode("|", "jpg|jpeg|png|gif") as $ext)
+    	if (file_exists($basepath."/assets/banners/login-logo.".$ext))
+    		$logo=$basehttp."/assets/banners/login-logo.".$ext;
+
+    $bg_img="";
+    foreach (explode("|", "jpg|jpeg|png|gif") as $ext)
+    	if (file_exists($basepath."/assets/banners/login-bg.".$ext))
+    		$bg_img=$basehttp."/assets/banners/login-bg.".$ext;
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>         <html class="ie8"> <![endif]-->
@@ -26,6 +36,40 @@
 		<script src="<?php echo $js_url ?>/ie.min.js"></script>
 	<![endif]-->
 
+	<style type="text/css">
+	.signin-info{
+		padding: 0 20px !important;
+	}
+	.signin-info a.logo{
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	.signin-info a.logo div.logo{
+		width: 220px;
+		height: 220px;
+		border: 6px dashed #fff;
+		text-transform: uppercase;
+		text-align: center;
+		line-height: 208px;
+		background: #197999;
+		outline: 6px solid #197999;
+	}
+	a.logo img{
+		width: 220px;
+	}
+	img.signin-bg{
+		min-width: 100%;
+		min-height: 100%;
+		width: auto;
+		height: auto;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		position: relative;
+		z-index: -1;
+	}
+	</style>
 </head>
 
 
@@ -57,12 +101,18 @@
 	});
 </script>
 
+<div class="container">
+
 	<!-- Page background -->
 	<div id="page-signin-bg">
+
 		<!-- Background overlay -->
 		<div class="overlay"></div>
-		<!-- Replace this with your bg image -->
-		<img src="<?php echo $images_url ?>/signin-bg-1.jpg" alt="">
+
+		<?php if($bg_img):?>
+			<!-- Replace this with your bg image -->
+			<img src="<?php echo $bg_img ?>" class="signin-bg"/>
+		<?php endif?>
 	</div>
 	<!-- / Page background -->
 
@@ -71,8 +121,12 @@
 
 		<!-- Left side -->
 		<div class="signin-info">
-			<a href="index.html" class="logo">
-				<img src="<?php echo $images_url ?>/logo2.gif" alt="" style="margin-top: -5px;">
+			<a href="#" class="logo">
+				<?php if ($logo):?>
+				<img src="<?php echo $logo ?>">
+				<?php else:?>
+				<div class="logo">Logo</div>
+				<?php endif?>
 			</a><!-- / Info list -->
 		</div>
 		<!-- / Left side -->
@@ -99,12 +153,12 @@
 			</form>
 	<!-- / Form -->
 
-			</div>
-			<!-- / Password reset form -->
 		</div>
-		<!-- Right side -->
+		<!-- / Password reset form -->
 	</div>
-	<!-- / Container -->
+	<!-- Right side -->
+</div>
+<!-- / Container -->
 
 <?php if ($load_resources_locally): ?>
     <script src="<?php echo $js_url?>/jquery-2.0.3.min.js"></script>
@@ -154,6 +208,10 @@ var f2f = "<?php echo md5(date("d")); ?>";
 			$('#password').val(f2f + md5($('#password').val()));
 			e.preventdefault();
 		});
+
+		$('a.logo').on('click', function(e){
+			e.preventdefault()
+		})
 
 	});
 

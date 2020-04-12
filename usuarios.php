@@ -25,6 +25,7 @@
 		// Cerrando la conexión con la base de datos
 		mysqli_close($mysqli);
 		
+        $instalados = explode("|", $modules);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]><html class="ie8"><![endif]-->
@@ -252,54 +253,78 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    <?php if (in_array("calendario", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">Calendario</td>
                                         <td class="text-center"><button data-sistema="calendario" class="col-xs-12 btn btn-default clicktoogleonoffsistema calendario">SIN ACCION</button></td>
                                     </tr>
+                                    <?php endif ?>
+                                    <?php if (true): ?>
                                     <tr>
                                         <td class="text-center">Chat</td>
                                         <td class="text-center"><button data-sistema="chat" class="col-xs-12 btn btn-default clicktoogleonoffsistema chat">SIN ACCION</button></td>
                                     </tr>
+                                    <?php endif ?>
+                                    <?php if (in_array("cotizador", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">Cotizador</td>
                                         <td class="text-center"><button data-sistema="cotizador" class="col-xs-12 btn btn-default clicktoogleonoffsistema cotizador">SIN ACCION</button></td>
                                     </tr>
+                                    <?php endif ?>
+                                    <?php if (in_array("crm", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">CRM</td>
                                         <td class="text-center"><button data-sistema="crm" class="col-xs-12 btn btn-default clicktoogleonoffsistema crm">SIN ACCION</button></td>
                                     </tr>
+                                    <?php endif ?>
+                                    <?php if (in_array("formularios", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">Formularios</td>
                                         <td class="text-center"><button data-sistema="formularios" class="col-xs-12 btn btn-default clicktoogleonoffsistema formularios">SIN ACCION</button></td>
                                     </tr>
+                                    <?php endif ?>
+                                    <?php if (in_array("listas", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">Listas</td>
                                         <td class="text-center"><button data-sistema="listas" class="col-xs-12 btn btn-default clicktoogleonoffsistema listas">SIN ACCION</button></td>
                                     </tr>
+                                    <?php endif ?>
+                                    <?php if (in_array("out", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">OUT</td>
                                         <td class="text-center"><button data-sistema="outs" class="col-xs-12 btn btn-default clicktoogleonoffsistema outs">SIN ACCION</button></td>
                                     </tr>
+                                    <?php endif ?>
+                                    <?php if (in_array("pagos", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">Pagos</td>
                                         <td class="text-center"><button data-sistema="pagos" class="col-xs-12 btn btn-default clicktoogleonoffsistema pagos">SIN ACCION</button></td>
                                     </tr>
+                                    <?php endif ?>
+                                    <?php if (in_array("produccion", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">Produccion</td>
                                         <td class="text-center"><button data-sistema="produccion" class="col-xs-12 btn btn-default clicktoogleonoffsistema produccion">SIN ACCION</button></td>
                                     </tr>
+                                    <?php endif ?>
+                                    <?php if (in_array("respuestas", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">Respuestas</td>
                                         <td class="text-center"><button data-sistema="respuestas" class="col-xs-12 btn btn-default clicktoogleonoffsistema respuestas">SIN ACCION</button></td>
                                     </tr>                                
+                                    <?php endif ?>
+                                    <?php if (in_array("stock", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">Stock</td>
                                         <td class="text-center"><button data-sistema="stock" class="col-xs-12 btn btn-default clicktoogleonoffsistema stock">SIN ACCION</button></td>
                                     </tr>
+                                    <?php endif ?>
+                                    <?php if (in_array("rrhh", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">RR. HH.</td>
                                         <td class="text-center"><button data-sistema="rrhh" class="col-xs-12 btn btn-default clicktoogleonoffsistema rrhh">SIN ACCION</button></td>
                                     </tr>
+                                    <?php endif ?>
                                 </tbody>
                             </table>
                         </div>

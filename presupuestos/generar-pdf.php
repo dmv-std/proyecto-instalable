@@ -13,7 +13,7 @@ if ( isset($_GET['id']) && is_numeric($_GET['id']) ) {
 	}
 	$mysqli->set_charset("utf8");
 	
-	// Consultar configuración de sanciones
+	// Configuración
 	$result = $mysqli->query("SELECT * FROM presupuestos_configuracion WHERE id = '1'") or die($mysqli->error.__LINE__);
 	$row = $result->fetch_assoc();
 	$empresa = $row['empresa'];
@@ -21,7 +21,16 @@ if ( isset($_GET['id']) && is_numeric($_GET['id']) ) {
 	$telefonos = $row['telefonos'];
 	$web = $row['web'];
 	$email = $row['email'];
-	$logo = $row['logo'] ? $row['logo'] : "blank.jpg";
+
+	$presupuestos_pdf_logo = explode("/", $presupuestos_pdf_logo);
+	array_pop($presupuestos_pdf_logo);
+	$presupuestos_pdf_logo = implode("/", $presupuestos_pdf_logo);
+	$logo = $row['logo'] ? $basehttp.$presupuestos_pdf_logo."/".$row['logo'] : "";
+
+	$filename = $row['titulo-pdf'];
+	$filename = explode("|", $filename);
+	$cases = array_pop($filename);
+	$filename = implode("|", $filename);
 	
 	// Consultar datos de presupuesto
 	$query = "SELECT presupuestos.*, sist_usuarios.user, sist_usuarios.nombre AS 'usuario_nombre', 
@@ -47,7 +56,20 @@ if ( isset($_GET['id']) && is_numeric($_GET['id']) ) {
 	$usuario_correo = $row['usuario_correo'];
 	$usuario_telefono = $row['usuario_telefono'];
 	
-	$filename = ucfirst("presupuesto-") . ucfirst("evamagic-") . ucfirst($row['nombre']) . "-" . ucfirst($row['apellido']) . "-" . date( "d-m-Y", strtotime($row['fecha']) );
+	if ($cases == "u") {
+		$nombre = strtoupper($row['nombre']);
+		$apellido = strtoupper($row['apellido']);
+	} else if ($cases == "c") {
+		$nombre = ucfirst($row['nombre']);
+		$apellido = ucfirst($row['apellido']);
+	} else {
+		$nombre = strtolower($row['nombre']);
+		$apellido = strtolower($row['apellido']);
+	}
+	$fecha_pdf = date( "d-m-Y", strtotime($row['fecha']));
+	$filename = str_replace("+nombre+",		$nombre,	$filename);
+	$filename = str_replace("+apellido+",	$apellido,	$filename);
+	$filename = str_replace("+fecha+",		$fecha_pdf,	$filename);
 	
 	// Cerrando la conexión con la base de datos
 	mysqli_close($mysqli);
@@ -56,7 +78,7 @@ if ( isset($_GET['id']) && is_numeric($_GET['id']) ) {
 	include "template.php";
 	$html = ob_get_clean();
 
-	include "$basepath/html2pdf/generar-pdf.php";
+	include "$pdf_path/generar-pdf.php";
 
 
 }
@@ -115,7 +137,7 @@ else if ( isset($_GET['usuario']) && isset($_GET['nombre']) && isset($_GET['apel
 	include "template.php";
 	$html = ob_get_clean();
 
-	include "$basepath/html2pdf/generar-pdf.php";
+	include "$pdf_path/generar-pdf.php";
 
 }
 
@@ -150,7 +172,7 @@ else if ( isset($_GET['empresa']) && isset($_GET['direccion']) && isset($_GET['t
 	include "template.php";
 	$html = ob_get_clean();
 
-	include "$basepath/html2pdf/generar-pdf.php";
+	include "$pdf_path/generar-pdf.php";
 	
 } else header("location: $basehttp");
 

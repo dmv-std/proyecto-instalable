@@ -10,7 +10,15 @@ if (isset($_POST['step'])) {
 	require_once("config.php");
 	require_once("db-modulos.php");
 	
-	$config_data = leerYValidarConfig();
+	if (!leerYValidarConfig($config_data, $error)) {
+		echo json_encode([
+			"paso" => $paso,
+			"total" => $pasos,
+			"estado" => "Iniciando instalación...",
+			"error" => $error,
+		]);
+		return;
+	}
 
 	$server = $config_data['db-server'];
 	$user = $config_data['db-user'];
@@ -54,20 +62,10 @@ if (isset($_POST['step'])) {
 	if ($paso == $pasos+1) {
 		$conn = new mysqli($server, $user, $pass);
 		if ($conn->connect_error) {
-			die("Connection failed: " . $conn->connect_error);
+			$error = "Connection failed: " . $conn->connect_error;
 		}
 		if(!$conn->query("CREATE DATABASE IF NOT EXISTS ".$config_data['db-name']."")) {
-			$res=$conn->query("SELECT SCHEMA_NAME
-							FROM INFORMATION_SCHEMA.SCHEMATA
-							WHERE SCHEMA_NAME = '".$config_data['db-name']."'");
-			if ($res->num_rows==0) {
-				$error = "<strong>Ha ocurrido un error:</strong>
-		la base de datos <code>".$config_data['db-name']."</code> no ha podido ser creada automáticamente
-		por falta de permisos.<br/><br/>Deberás crearla manualmente desde PhpMyAdmin.
-		Cuando estés listo, refresca esta página.<br/>Recuerda que los datos previamente ingresados de
-		usuario y contraseña (base de datos) tienen que seguir siendo los mismos, si no es asi,
-		Reinicia el instalador (Click <a href=\"/instalador\">aquí</a>).";
-			}
+			$error = "Error creating database: " . $conn->error;
 		}
 		$conn->close();
 	}
@@ -76,18 +74,9 @@ if (isset($_POST['step'])) {
 
 	// Es en el paso 2 cuando la base de datos es creada, antes de eso no se puede abrir/cerrar conexión...
 	$init_db = $paso>=2 ? true : false;
-	$conn = new mysqli($server, $user, $pass);
-	$res=$conn->query("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '".$config_data['db-name']."'");
-	if ($res->num_rows==0) {
-		$error = "<strong>Ha ocurrido un error:</strong>
-		la base de datos <code>".$config_data['db-name']."</code> no ha podido ser creada automáticamente
-		por falta de permisos.<br/><br/>Deberás crearla manualmente desde PhpMyAdmin.
-		Cuando estés listo, refresca esta página.<br/>Recuerda que los datos previamente ingresados de
-		usuario y contraseña (base de datos) tienen que seguir siendo los mismos, si no es asi,
-		Reinicia el instalador (Click <a href=\"/instalador\">aquí</a>).";
-		$init_db=false;
-	}
-	$conn->close();
+
+	$error = validarBaseDeDatos($server, $user, $pass, $config_data['db-name']);
+	if ($error) $init_db = false;
 
 	// Abriendo conexión con base de datos previamente inicializada.
 	if ($init_db) {
@@ -102,7 +91,7 @@ if (isset($_POST['step'])) {
 		foreach ($config_data['queries'] as $query) {
 			if ($init_db && $paso == $pasos+1) {
 				if (!$conn->query($query["query"])) {
-					exit("Error creating table: " . $conn->error);
+					$error = "Error creating table: " . $conn->error;
 				}
 			}
 			$pasos++;
@@ -122,16 +111,13 @@ if (isset($_POST['step'])) {
 	if ($paso == $pasos+1) {
 		$config_data['pass'] = md5($config_data['pass']);
 		$permisos="admin"; $id_empleado=0; $idCal=3; $rolCal=2; $rolPag=1; $rolPro=2;
-		$stmt = $conn->prepare("INSERT INTO sist_usuarios (nombre, user, pass, permisos, email, apellido, id_empleado, idCal, rolCal, rolPag, rolPro) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		$stmt = $conn->prepare("INSERT INTO sist_usuarios (nombre, user, pass, permisos, email, apellido, id_empleado,
+				idCal, rolCal, rolPag, rolPro) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		$stmt->bind_param("ssssssiiiii", $config_data['nombre'], $config_data['user'], $config_data['pass'],
 			$permisos, $config_data['correo'], $config_data['apellido'],
 			$id_empleado, $idCal, $rolCal, $rolPag, $rolPro);
 		$stmt->execute();
 		$stmt->close();
-
-		unset($config_data['queries']);
-		$config_data['instalado'] = 1;
-		file_put_contents("config.json", json_encode($config_data));
 
 		unlink( "config.json" );
 	}
@@ -163,28 +149,30 @@ $archivo = '<?php
 	$sitename = "' . $config_data['site-name'] . '";
 	$basepath = "' . $config_data['basepath'] . '";
 	$basehttp = "' . $config_data['basehttp'] . '";
-
+	
 	$assets_url = $basehttp."/assets";
 	$styles_url = $basehttp."/assets/stylesheets";
 	$css_url = $basehttp."/assets/css";
 	$js_url = $basehttp."/assets/js";
 	$fontawesome_url = $basehttp."/assets/font-awesome";
 	$images_url = $basehttp."/assets/images";
-
+	
+	$pdf_path = $basepath."/assets/pdf";
+	
 	// Some resources
 	$load_resources_locally = false;
-
+	
 	'.(in_array("presupuestos", $config_data['modulos'])?'// Presupuestos
 	$presupuestos_archivos_path = "/assets/presupuestos";
 	$presupuestos_pdf_logo = "/assets/logos/" . "presupuestos-logo";
-
+	
 	':'').(in_array("cotizador2", $config_data['modulos'])?'// Cotizador2
 	$cotizador2_pdf_logo = "/assets/logos/" . "cotizador2-logo";
 	
 	':'').'// reCAPTCHA
 	$captcha_front_code = "' .  $config_data['captcha_front_code'] . '";
 	$captcha_back_code = "' .  $config_data['captcha_back_code'] . '";
-
+	
 	// INSTALLED MODULES
 	$modules = "'.implode("|", $config_data['modulos']).'";
 ?>';
@@ -193,10 +181,42 @@ $archivo = '<?php
 
 
 
-function leerYValidarConfig() {
+function leerYValidarConfig(&$config_data, &$error) {
 	if (file_exists("config.json"))
 		$config_data = json_decode(file_get_contents("config.json"), true);
-	else
-		exit("ERROR: config.json no encontrado.");
-	return $config_data;
+	else {
+		$error = "<strong>ERROR:</strong> archivo <code>/instalador/config.json</code> no encontrado.";
+		return false;
+	}
+
+	// Validando
+	$checks = ['db-server', 'db-user', 'db-pass',' db-name',
+				'modulos', 'basepath',
+				'nombre', 'user', 'pass', 'correo', 'apellido'];
+	foreach ($checks as $check) {
+		if (!isset($config_data[$check]) || !$config_data[$check]) {
+			$error = "<strong>ERROR:</strong> falta uno o más datos requeridos para la instalación.
+			<br/>reinicie el instalador y asegúrese de completar todas las etapas (Click <a href=\"/instalador\">aquí</a>).";
+		}
+	}
+	return true;
+}
+
+
+function validarBaseDeDatos($server, $user, $pass, $db) {
+	$conn = new mysqli($server, $user, $pass);
+	$res=$conn->query("SELECT SCHEMA_NAME
+							FROM INFORMATION_SCHEMA.SCHEMATA
+							WHERE SCHEMA_NAME = '$db'");
+	if ($res->num_rows==0) {
+		$error = "<strong>Ha ocurrido un error:</strong>
+		la base de datos <code>$db</code> no ha podido ser creada automáticamente
+		por falta de permisos.<br/><br/>Deberá crearla manualmente desde PhpMyAdmin.
+		Cuando esté listo, refresque esta página.<br/>Recuerde que los datos previamente ingresados de
+		usuario y contraseña (base de datos) tienen que seguir siendo los mismos, si no es asi,
+		reinicie el instalador (Click <a href=\"/instalador\">aquí</a>).";
+	} else
+		$error = "";
+	$conn->close();
+	return $error;
 }

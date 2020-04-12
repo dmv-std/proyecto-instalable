@@ -5,7 +5,6 @@ include ($_SERVER['DOCUMENT_ROOT'] . "/config.php");
 if ( count($_GET) > 0 && isset($_GET['id']) && is_numeric($_GET['id']) ) {
 	
 	$id = $_GET['id'];
-	$filename = "Presupuesto_Pisos_Goma_Eva_-_Eva_Magic_SA";
 	
     $mysqli = new mysqli($dbserver, $dbuser, $dbpass, $dbname);
     if($mysqli->connect_errno > 0){
@@ -23,10 +22,19 @@ if ( count($_GET) > 0 && isset($_GET['id']) && is_numeric($_GET['id']) ) {
 	$telefonos = $row['telefonos'];
 	$web = $row['web'];
 	$email = $row['email'];
-	$logo = $row['logo'] ? $row['logo'] : "blank.jpg";
+
+	$cotizador2_pdf_logo = explode("/", $cotizador2_pdf_logo);
+	array_pop($cotizador2_pdf_logo);
+	$cotizador2_pdf_logo = implode("/", $cotizador2_pdf_logo);
+	$logo = $row['logo'] ? $basehttp.$cotizador2_pdf_logo."/".$row['logo'] : "";
 	
 	$iva = $row['iva'];
 	
+	$filename = $row['titulo-pdf'];
+	$filename = explode("|", $filename);
+	$cases = array_pop($filename);
+	$filename = implode("|", $filename);
+
 	// Cotizacion
 	$query = "SELECT * FROM cot2_cotizacion WHERE cot2_cotizacion.id = '$id'";
 	$result = $mysqli->query($query) or die($mysqli->error.__LINE__);
@@ -37,6 +45,7 @@ if ( count($_GET) > 0 && isset($_GET['id']) && is_numeric($_GET['id']) ) {
 	$telefono = $row['telefono'];
 	$email1 = $row['email'];
 	$fecha = date( "d/m/Y", strtotime($row['fecha']) ); // 2020-03-06 16:46:09
+	$fecha_pdf = date( "d-m-Y", strtotime($row['fecha']));
 	$descuentoporcentaje = $row['descuentoporcentaje'];
 	$descuento = $row['descuento'];
 	$total = $row['total'];
@@ -68,6 +77,21 @@ if ( count($_GET) > 0 && isset($_GET['id']) && is_numeric($_GET['id']) ) {
 		$usuario_telefono = "";
 	}
 	
+	// Nombre de archivo
+	if ($cases == "u") {
+		$_nombre = strtoupper($nombre);
+		$_apellidos = strtoupper($apellidos);
+	} else if ($cases == "c") {
+		$_nombre = ucfirst($nombre);
+		$_apellidos = ucfirst($apellidos);
+	} else {
+		$_nombre = strtolower($nombre);
+		$_apellidos = strtolower($apellidos);
+	}
+	$filename = str_replace("+nombre+",		$_nombre,		$filename);
+	$filename = str_replace("+apellido+",	$_apellidos,	$filename);
+	$filename = str_replace("+fecha+",		$fecha_pdf,		$filename);
+	
 	// Cerrando la conexión con la base de datos
 	mysqli_close($mysqli);
 
@@ -75,7 +99,7 @@ if ( count($_GET) > 0 && isset($_GET['id']) && is_numeric($_GET['id']) ) {
 	include "documento.php";
 	$html = ob_get_clean();
 
-	include "$basepath/html2pdf/generar-pdf.php";
+	include "$pdf_path/generar-pdf.php";
 	
 } else header("location: $basehttp");
 ?>

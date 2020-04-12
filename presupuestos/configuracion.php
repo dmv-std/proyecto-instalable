@@ -28,6 +28,11 @@ if($_SESSION['rrhh'] != 1){
 		$email = $row['email'];
 		$logo = $row['logo'];
 
+        $titulo_pdf = $row['titulo-pdf'];
+        $titulo_pdf = explode("|", $titulo_pdf);
+        $cases = array_pop($titulo_pdf);
+        $titulo_pdf = implode("|", $titulo_pdf);
+
         $presupuestos_pdf_logo = explode("/", $presupuestos_pdf_logo);
         array_pop($presupuestos_pdf_logo);
         $presupuestos_pdf_logo = implode("/", $presupuestos_pdf_logo);
@@ -61,7 +66,7 @@ if($_SESSION['rrhh'] != 1){
 		$dias_borrado = $row['dias_borrado'];
 		
 		mysqli_close($mysqli);
-?>
+?><!-- <?php print_r($row) ?> -->
 <!DOCTYPE html>
 <!--[if IE 8]><html class="ie8"><![endif]-->
 <!--[if IE 9]><html class="ie9 gt-ie8"><![endif]-->
@@ -106,6 +111,9 @@ if($_SESSION['rrhh'] != 1){
 		height: 16rem;
 		text-transform: uppercase;
 	}
+    input[name="lettertype"] {
+        margin-right: 12px;
+    }
     </style>
 </head>
 <body class="theme-frost no-main-menu">
@@ -201,6 +209,23 @@ if($_SESSION['rrhh'] != 1){
                     </div>
                     <div class="modal-body">
 						<form class="form-horizontal" id="jq-validation-form" novalidate="novalidate">
+                            <div class="form-group">
+                                <label for="jq-validation-required" class="col-sm-3 control-label">Nombre del archivo PDF:<br/><i class="fa fa-question-circle btn-formato-info" data-toggle="tooltip" data-placement="bottom" title="+nombre+: cliente-nombre, +apellido+: cliente-apellido, +fecha+: fecha-presupuesto formato DD-MM-YYYY" style="cursor:pointer"></i></label>
+                                <div class="col-sm-7">
+                                    <p>
+                                        <?php $empty_preview="(Ingrese un título)" ?>
+                                        <em id="titulo-pdf-preview"><?php echo $empty_preview?></em><br/>
+                                        <label for="upper">XXXXX</label>
+                                        <input type="radio" name="lettertype" value="upper" id="upper">
+                                        <label for="lower">xxxxx</label>
+                                        <input type="radio" name="lettertype" value="lower" id="lower">
+                                        <label for="capital">Xxxxx</label>
+                                        <input type="radio" name="lettertype" value="capital" id="capital">
+                                    </p>
+                                    <input required type="text" class="form-control" id="titulo-pdf" name="titulo-pdf" placeholder="Nombre del archivo PDF" value="<?php echo $titulo_pdf ?>">
+                                </div>
+                            </div>
+                            <hr/>
 							<div class="form-group">
                                 <label for="jq-validation-required" class="col-sm-3 control-label">Logo:</label>
                                 <div class="col-sm-7" style="position:relative">
@@ -223,7 +248,7 @@ if($_SESSION['rrhh'] != 1){
 							<div class="form-group">
 								<label for="jq-validation-required" class="col-sm-3 control-label">Dirección:</label>
 								<div class="col-sm-7">
-									<textarea required id="direccion" name="direccion" placeholder="Dirección"><?php echo $direccion ?></textarea>
+									<textarea required class="form-control" id="direccion" name="direccion" placeholder="Dirección"><?php echo $direccion ?></textarea>
 								</div>
 							</div>
 							<div class="form-group">
@@ -659,6 +684,8 @@ if($_SESSION['rrhh'] != 1){
 		});
 		
 		$("#btn-guardar-configuracion-basica").on( "click", function() {
+            let cases = $('input[name=lettertype]:checked').val() ? $('input[name=lettertype]:checked').val().charAt(0) : "lower";
+            let titulo_pdf = $("#titulo-pdf-preview").text().split('.').last() == "pdf" ? $("#titulo-pdf-preview").text().replace(/\.pdf$/, "") + '|' + cases : '';
 			$.ajax({
 				url : 'guardar-configuracion.php',
 				data : {
@@ -666,7 +693,8 @@ if($_SESSION['rrhh'] != 1){
 					direccion: $("#direccion").val().replace(/\n/g, "<br>"),
 					telefonos: $("#telefonos").val(),
 					web: $("#web").val(),
-					email: $("#email").val(),
+                    email: $("#email").val(),
+                    titulo_pdf: titulo_pdf,
 				},
 				type : 'GET',
 				dataType : 'html',
@@ -717,7 +745,7 @@ if($_SESSION['rrhh'] != 1){
 					processData: false,
 					contentType: false,
 					data: new FormData(document.querySelector("#modal-parametros-basicos form")),
-					success: function (respuesta) {
+					success: function (respuesta) {console.log(respuesta)
 						let rsp = jQuery.parseJSON(respuesta);
 						if (rsp.result != "SUCCESS") {
 							alert( rsp.result );
@@ -1076,7 +1104,44 @@ if($_SESSION['rrhh'] != 1){
 				},
 			});
 		});
-		
+
+        $('#titulo-pdf').on('change paste keyup', updatePdfTitlePreview)
+        $('input[name=lettertype]').on('change', updatePdfTitlePreview)
+
+        function updatePdfTitlePreview(){
+            var cases = $('input[name=lettertype]:checked').val()
+            var text = $('#titulo-pdf').val().replace(/\s/g, "-")
+            var preview = [];
+
+            text.split('-').forEach((elem) => {
+                var item;
+                var exceptions = "+nombre+|+apellido+|+fecha+";
+                switch(cases) {
+                    case "upper":               item = elem.toUpperCase();                              break;
+                    default: case "lower":      item = elem.toLowerCase();                              break;
+                    case "capital": item = elem.charAt(0).toUpperCase() + elem.slice(1).toLowerCase();  break;
+                }
+                item = item.replace(new RegExp('('+exceptions.replace(/\+/g, "")+')', 'gi'), function(match) {
+                    return match.toLowerCase()
+                })
+                preview.push(item)
+            })
+
+            if (text != '')
+                $('#titulo-pdf-preview').text(preview.join('-')+'.pdf')
+            else $('#titulo-pdf-preview').text("<?php echo $empty_preview ?>")
+        }
+
+        var radio = "<?php echo $cases ?>";
+        if (radio == "u")
+            $('input[value=upper]').attr('checked', true)
+        else if (radio == "c")
+            $('input[value=capital]').attr('checked', true)
+        else if (radio == "l" || radio == "")
+            $('input[value=lower]').attr('checked', true)
+
+        updatePdfTitlePreview()
+
     </script>
 
 </body>

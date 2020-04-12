@@ -107,13 +107,31 @@ tr.data td.lst {
 a{
 	text-decoration: none;
 }
+div.no-logo{
+	width: 240px;
+	height: 42px;
+	background: #4e91a8;
+	border: 6px dashed #fff;
+	margin-left: -100px;
+	margin-top: -10px;
+	text-align: center;
+	outline: 6px solid #4e91a8;
+	font-weight: bold;
+	color: #fff;
+	padding-top: 22px;
+	margin-bottom: 12px;
+}
 </style>
 <page backtop="2mm" backbottom="0mm" backleft="0mm" backright="0mm" style="font-size: 11pt;">
 	<table class="header">
 		<thead>
 			<tr>
 				<td rowspan="5" class="logo" style="border:3px solid #4d4d4f">
-					<img src="<?php echo $basepath ?>/cotizador2/admin/assets/images/<?php echo $logo ?>" /><br />
+					<?php if ($logo):?>
+						<img src="<?php echo $logo ?>" /><br />
+					<?php else:?>
+						<div class="no-logo">LOGO</div>
+					<?php endif?>
 					<h3 class="title"><?php echo $empresa ?></h3><br />
 					<span><?php echo $telefonos ?></span><br />
 					<span><?php echo $direccion ?></span><br />

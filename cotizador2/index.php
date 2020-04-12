@@ -17,6 +17,12 @@
 	$habilitar_impresion = $row2['habilitar_impresion'];
 	$iva = $row2['iva'];
 	mysqli_close($mysqli);
+
+    $logo="";
+    foreach (explode("|", "jpg|jpeg|png|gif") as $ext) {
+    	if (file_exists($basepath."/assets/banners/cot2-logo.".$ext))
+    		$logo=$basehttp."/assets/banners/cot2-logo.".$ext;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,8 +39,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo $styles_url ?>/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap theme -->
-    <link href="<?php echo $styles_url ?>/bootstrap-theme.min.css" rel="stylesheet">
+	<!-- Bootstrap theme -->
+	<link href="<?php echo $styles_url ?>/bootstrap-theme.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="<?php echo $styles_url ?>/theme.css" rel="stylesheet">
@@ -48,23 +54,55 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+	<style type="text/css">
+	.generic-logo {
+		width: 410px;
+		height: 100px;
+		background: #7cacc2;
+		border: 6px dashed #fff;
+		outline: 6px solid #7cacc2;
+		margin-left: 6px;
+		color: #fff;
+		text-transform: uppercase;
+		font-weight: bold;
+		line-height: 88px;
+		text-align: center;
+	}
+	a.generic-logo {
+		display: block;
+		cursor: pointer;
+	}
+	a.generic-logo:hover {
+		background: #6795aa;
+		outline: 6px solid #6795aa;
+		color: #fff;
+		text-decoration: none;
+	}
+	</style>
 	</head>
 	<body role="document">
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="index.php">Cotizador - <?php echo $sitename ?></a>
+					<a class="navbar-brand" href="<?php echo $basehttp ?>/cotizador2">Cotizador - <?php echo $sitename ?></a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="admin/index.php">Administracion</a></li>
+						<li><a href="<?php echo $basehttp ?>/cotizador2/admin">Administracion</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 		<div class="container theme-showcase" role="main">
 			<div class="col-md-12">
-				<h1><img src="http://d26lpennugtm8s.cloudfront.net/stores/045/277/themes/common/EM-color-chiq-29ee2c5d793a7027940d42b70f7a3586.jpg"></h1>
+				<h1>
+					<?php if ($logo): ?>
+						<img class="logo" src="<?php echo $logo?>">
+					<?php else: ?>
+						<?php echo isset($_SESSION['nombrePersona'])&&$_SESSION['permisosPersona']=="admin" ? '<a class="generic-logo" href="'.$basehttp.'/banners" data-toggle="tooltip" data-placement="bottom" title="Personalizar logo">Logo</a>' : '<div class="generic-logo">Logo</div>' ?>
+					<?php endif ?>
+				</h1>
 				<h2 class="titulo">Cotizador Online</h2>
 			</div>
 			<div class="col-sm-12">
@@ -621,7 +659,9 @@
 			}else if(revision=="false"){
 				alert("Ingrese todos los datos solicitados");
 			}	
-        });		
+        });
+		
+		$('[data-toggle="tooltip"]').tooltip()
     </script>
   </body>
 </html>

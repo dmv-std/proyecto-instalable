@@ -27,6 +27,7 @@
     <link href="<?php echo $styles_url ?>/widgets.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $styles_url ?>/rtl.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $styles_url ?>/themes.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $css_url ?>/index.css" rel="stylesheet" type="text/css">
 	<script src="https://kit.fontawesome.com/b8c47e2cca.js" crossorigin="anonymous"></script><!-- Font Awesome kit latest -->
     <!--[if lt IE 9]>
     <script src="<?php echo $js_url ?>/ie.min.js"></script>

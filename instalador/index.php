@@ -1,4 +1,5 @@
 <?php include('config.php') ?>
+<?php $fase = isset($_GET['fase']) ? $_GET['fase'] : '' ?>
 <!DOCTYPE html>
 <!--[if IE 8]><html class="ie8"><![endif]-->
 <!--[if IE 9]><html class="ie9 gt-ie8"><![endif]-->
@@ -30,21 +31,21 @@
 		<section class="sidebar">
 		<h3>Etapas</h3>
 			<ul>
-				<?php foreach ($fases as $i => $fase): ?>
+				<?php foreach ($fases as $i => $f): ?>
 					<?php if($_GET['fase'] < $i+1): ?>
 						<li style="">
 							<i class="fa fa-circle-o"></i>
-							<?php echo $fase ?>
+							<?php echo $f ?>
 						</li>
 					<?php elseif($_GET['fase'] == $i+1): ?>
 						<li style="font-weight:bold">
 							<i class="fa fa-circle"></i>
-							<?php echo $fase ?>
+							<?php echo $f ?>
 						</li>
 					<?php elseif($_GET['fase'] > $i+1): ?>
 						<li style="color: #a5c2fd">
 							<i class="fa fa-check"></i>
-							<?php echo $fase ?>
+							<?php echo $f ?>
 						</li>
 					<?php endif ?>
 				<?php endforeach ?>
@@ -65,9 +66,9 @@
 			</div>
 		</section>
 
-	<?php elseif (isset($_GET['fase']) && $_GET['fase']==1): ?>
+	<?php elseif ($fases[$fase-1]=='Validar licencia'): ?>
 	<?php /*************************
-	* FASE 1: ?
+	* FASE: VALIDAR LICENCIA
 	********************************/ ?>
 		<section class="main2">
 			<h1>Validar licencia</h1>
@@ -82,9 +83,55 @@
 			</form>
 		</section>
 
-	<?php elseif (isset($_GET['fase']) && $_GET['fase']==2): ?>
+	<?php elseif ($fases[$fase-1]=='Comprobación del Sistema'): ?>
 	<?php /*************************
-	* FASE 1: ?
+	* FASE: COMPROBACIÓN DEL SISTEMA
+	********************************/ ?>
+		<?php $fail = false ?>
+		<section class="main2">
+			<h1>Comprobación del sistema</h1>
+			<div class="subtext">Comprobando los requerimientos de instalación.</div>
+			<div class="lista">
+				<h4>Sistema</h4>
+				<ul>
+					<?php foreach ($system_checks as $name => $check): ?>
+					<li <?php echo !$check[0]?'class="text-red"':''?>>
+						<i class="fa fa-<?php echo $check[0] ? 'check' : 'exclamation-triangle' ?>"></i>
+						<?php echo $name ?>
+						<?php if(!$check[0]):?>
+							<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="<?php echo $check[1] ?>"></i>
+						<?php endif?>
+					</li>
+					<?php $fail = $fail || (!$check[0] ? true : false) ?>
+					<?php endforeach ?>
+				</ul>
+				<h4>Permisos de escritura</h4>
+				<ul>
+					<?php foreach ($writable_dirs as $directory): ?>
+						<?php if (!file_exists($basepath.'/'.$directory)) mkdir($basepath.'/'.$directory) ?>
+						<li <?php echo !is_writable($basepath.'/'.$directory)?'class="text-red"':''?>>
+							<i class="fa fa-<?php echo is_writable($basepath.'/'.$directory) ? 'check' : 'exclamation-triangle' ?>"></i>
+							<?php echo str_replace("//", "/", $basepath.'/'.$directory) ?>
+							<?php if(!is_writable($basepath.'/'.$directory)):?>
+								<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Habilite los permisos de escritura para esta ruta"></i>
+							<?php endif?>
+						</li>
+					<?php endforeach ?>
+				</ul>
+				<?php if ($fail): ?>
+				<p class="text-red">Se ha detectado uno o más errores durante la comprobación.<br/>Se recomienda solucionar los problemas antes de continuar. Algunos problemas podrían estar asociados a limitaciones del servidor.<br/>Si continua la instalación, es probable que el sistema trabaje de forma errática.</p>
+				<?php endif ?>
+			</div>
+			<div class="form-group">
+				<div class="col-md-7 input-group">
+					<a href="?fase=<?php echo $fase+1 ?>" class="btn btn-info">Continuar</a>
+				</div>
+			</div>
+		</section>
+
+	<?php elseif ($fases[$fase-1]=='Configuracion del server'): ?>
+	<?php /*************************
+	* FASE: CONFIGURAR SERVIDOR
 	********************************/ ?>
 	<?php
 		if (isset($_GET['error'])) {
@@ -92,8 +139,10 @@
 			$db = isset($_GET['db']) ? $_GET['db'] : "";
 			$user = isset($_GET['user']) ? $_GET['user'] : "";
 			$site = isset($_GET['site']) ? $_GET['site'] : "";
+			$error = $_GET['error'];
 		} else {
 			$host="localhost"; $db=""; $user=""; $site="";
+			$error = "";
 		}
 	?>
 		<section class="main2">
@@ -102,54 +151,72 @@
 			<form id="form-detalles-servidor">
 				<div class="form-group"><h4>Base de datos:</h4></div>
 				<div class="form-group">
-					<label class="col-md-3 form-label text-right" for="server-host">Host:</label>
+					<label class="col-md-3 form-label text-right" for="server-host">
+						Host <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Normalmente es localhost. No se recomienda cambiar este dato a menos que se sepa lo que se hace."></i>:
+					</label>
 					<div class="col-md-7 input-group">
 						<input type="text" class="form-control" id="server-host" placeholder="Nombre del host para la base de datos (comúnmente: localhost)" value="<?php echo $host ?>" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3 form-label text-right" for="server-db">Base de datos:</label>
+					<label class="col-md-3 form-label text-right" for="server-db">
+						Base de datos <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Nombre para la base de datos que será utilizada por el sistema. A menos que el servidor tenga bloqueados los permisos, la base de datos será creada automáticamente."></i>:
+					</label>
 					<div class="col-md-7 input-group">
 						<input type="text" class="form-control" id="server-db" placeholder="Nombre de la base de datos principal" value="<?php echo $db ?>" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3 form-label text-right <?php echo isset($_GET['error']) ? "text-red":"" ?>" for="db-user">
-						Usuario:
+					<label class="col-md-3 form-label text-right <?php echo $error==1 ? "text-red":"" ?>" for="db-user">
+						Usuario <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="El dato usuario para hacer login en la base de datos."></i>:
 					</label>
 					<div class="col-md-7 input-group">
 						<input type="text" class="form-control" id="db-user" placeholder="Usuario de la base de datos" value="<?php echo $user ?>" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3 form-label text-right <?php echo isset($_GET['error']) ? "text-red":"" ?>" for="db-pass">
-						Contraseña:
+					<label class="col-md-3 form-label text-right <?php echo $error==1 ? "text-red":"" ?>" for="db-pass">
+						Contraseña <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="El dato contraseña para hacer login en la base de datos."></i>:
 					</label>
 					<div class="col-md-7 input-group">
 						<input type="password" class="form-control" id="db-pass" placeholder="Contraseña para la base de datos" required>
-						<?php if(isset($_GET['error'])): ?>
+						<?php if($error==1): ?>
 							<div class="text-red">Datos incorrectos. Revise cuidadosamente los datos ingresados y reintente.</div>
 						<?php endif ?>
 					</div>
 				</div>
 				<div class="form-group"><h4>Página:</h4></div>
 				<div class="form-group">
-					<label class="col-md-3 form-label text-right" for="site-name">Nombre de la página:</label>
+					<label class="col-md-3 form-label text-right" for="site-name">
+						Nombre de la página <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Este nombre aparecerá en los títulos de cada una de las secciones de su página (pestañas del navegador), así como en cada area donde corresponda."></i>:
+					</label>
 					<div class="col-md-7 input-group">
 						<input type="text" class="form-control" id="site-name" placeholder="Nombre de la página" value="<?php echo $site ?>" required>
 					</div>
 				</div>
+				<?php if($error==2): ?>
+				<div class="form-group">
+					<div class="col-md-8 col-md-offset-2 text-red input-group create-db-error"><strong><i class="fa fa-exclamation-triangle"></i> Aviso:</strong> Este instalador tiene por defecto la capacidad de crear la base de datos por usted. Sin embargo, en esta ocasión se ha detectado que el servidor no tiene habilitados los permisos, y por lo tanto tendrá usted que crear la base de datos manualmente desde <code>phpMyAdmin</code>.</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-7 col-md-offset-2 input-group">
+						<a href="?fase=<?php echo $fase+1 ?>" class="btn btn-info">Lo entiendo y deseo continuar</a>
+						<a href="?fase=<?php echo $fase ?>" class="btn btn-warning">Re-ingresar los datos del servidor</a>
+					</div>
+				</div>
+				<?php else: ?>
 				<div class="form-group">
 					<div class="col-md-7 col-md-offset-2 input-group">
 						<button type="submit" class="btn btn-info">Continuar</button>
 					</div>
 				</div>
+				<?php endif ?>
 			</form>
 		</section>
 
-	<?php elseif (isset($_GET['fase']) && $_GET['fase']==3): ?>
+	<?php elseif ($fases[$fase-1]=='Cuenta del admin'): ?>
 	<?php /*************************
-	* FASE 1: ?
+	* FASE: CREAR CUENTA DE ADMINISTRADOR
 	********************************/ ?>
 		<section class="main2">
 			<h1>Datos básicos de configuración</h1>
@@ -201,16 +268,16 @@
 			</form>
 		</section>
 
-	<?php elseif (isset($_GET['fase']) && $_GET['fase']==4): ?>
+	<?php elseif ($fases[$fase-1]=='activar reCAPTCHA'): ?>
 	<?php /*************************
-	* FASE 1: ?
+	* FASE: HABILITAR RECAPTCHA
 	********************************/ ?>
 		<section class="main2">
 			<h1>Habilitar reCAPTCHA</h1>
 			<div class="subtext">
-				Necesitas habilitar una cuenta de reCAPTCHA para poder tener una página de login funcional.<br/>
-				Ingresa a <a href="https://www.google.com/recaptcha/admin/create">https://www.google.com/recaptcha/admin/create</a>,
-				y completa los datos para poder recibir las claves necesarias, luego valídalas.<br/><br/>
+				Necesita habilitar una cuenta de reCAPTCHA para poder tener una página de login funcional.<br/>
+				Ingrese a <a href="https://www.google.com/recaptcha/admin/create">https://www.google.com/recaptcha/admin/create</a>,
+				y complete los datos para poder recibir las claves necesarias, luego valídelas.<br/><br/>
 				<strong>NOTA:</strong> es necesario elegir la opción <code>reCAPTCHA v2 > Casilla No soy un robot</code>.
 			</div>
 			<form id="form-detalles-recaptcha">
@@ -238,7 +305,9 @@
 					</div>
 				</div>
 				<div class="form-group recaptcha-group">
-					<label class="col-md-3 form-label text-right">Validar reCAPTCHA:</label>
+					<label class="col-md-3 form-label text-right">
+						Validar reCAPTCHA <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Si aparece un mensaje de error en el captcha, es porque las claves no han sido validadas, o son incorrectas."></i>:
+					</label>
 					<div class="col-md-7 col-md-offset-3 input-group recaptcha-input-group">
 						<div class="g-recaptcha" data-sitekey="<?php echo isset($_GET['code1']) ? $_GET['code1'] : 'empty' ?>"></div>
 					</div>
@@ -251,9 +320,9 @@
 
 		<script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
 
-	<?php elseif (isset($_GET['fase']) && $_GET['fase']==5): ?>
+	<?php elseif ($fases[$fase-1]=='Elegir módulos'): ?>
 	<?php /*************************
-	* FASE 1: ?
+	* FASE: PERSONALIZAR MÓDULOS
 	********************************/ ?>
 		<section class="main2">
 			<h1>Personalizar instalación de módulos</h1>
@@ -275,9 +344,9 @@
 			</form>
 		</section>
 
-	<?php elseif (isset($_GET['fase']) && $_GET['fase']==6): ?>
+	<?php elseif ($fases[$fase-1]=='Instalación'): ?>
 	<?php /*************************
-	* FASE 1: ?
+	* FASE: REALIZANDO INSTALACIÓN
 	********************************/ ?>
 		<section class="main2">
 			<h1>Realizando instalación</h1>
@@ -291,9 +360,9 @@
 			<div class="install-error text-red"></div>
 		</section>
 
-	<?php elseif (isset($_GET['fase']) && $_GET['fase']==7): ?>
+	<?php elseif ($fase > count($fases)): ?>
 	<?php /*************************
-	* FASE 1: ?
+	* FASE: INSTALACIÓN COMPLETA
 	********************************/ ?>
 		<section class="main2">
 			<h1><i class="fa fa-check"></i> Proceso finalizado</h1>
@@ -353,10 +422,12 @@
 				type: 'POST',
 				dataType: 'html',
 				success: function(r) {console.log(r)
-					if (r.startsWith("SUCCESS"))
-						$(location).attr('href', "?fase=3")
+					if (r=="SUCCESS")
+						$(location).attr('href', "?fase=<?php echo $fase+1 ?>")
+					else if (r=="SUCCESS_DB_ERROR")
+						$(location).attr('href', `?fase=<?php echo $fase ?>&error=2&host=${host}&db=${db}&user=${user}&site=${sitename}`)
 					else
-						$(location).attr('href', `?fase=2&error=1&host=${host}&db=${db}&user=${user}&site=${sitename}`)
+						$(location).attr('href', `?fase=<?php echo $fase ?>&error=1&host=${host}&db=${db}&user=${user}&site=${sitename}`)
 				},
 				error: function(xhr, status) {
 					alert('Un error inesperado ha ocurrido.');
@@ -388,7 +459,7 @@
 					type: 'POST',
 					dataType: 'html',
 					success: function() {
-						$(location).attr('href', "?fase=4")
+						$(location).attr('href', "?fase=<?php echo $fase+1 ?>")
 					},
 					error: function(xhr, status) {
 						alert('Un error inesperado ha ocurrido.');
@@ -400,7 +471,7 @@
 		$('.btn-validar-claves').on('click', function() {
 			let code1 = $('#front-code').val()
 			let code2 = $('#back-code').val()
-			$(location).attr('href', "?fase=4&code1="+code1+"&code2="+code2)
+			$(location).attr('href', "?fase=<?php echo $fase ?>&code1="+code1+"&code2="+code2)
 		})
 		$('.btn-validar-captcha').on('click', function() {
 			let code1 = $('#front-code').val()
@@ -415,9 +486,9 @@
 				type : 'POST',
 				success: function (respuesta) {
 					if (respuesta == "SUCCESS") {
-						$(location).attr('href', "?fase=5")
+						$(location).attr('href', "?fase=<?php echo $fase+1 ?>")
 					} else {
-						$(location).attr('href', "?fase=4&code1="+code1+"&code2="+code2+"&error=1")
+						$(location).attr('href', "?fase=<?php echo $fase ?>&code1="+code1+"&code2="+code2+"&error=1")
 					}
 				},
 				error: function (xhr, ajaxOptions, thrownError) {
@@ -443,7 +514,7 @@
 				type: 'POST',
 				dataType: 'html',
 				success: function() {
-					$(location).attr('href', "?fase=6")
+					$(location).attr('href', "?fase=<?php echo $fase+1 ?>")
 				},
 				error: function(xhr, status) {
 					alert('Un error inesperado ha ocurrido.');
@@ -452,7 +523,7 @@
 			})
 		})
 
-<?php if (isset($_GET['fase']) && $_GET['fase']==6): ?>
+<?php if ($fases[$fase-1]=='Instalación'): ?>
 		$(document).ready(function(){
 			performInstallAction()
 		})
@@ -468,7 +539,7 @@
 				success: function(r) {
 					console.log(r)
 					r = JSON.parse(r)
-					let progress = Math.round(step / r.total * 100);
+					let progress = r.total ? Math.round(step / r.total * 100) : 0;
 					console.log(`${step}/${r.total} ${progress}% - ${r.estado}`)
 					if (!r.error && progress < 100 && !isNaN(r.total)) {
 						performInstallAction(step+1)
@@ -477,7 +548,7 @@
 							$('.progress-bar').css('width', '100%')
 							$('.estado-de-instalacion').html(`<h1>100%</h1><em>Instalación completa!</em>`)
 							setTimeout(function(){
-								$(location).attr('href', "?fase=7")
+								$(location).attr('href', "?fase=<?php echo $fase+1 ?>")
 							}, 1500)
 						}, 1500)
 					}
@@ -495,6 +566,7 @@
 		}
 <?php endif ?>
 
+		$('[data-toggle="tooltip"]').tooltip()
 	</script>
 </body>
 </html>

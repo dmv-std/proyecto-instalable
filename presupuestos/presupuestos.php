@@ -463,11 +463,11 @@
     <?php endif ?>
 
 
+	<script src="<?php echo $js_url ?>/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+
     <!-- Pixel Admin's javascripts -->
     <script src="<?php echo $js_url ?>/bootstrap.min.js"></script>
     <script src="<?php echo $js_url ?>/pixel-admin.min.js"></script>
-
-	<script src="<?php echo $js_url ?>/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 
     <script type="text/javascript">
         init.push(function () {

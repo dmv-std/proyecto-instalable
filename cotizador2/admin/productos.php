@@ -46,6 +46,7 @@
                     <div class="row">
                         <hr class="visible-xs no-grid-gutter-h">
                         <!-- "Create project" button, width=auto on desktops -->
+                        <div class="pull-right col-xs-12 col-sm-auto"><a href="productos.xlsx" class="btn btn-lg btn-success">VER ARCHIVO EJEMPLO</a></div>
                         <div class="pull-right col-xs-12 col-sm-auto"><button class="btn btn-lg btn-info" id="btn-archivoproductos" >ARCHIVO DE PRODUCTOS</button></div>
 						<div class="pull-right col-xs-12 col-sm-auto"><button class="btn btn-lg btn-info" id="btn-nuevoproducto" >AGREGAR PRODUCTO</button></div>
 
@@ -211,9 +212,13 @@
                                 <h4 class="modal-title" id="myModalLabel">Subir Archivo de Productos</h4>
                             </div>
                             <div class="modal-body">
-                                <div class="alert alert-info">Seleccione el archivo que desea cargar</div>
+                                <div class="alert alert-info">
+                                    Seleccione el archivo que desea cargar
+                                    <br/><br/>Obtenga un archivo ejemplo de aqui:
+                                    <a href="productos.xlsx" class="btn btn-success">VER ARCHIVO EJEMPLO</a>.
+                                </div>
                                 <form class="form-horizontal" id="jq-validation-form">
-                                    <div class="form-group">
+                                    <div class="form-group" style="margin-left:0">
                                         <div class="anticipobien">Cargar Archivo:</div>
 										<input type="file" name="Filedata" id="fileInput" style="display:none" />
 										<button type="button" class="btn btn-primary btn-file-upload" style="margin:2px 0 4px 0">SELECCIONAR</button>

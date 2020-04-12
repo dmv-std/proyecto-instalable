@@ -31,7 +31,10 @@
 
 			file_put_contents("config.json", json_encode($config_data));
 
-			echo "SUCCESS";
+			include("config.php");
+			if(comprobarPermisosDB($dbserver, $dbuser, $dbpass)) {
+				echo "SUCCESS";				
+			} else echo "SUCCESS_DB_ERROR";
 		} else {
 			echo "error";
 		}

@@ -25,6 +25,7 @@
     <link href="<?php echo $styles_url ?>/widgets.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $styles_url ?>/rtl.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $styles_url ?>/themes.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $css_url ?>/index.css" rel="stylesheet" type="text/css">
     <!--[if lt IE 9]>
     <script src="<?php echo $js_url ?>/ie.min.js"></script>
     <![endif]-->
@@ -238,9 +239,8 @@
                 <?php endif ?>
 				<?php
 					$mysqli = new mysqli($dbserver, $dbuser, $dbpass, $dbname);
-					/* check connection */
 					if($mysqli->connect_errno > 0){
-						die('Unable to connect to database [' . $db->connect_error . ']');
+						die('Unable to connect to database [' . $mysqli->connect_error . ']');
 					}
 					$mysqli->set_charset("utf8");
 					$tipo = "GENERAL";

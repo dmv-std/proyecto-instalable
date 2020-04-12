@@ -156,6 +156,19 @@ div.header table tr td{
 	vertical-align: middle;
 	border: none !important;
 }
+div.logo{
+	width: 240px;
+	height: 50px;
+	background: #4e91a8;
+	border: 6px dashed #fff;
+	margin-left: -100px;
+	margin-top: -45px;
+	text-align: center;
+	outline: 6px solid #4e91a8;
+	font-weight: bold;
+	color: #fff;
+	padding-top: 30px;
+}
 </style>
 <page backtop="2mm" backbottom="0mm" backleft="0mm" backright="0mm" style="font-size: 11pt;">
 	<table class="general">
@@ -186,7 +199,11 @@ div.header table tr td{
 			<tbody>
 				<tr>
 					<td>
-						<img src="assets/images/<?php echo $logo ?>" class="logo" /><br />
+						<?php if($logo): ?>
+						<img src="<?php echo $logo ?>" class="logo" /><br />
+						<?php else: ?>
+						<div class="logo">LOGO</div>
+						<?php endif?>
 						<h3 class="title"><?php echo $empresa ?></h3><br />
 						<span><?php echo $telefonos ?></span><br />
 						<span><?php echo $direccion ?></span><br />
