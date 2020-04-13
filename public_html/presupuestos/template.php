@@ -237,10 +237,12 @@ div.logo{
 	</div>
 	<div class="cliente">
 		<p>
-			<strong>Cotizado a:</strong>
-			<?php echo $cliente ?>
-			(<?php echo $telefono ?>)
-			- <<em><?php echo $correo ?></em>>
+			<?php if (trim($cliente)||$telefono||$correo): ?>
+				<strong>Cotizado a:</strong>
+				<?php echo $cliente?$cliente:"<em>No especificado</em>" ?>
+				<?php echo $telefono?"($telefono)":'' ?>
+				<?php echo $correo?"- <<em>$correo</em>>":"" ?>
+			<?php endif ?>
 		</p>
 	</div>
 </page>

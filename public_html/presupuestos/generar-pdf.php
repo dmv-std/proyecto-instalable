@@ -105,7 +105,11 @@ else if ( isset($_GET['usuario']) && isset($_GET['nombre']) && isset($_GET['apel
 	$telefonos = $row['telefonos'];
 	$web = $row['web'];
 	$email = $row['email'];
-	$logo = $row['logo'] ? $row['logo'] : "blank.jpg";
+	
+	$presupuestos_pdf_logo = explode("/", $presupuestos_pdf_logo);
+	array_pop($presupuestos_pdf_logo);
+	$presupuestos_pdf_logo = implode("/", $presupuestos_pdf_logo);
+	$logo = $row['logo'] ? $basehttp.$presupuestos_pdf_logo."/".$row['logo'] : "";
 	
 	// Consultar datos de usuario
 	$query = "SELECT * FROM sist_usuarios WHERE id = '$id'";
@@ -142,7 +146,7 @@ else if ( isset($_GET['usuario']) && isset($_GET['nombre']) && isset($_GET['apel
 }
 
 // Generar vista previa del documento, desde la página de configuración de datos de la empresa
-else if ( isset($_GET['empresa']) && isset($_GET['direccion']) && isset($_GET['telefonos']) && isset($_GET['web']) && isset($_GET['email']) )
+else if ( isset($_GET['empresa']) && isset($_GET['direccion']) && isset($_GET['telefonos']) && isset($_GET['web']) && isset($_GET['email']) && isset($_GET['logo']) )
 {
 	include ("../config.php");
 
@@ -151,7 +155,7 @@ else if ( isset($_GET['empresa']) && isset($_GET['direccion']) && isset($_GET['t
 	$telefonos = $_GET['telefonos'];
 	$web = $_GET['web'];
 	$email = $_GET['email'];
-	$logo = $_GET['logo'] ? $_GET['logo'] : "blank.jpg";
+	$logo = $_GET['logo'];
 	
 	$id = "-";
 	$fecha = "";

@@ -675,9 +675,8 @@ if($_SESSION['presupuestos'] != 1){
 				direccion	= "&direccion="	+ $("#direccion").val().replace(/\n/g, "<br>"),
 				telefonos	= "&telefonos="	+ $("#telefonos").val(),
 				web			= "&web="		+ $("#web").val(),
-				email		= "&email="		+ $("#email").val();
-			
-			let logo = "&logo=" + $('.logo img').attr('src').split("/").last();
+				email		= "&email="		+ $("#email").val(),
+                logo        = "&logo="      + $('.logo img').attr('src');
 			
 			let url_params = empresa + direccion + telefonos + web + email + logo;
 			window.open("generar-pdf.php" + "?" + url_params, "_blank");
