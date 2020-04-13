@@ -122,6 +122,7 @@
 						<?php endif ?>
 						<tr>
 							<td width='267' style='padding-top:5px; padding-bottom:5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size: 16px;'>
+								<br><strong>Vendedor:</strong> <?php echo $usuario ?><br/><br/>
 								<?php echo $mensajeintermedio ?>
 							</td>
 						</tr>

@@ -64,6 +64,8 @@
 		include 'admin/generar-pdf.php';
 		$file = "$absolute_path/$filename"."_$idcot.pdf";
 
+		session_start();
+		$usuario = empty($_SESSION['userPersona']) ? '-' : $_SESSION['userPersona'];
 		$email = $_GET['email']; // ¡¡CUIDADO!!: generar-pdf.php estaba sobreescribiendo el valor de $email
 		include ("email.php");
 		attachment_mail($email, $tituloemail, limpiar_caracteres_especiales($mensaje), $emailconf, "Cotizacion Pisos Goma Eva", $file);

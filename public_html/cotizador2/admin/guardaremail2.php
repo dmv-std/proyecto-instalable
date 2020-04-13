@@ -70,6 +70,10 @@
         }
         $results = $mysqli->query("INSERT INTO cot2_observaciones (idcotizacion, observacion, fecha, tipo, id_user) values('$idcot', '$observacion', '$fecha', '$tipo', '$id_user')");
         if($results){
+			$query = "SELECT * FROM sist_usuarios WHERE id = '$id_user'";
+			$result = $mysqli->query($query) or die($mysqli->error.__LINE__);
+			$row = $result->fetch_assoc();
+			$usuario = $row['nombre'] . " " . $row['apellido'];
 			include ("../email.php");
 			$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
 			$cabeceras .= 'Content-type: text/html; charset=ISO-8859-1' . "\r\n";

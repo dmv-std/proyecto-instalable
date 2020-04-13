@@ -76,6 +76,11 @@ $mensaje = $mensajeemail."<br /><br /><html xmlns='http://www.w3.org/1999/xhtml'
 						</tr>
 						".$observaciones."
 						<tr>
+							<td style='padding-top:5px; padding-bottom:5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size: 16px;'>
+								<br><strong>Vendedor:</strong> ".$usuario."
+							</td>.
+						</tr>
+						<tr>
 							<td width='267' style='padding-top:5px; padding-bottom:5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size: 16px;'>".$mensajecotizador."</td>
 						</tr>
 						<tr>
