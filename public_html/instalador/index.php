@@ -196,7 +196,7 @@
 				</div>
 				<?php if($error==2): ?>
 				<div class="form-group">
-					<div class="col-md-8 col-md-offset-2 text-red input-group create-db-error"><strong><i class="fa fa-exclamation-triangle"></i> Aviso:</strong> Este instalador tiene por defecto la capacidad de crear la base de datos por usted. Sin embargo, en esta ocasión se ha detectado que el servidor no tiene habilitados los permisos, y por lo tanto tendrá usted que crear la base de datos manualmente desde <code>phpMyAdmin</code>.</div>
+					<div class="col-md-8 col-md-offset-2 text-red input-group create-db-error"><strong><i class="fa fa-exclamation-triangle"></i> Aviso:</strong> Este instalador tiene la capacidad de crear la base de datos por usted. Sin embargo, en esta ocasión se ha detectado que el servidor no tiene habilitados los permisos, y por lo tanto tendrá que crear la base de datos manualmente desde <code>phpMyAdmin</code>.</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-7 col-md-offset-2 input-group">
