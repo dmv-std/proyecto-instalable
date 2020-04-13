@@ -767,7 +767,8 @@ if($_SESSION['presupuestos'] != 1){
 			}
 		});
 		
-		$('.btn-remover-logo').on( "click", function() {
+		$('.btn-remover-logo').on( "click", function(e) {
+            e.preventDefault()
 			$.ajax({
                 url : 'guardar-configuracion.php',
                 data : {
