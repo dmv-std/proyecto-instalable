@@ -6,7 +6,7 @@
 		
 		$_GET['mode']='storein';
 		include 'generar-pdf.php';
-		$file = "$basepath/html2pdf/$filename"."_$id.pdf";
+		$file = "$pdf_path/$filename"."_$id.pdf";
 		
 		ob_start();
 		include "email.php";
@@ -22,7 +22,7 @@
 		$result = $mysqli->query("SELECT * FROM presupuestos_archivos WHERE id_presupuesto = '$id'") or die($mysqli->error.__LINE__);
 		$files = array( $file );
 		while ($row = $result->fetch_assoc()) {
-			$files[] = "$basepath/presupuestos/archivos/" . $row['file'];
+			$files[] = "$basepath/$presupuestos_archivos_path/" . $row['file'];
 		}
 		
 		$email = $_GET['reenviaremailemail'] ? $_GET['reenviaremailemail'] : $_GET['email'];
@@ -102,7 +102,7 @@
 			array(	"/~(.+?)~/",												"<s>$1</s>"						),
 			array(	"/\n/",														"<br />"						),
 			array(	"/\!\[(.*?)\]\((https?:\/\/.+?\.(?:jpe?g|png|gif))\)/",		'<img alt="$1" src="$2" style="max-width:100%" />'		),
-			array(	"/\!\((https?:\/\/.+?\.(?:jpe?g|png|gif))\)/",				'<img src="$1" style="max-width:100%" />'				),
+			array(	"/\!\((https?:\/\/.+?(?:\.(?:jpe?g|png|gif))?)\)/",				'<img src="$1" style="max-width:100%" />'				),
 		];
 		
 		foreach ($markups as $markup) {

@@ -119,7 +119,12 @@
 					<?php endforeach ?>
 				</ul>
 				<?php if ($fail): ?>
-				<p class="text-red">Se ha detectado uno o más errores durante la comprobación.<br/>Se recomienda solucionar los problemas antes de continuar. Algunos problemas podrían estar asociados a limitaciones del servidor.<br/>Si continua la instalación, es probable que el sistema trabaje de forma errática.</p>
+					<p class="text-red">Se ha detectado uno o más errores durante la comprobación.<br/>Se recomienda solucionar los problemas antes de continuar. Algunos problemas podrían estar asociados a limitaciones del servidor.<br/>Si continua la instalación, es probable que el sistema trabaje de forma errática.</p>
+					<?php foreach ($system_checks as $check): ?>
+						<?php if (isset($check[2])): ?>
+							<p class="text-red dark-bg"><?php echo $check[2] ?></p>
+						<?php endif ?>
+					<?php endforeach ?>
 				<?php endif ?>
 			</div>
 			<div class="form-group">
@@ -401,6 +406,14 @@
 
 		$('#form-validar-licencia').on('submit', function(e){
 			e.preventDefault()
+		})
+
+		$('.btn-verificar-correo').on('click', function(){
+			let correo = $('input[type=email]').val()
+			$(location).attr('href', "?fase=<?php echo $fase ?>&correo="+correo)
+		})
+		$('.btn-verificar-correo-atras').on('click', function(){
+			$(location).attr('href', "?fase=<?php echo $fase ?>")
 		})
 
 		$('#form-detalles-servidor').on('submit', function(e){

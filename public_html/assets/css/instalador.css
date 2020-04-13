@@ -128,8 +128,25 @@ section.main > div:last-child{
 }
 
 i.fa-question-circle[data-toggle="tooltip"] {
-    cursor: pointer;
-    color: #333;
+  cursor: pointer;
+  color: #333;
+}
+
+.lista .text-red input[type="email"] {
+  color: #555;
+  width: 240px;
+  display: inline-block;
+}
+
+.lista .text-red.dark-bg {
+    background: rgba(0,0,0,0.15);
+    padding: 12px 20px;
+    width: 85%;
+    border-radius: 5px;
+}
+
+.lista .text-red button{
+  margin-top: -3px;
 }
 
 /*****************************************
