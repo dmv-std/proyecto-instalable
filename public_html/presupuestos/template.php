@@ -180,7 +180,7 @@ div.logo{
 			<tr><th class="first big" style="border-right:1px solid #4d4d4f">Fecha</th><th class="last big" style="text-align:center;padding-left:0"><?php echo $fecha ?></th></tr>
 			<tr><th class="first dark">Vendedor:</th><th class="last"><?php echo $usuario_nombre ?></th></tr>
 			<tr><th class="first">Celular:</th><th class="last"><?php echo $usuario_telefono ?></th></tr>
-			<tr><th class="first">Mail:</th><th class="last"><?php echo $usuario_correo ?></th></tr>
+			<tr><th colspan="2" class="last">MAIL: <?php echo $usuario_correo ?></th></tr>
 		</thead>
 		<tbody>
 			<tr><td colspan="3" class="first">Detalle del presupuesto</td></tr>

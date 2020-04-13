@@ -121,6 +121,12 @@
                                 </div>
 							</div><!-- /input-group -->
                             <div class="form-group">
+                                <label for="jq-validation-required" class="col-sm-3 control-label">Teléfono:</label>
+                                <div class="col-sm-7">
+                                    <input required type="text" class="form-control" id="telf" name="telf" placeholder="Número telefónico del usuario">                                          
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="jq-validation-required" class="col-sm-3 control-label">Correo:</label>
                                 <div class="col-sm-7">
                                     <input required type="email" class="form-control" id="correo" name="correo" placeholder="correo del usuario">                                          
@@ -271,6 +277,12 @@
                                         <td class="text-center"><button data-sistema="cotizador" class="col-xs-12 btn btn-default clicktoogleonoffsistema cotizador">SIN ACCION</button></td>
                                     </tr>
                                     <?php endif ?>
+                                    <?php if (in_array("cotizador2", $instalados)): ?>
+                                    <tr>
+                                        <td class="text-center">Cotizador 2</td>
+                                        <td class="text-center"><button data-sistema="cotizador2" class="col-xs-12 btn btn-default clicktoogleonoffsistema cotizador2">SIN ACCION</button></td>
+                                    </tr>
+                                    <?php endif ?>
                                     <?php if (in_array("crm", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">CRM</td>
@@ -305,6 +317,12 @@
                                     <tr>
                                         <td class="text-center">Produccion</td>
                                         <td class="text-center"><button data-sistema="produccion" class="col-xs-12 btn btn-default clicktoogleonoffsistema produccion">SIN ACCION</button></td>
+                                    </tr>
+                                    <?php endif ?>
+                                    <?php if (in_array("presupuestos", $instalados)): ?>
+                                    <tr>
+                                        <td class="text-center">Presupuestos</td>
+                                        <td class="text-center"><button data-sistema="presupuestos" class="col-xs-12 btn btn-default clicktoogleonoffsistema presupuestos">SIN ACCION</button></td>
                                     </tr>
                                     <?php endif ?>
                                     <?php if (in_array("respuestas", $instalados)): ?>
@@ -521,6 +539,12 @@
                         $('.cotizador').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
                     }
 
+                    if(obj.cotizador2 == 1){
+                        $('.cotizador2').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
+                    }else{
+                        $('.cotizador2').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
+                    }
+
                     if(obj.crm == 1){
                         $('.crm').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
                     }else{
@@ -555,6 +579,12 @@
                         $('.produccion').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
                     }else{
                         $('.produccion').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
+                    }
+
+                    if(obj.presupuestos == 1){
+                        $('.presupuestos').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
+                    }else{
+                        $('.presupuestos').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
                     }
 
                     if(obj.respuestas == 1){
@@ -602,11 +632,13 @@
                     $("#pass").val("");
                     $("#apellido").val("");
                     $("#correo").val("");
+                    $("#telf").val("");
                     var obj = jQuery.parseJSON(respuesta);
                     $("#idusuario").val(obj.id);
                     $("#nombre").val(obj.nombre);
                     $("#apellido").val(obj.apellido);
                     $("#correo").val(obj.email);
+                    $("#telf").val(obj.telefono);
                     $("#user").val(obj.user);
                     $("#permisos").empty();
 					$("#id-empleado").val(obj.id_empleado);
@@ -648,6 +680,7 @@
             $("#pass").val("");
             $("#apellido").val("");
             $("#correo").val("");
+            $("#telf").val("");
             $("#permisos").empty();
  			$('.sin-firma').show();
 			$('.firma').hide();
@@ -675,6 +708,7 @@
                         nombre : $("#nombre").val(),
                         apellido : $("#apellido").val(),
                         correo : $("#correo").val(),
+                        telefono : $("#telf").val(),
                         user : $("#user").val(),
                         pass : $("#pass").val(),
 						id_empleado : id_empleado,
@@ -706,6 +740,7 @@
                         nombre : $("#nombre").val(),
                         apellido : $("#apellido").val(),
                         correo : $("#correo").val(),
+                        telefono : $("#telf").val(),
                         user : $("#user").val(),
                         pass : $("#pass").val(),
 						id_empleado : id_empleado,

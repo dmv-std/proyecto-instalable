@@ -3,6 +3,9 @@
     else { header("location: ../../instalador"); exit(); }
 ?>
 <?php session_start();
+    if($_SESSION['cotizador2'] != 1){
+        header ("Location: $basehttp");
+    }
 	if(empty($_SESSION['userPersona'])){
 		header("location: $basehttp");
 	} else {

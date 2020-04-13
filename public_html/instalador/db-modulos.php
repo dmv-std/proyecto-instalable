@@ -50,6 +50,7 @@
 								`outs` int(11) NOT NULL DEFAULT '1',
 								`pagos` int(11) NOT NULL DEFAULT '1',
 								`produccion` int(11) NOT NULL DEFAULT '1',
+								`presupuestos` int(11) NOT NULL DEFAULT '1',
 								`respuestas` int(11) NOT NULL DEFAULT '1',
 								`stock` int(11) NOT NULL DEFAULT '1',
 								`certificados` int(11) NOT NULL DEFAULT '1',

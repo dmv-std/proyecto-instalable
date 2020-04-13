@@ -72,6 +72,14 @@
 		position: relative;
 		z-index: -1;
 	}
+	@media (max-width: 767px) {
+		.signin-info a.logo {
+			position: relative;
+			display: inline-block;
+			transform: none;
+			margin: 15px 0;
+		}
+	}
 	</style>
 </head>
 

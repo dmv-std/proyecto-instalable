@@ -122,6 +122,7 @@ if ($response != null && $response->success) {
 	        $_SESSION['outs'] = $registros['outs'];
 	        $_SESSION['pagos'] = $registros['pagos'];
 	        $_SESSION['produccion'] = $registros['produccion'];
+	        $_SESSION['presupuestos'] = $registros['presupuestos'];
 	        $_SESSION['respuestas'] = $registros['respuestas'];
 	        $_SESSION['stock'] = $registros['stock'];
 	        $_SESSION['certificados'] = $registros['certificados'];	

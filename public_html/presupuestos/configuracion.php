@@ -3,7 +3,7 @@
     else { header("location: ../instalador"); exit(); }
 ?>
 <?php session_start();
-if($_SESSION['rrhh'] != 1){
+if($_SESSION['presupuestos'] != 1){
  header ("Location: $basehttp");
 }
 ?>
