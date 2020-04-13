@@ -62,7 +62,7 @@
 		$_GET['id'] = $idcot;
 		$_GET['mode']='storein';
 		include 'admin/generar-pdf.php';
-		$file = "$absolute_path/$filename"."_$idcot.pdf";
+		$file = "$pdf_path/$filename"."_$idcot.pdf";
 
 		session_start();
 		$usuario = empty($_SESSION['userPersona']) ? '-' : $_SESSION['userPersona'];
