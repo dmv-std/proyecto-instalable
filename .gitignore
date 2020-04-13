@@ -3,7 +3,7 @@ public_html/config.php
 public_html/instalador/config.json
 
 public_html/assets/firmas/*
-public_html/assets/pdf/*
+public_html/assets/pdf/*.pdf
 public_html/assets/presupuestos/*
 public_html/assets/banners/*
 public_html/assets/logos/*
