@@ -192,7 +192,8 @@ function leerYValidarConfig(&$config_data, &$error) {
 	if (file_exists("config.json"))
 		$config_data = json_decode(file_get_contents("config.json"), true);
 	else {
-		$error = "<strong>ERROR:</strong> archivo <code>/instalador/config.json</code> no encontrado.";
+		$error = "<strong>ERROR:</strong> archivo <code>/instalador/config.json</code> no encontrado.
+		<br/>Reinicie el <a href=\"/instalador\">instalador</a> para resolver el problema y asegúrese de completar todas las etapas.";
 		return false;
 	}
 
@@ -203,7 +204,7 @@ function leerYValidarConfig(&$config_data, &$error) {
 	foreach ($checks as $check) {
 		if (!isset($config_data[$check]) || !$config_data[$check]) {
 			$error = "<strong>ERROR:</strong> falta uno o más datos requeridos para la instalación.
-			<br/>reinicie el instalador y asegúrese de completar todas las etapas (Click <a href=\"/instalador\">aquí</a>).";
+			<br/>Reinicie el instalador y asegúrese de completar todas las etapas (Click <a href=\"/instalador\">aquí</a>).";
 		}
 	}
 	return true;
