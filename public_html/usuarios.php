@@ -456,6 +456,11 @@
         })
         window.PixelAdmin.start(init);
 
+        Array.prototype.last = function(){
+            return this[this.length - 1];
+            //return this.slice(-1); // alternative!
+        };
+
         $('.clicktoogleonoffsistema').on("click" , function(){
 
             var sistema = $(this).data('sistema');
@@ -610,7 +615,7 @@
 					if (obj.firma != ""){
 						$('.sin-firma').hide();
 						$('.firma').show();
-						$('.firma img').attr("src", "rrhh/firmas/" + obj.firma);
+						$('.firma img').attr("src", "<?php echo $basehttp.$firmas_path?>/" + obj.firma);
 					} else {
 						$('.sin-firma').show();
 						$('.firma').hide();
@@ -789,7 +794,6 @@
 			if (file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/jpg") {
 				$('.btn-file-upload').prop('disabled', 'true').text("Subiendo...");
 				
-				console.log(new FormData(document.querySelector("#modaleditarusuario form")))
 				$.ajax({
 					url: "guardar-firma.php",
 					xhr: function () { // custom xhr (is the best)
@@ -824,7 +828,7 @@
 							$('.btn-file-upload').prop('disabled', '').text("Subir");
 							$('.sin-firma').hide();
 							$('.firma').show();
-							$('.firma img').attr("src", "rrhh/firmas/" + rsp.filename);
+							$('.firma img').attr("src", "<?php echo $basehttp.$firmas_path ?>/" + rsp.filename);
 						}
 					},
 					error: function (xhr, ajaxOptions, thrownError) {
@@ -838,12 +842,13 @@
 				return false;
 			}
 		});
-		$('.btn-remover-firma').on( "click", function() {
-			$.ajax({
+		$('.btn-remover-firma').on( "click", function(e) {
+			e.preventDefault()
+            $.ajax({
                 url : 'remover-firma.php',
                 data : {
 					id: $("#idusuario").val(),
-					filename: $('.firma img').attr('src'),
+					filename: $('.firma img').attr('src').split('/').last(),
 				},
                 type : 'GET',
                 dataType : 'html',

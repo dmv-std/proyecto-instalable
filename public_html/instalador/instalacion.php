@@ -164,6 +164,7 @@ $archivo = '<?php
 	$images_url = $basehttp."/assets/images";
 	
 	$pdf_path = $basepath."/assets/pdf";
+	$firmas_path = "/assets/firmas";
 	
 	// Some resources
 	$load_resources_locally = false;

@@ -9,7 +9,9 @@
 			);
 		}
 		else {
-			$upload_path = 'rrhh/firmas/';
+			include ("config.php");
+
+			$upload_path = $basepath.'/'.$firmas_path;
 			$filename = $id;
 			
 			$explode = explode(".", $_FILES['firma']['name']);

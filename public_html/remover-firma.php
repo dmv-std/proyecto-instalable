@@ -1,6 +1,6 @@
 <?php
 	
-	if (isset($_GET['id']) && isset($_GET['filename']) && file_exists($_GET['filename']) ) {
+	if (isset($_GET['id']) && isset($_GET['filename']) ) {
 		$id = $_GET['id'];
 		$filename = $_GET['filename'];
 		
@@ -13,7 +13,8 @@
 		$results = $mysqli->query("UPDATE sist_usuarios SET firma = '' WHERE id = '$id'");
 		
 		if($results){
-			unlink("$filename");
+			if(file_exists($basepath."/".$firmas_path."/".$filename))
+				unlink($basepath."/".$firmas_path."/".$filename);
 			echo "SUCCESS";
 		}else{
 			echo 'Error : ('. $mysqli->errno .') '. $mysqli->error;
