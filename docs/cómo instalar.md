@@ -126,9 +126,13 @@ Al llegar a este punto solo es cuestión de esperar a que finalice la instalaci�
 ### Posibles errores en la pantalla de instalación
 
 - Errores relacionados con problemas de conexión.
+
 asda
 
 - Falta el archivo `/instalador/config.json`.
+
+asda
+
 - Datos requeridos para la instalación faltantes.
 - Base de datos no ha podido ser creada automáticamente por falta de permisos.
 - La instalación no avanza, pero ningún mensaje de error es mostrado.
