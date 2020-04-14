@@ -15,9 +15,36 @@ redirigirá al asistente de instalación (alternativamente se puede acceder dire
 
 ![Asistente de Instalación](https://i.imgur.com/oFb8Y4u.png)
 
-### Confeccionar los datos del servidor
+### Etapa de comprobación del sistema
 
-Luego de hacer click en `Continuar`, lo primero que se verá es la pantalla donde se piden los datos de servidor:
+Luego de hacer click en `Continuar`, lo primero que se verá es la pantalla donde se realizará la comprobación de los requerimientos del sistema.
+
+Si su server cumple todos los requerimientos, verá una pantalla como la mostrada a continuación:
+
+![Imgur](https://i.imgur.com/wbTCEAA.png)
+
+Sin embargo, la comprobación de la funcionalidad mail es lo que más a menudo puede dar problemas, mostrándonos durante esta etapa una pantalla como la que sigue:
+
+![Imgur](https://i.imgur.com/ZT60YmV.png)
+
+Para poder realizar una mejor comprobación de la función `mail`, es necesario ingresar un correo electrónico que haya sido creado y habilitado desde el servidor donde se esté realizando la instalación (en opción `Emails`/`Administración de Correos electrónicos`). Si aún así, no es posible poder realizar la comprobación de la función `mail`, es posible que haya algo en el servidor que no esté adecuadamente configurado, o que la función `mail` haya sido permanentemente deshabilitada por el servidor, como medida de seguridad. Póngase en contacto con los administradores de su servidor para más ayuda.
+
+#### ¿Qué hacer si la primera comprobación, la versión de Php falla?
+
+Este sistema requiere como mínimo de Php versión 5 para poder funcionar. Cambie [la versión de Php](https://www.google.com/search?q=cpanel+cambiar+la+versi%C3%B3n+de+php) desde el panel de administración de su servidor.
+
+#### ¿Qué hacer si la comprobación de la extensión mysqli falla?
+
+Probablemente está usted usando un servidor que no tiene incorporado mysqli. Póngase en contacto con los administradores de su servidor para más ayuda.
+
+#### La comprobación de *instalación en directorio raíz* falla
+
+Dirigirse al punto [here](#Subiendo-los-archivos-al-servidor)
+
+**Importante:** Es necesario aclarar que esta etapa se encuentra en desarrollo y necesita ser probada en diversos sistemas para ir expandiendo todos parámetros que se necesitan comprobar para el correcto funcionamiento del sistema. Es posible que tu instalación apruebe todos los pasos realizados durante la comprobación y aún así, el server donde se instale arroje nuevos problemas.
+
+### Reuniendo los datos del servidor
+
 
 ![Datos de Servidor](https://i.imgur.com/6s2VpfY.png)
 
