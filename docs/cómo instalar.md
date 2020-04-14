@@ -16,7 +16,7 @@
 6. [Habilitando reCAPTCHA]()
 7. [Personalización de módulos]()
 8. [Instalación]()
-  8. [Posibles errores en la pantalla de instalación]()
+    1. [Posibles errores en la pantalla de instalación]()
 
 ## Subiendo los archivos al servidor
 
