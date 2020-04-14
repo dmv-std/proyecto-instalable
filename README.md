@@ -4,7 +4,7 @@
 
 Descargar el zip proveniente de este repositorio (`Clone or Download` > `Download Zip`). Descomprimir y luego subir todos los archivos provenientes de la carpeta `public_html` en el directorio raíz del servidor. Se púede utilizar [Fillezilla Client](https://www.google.com/search?q=fillezilla+client) para realizar la operación.
 
-Es escencial subir todos los archivos y carpetas al directorio raíz del servidor (normalmente `/public_html`, a veces también identificado como `/htdocs`) para que pueda funcionar correctamente. Si se desea instalar en un sub-directorio dentro del directorio raíz (ej: `/raiz/subcarpeta`), entonces es necesario asignar un subdominio que convierta ese subdirectorio en un directorio raíz, para luego acceder a la página desde este subdominio.
+Es escencial subir todos los archivos y carpetas al directorio raíz del servidor (normalmente `/public_html`, a veces también identificado como `/htdocs`) para que pueda funcionar correctamente. Si se desea instalar en un sub-directorio dentro del directorio raíz (ej: `/raiz/subcarpeta`), entonces es necesario [asignar un subdominio](https://www.google.com/search?q=cpanel+crear+subdminio) que convierta ese subdirectorio en un directorio raíz, para luego acceder a la página desde este subdominio.
 
 ### Accediendo al asistente de instalación
 
