@@ -1,5 +1,23 @@
 # Cómo instalar?
 
+## Índice:
+
+1. [Subiendo los archivos al servidor]()
+2. [Accediendo al asistente de instalación]()
+3. [Etapa de comprobación del sistema]()
+  i. [¿Qué hacer si la primera comprobación, la versión de Php falla?]()
+  ii. [¿Qué hacer si la comprobación de la función `mail` falla?]()
+  iii. [¿Qué hacer si la comprobación de la extensión mysqli falla?]()
+  iv. [La comprobación de *instalación en directorio raíz* falla]()
+4. [Reuniendo los datos del servidor]()
+  i. [Base de datos]()
+  ii. [Datos de la página]()
+5. [Datos de la cuenta para el Administrador]()
+6. [Habilitando reCAPTCHA]()
+7. [Personalización de módulos]()
+8. [Instalación]()
+  i. [Posibles errores en la pantalla de instalación]()
+
 ## Subiendo los archivos al servidor
 
 Descargar el zip proveniente de este repositorio (`Clone or Download` > `Download Zip`). Descomprimir y luego subir todos los archivos provenientes de la carpeta `public_html` en el directorio raíz del servidor. Se púede utilizar [Fillezilla Client](https://www.google.com/search?q=fillezilla+client) para realizar la operación.
@@ -147,7 +165,6 @@ Se trata de algún error inesperado. Desde su navegador, presione las teclas `CT
 
 ![Crear un Issue](https://i.imgur.com/ZBnZRd4.png)
 
-Una vez haya concluido, aparecerá la pantalla donde se notifica que la instalación ha concluido, y se suministra el enlace
-donde se puede hacer el primer login al sistema.
+Una vez haya concluida la instalación, aparecerá la pantalla donde se notifica que la instalación ha concluido, y se suministra el enlace donde se puede hacer el primer login al sistema.
 
 ![Instalación Finalizada](https://i.imgur.com/8c1w8oa.png)
