@@ -77,6 +77,7 @@ Es importante aclarar que esta etapa se encuentra en desarrollo y necesita ser p
 
 ## Reuniendo los datos del servidor
 
+La siguiente etapa corresponde a los datos de servidor. Se mostrará la siguiente pantalla:
 
 ![Datos de Servidor](https://i.imgur.com/6s2VpfY.png)
 
