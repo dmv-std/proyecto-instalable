@@ -1,12 +1,12 @@
 # Cómo instalar?
 
-### Subiendo los archivos al servidor
+## Subiendo los archivos al servidor
 
 Descargar el zip proveniente de este repositorio (`Clone or Download` > `Download Zip`). Descomprimir y luego subir todos los archivos provenientes de la carpeta `public_html` en el directorio raíz del servidor. Se púede utilizar [Fillezilla Client](https://www.google.com/search?q=fillezilla+client) para realizar la operación.
 
 Es escencial subir todos los archivos y carpetas al directorio raíz del servidor (normalmente `/public_html`, a veces también identificado como `/htdocs`) para que pueda funcionar correctamente. Si se desea instalar en un sub-directorio dentro del directorio raíz (ej: `/raiz/subcarpeta`), entonces es necesario [asignar un subdominio](https://www.google.com/search?q=cpanel+crear+subdminio) que convierta ese subdirectorio en un directorio raíz, para luego acceder a la página desde este subdominio.
 
-### Accediendo al asistente de instalación
+## Accediendo al asistente de instalación
 
 Una vez hayan sido subidos todos los archivos al servidor, se podrá acceder al asistente de instalación
 desde la url que haya sido asignada para el proyecto `http(s)://mi-dominio-o-subdominio`, y ésta
@@ -15,7 +15,7 @@ redirigirá al asistente de instalación (alternativamente se puede acceder dire
 
 ![Asistente de Instalación](https://i.imgur.com/oFb8Y4u.png)
 
-### Etapa de comprobación del sistema
+## Etapa de comprobación del sistema
 
 Luego de hacer click en `Continuar`, lo primero que se verá es la pantalla donde se realizará la comprobación de los requerimientos del sistema.
 
@@ -23,23 +23,25 @@ Si su server cumple todos los requerimientos, verá una pantalla como la mostrad
 
 ![Comprobación del sistema](https://i.imgur.com/wbTCEAA.png)
 
-#### ¿Qué hacer si la primera comprobación, la versión de Php falla?
+### ¿Qué hacer si la primera comprobación, la versión de Php falla?
 
 Este sistema requiere como mínimo de Php versión 5 para poder funcionar. Cambie [la versión de Php](https://www.google.com/search?q=cpanel+cambiar+la+versi%C3%B3n+de+php) desde el panel de administración de su servidor.
 
-#### ¿Qué hacer si la comprobación de la función `mail` falla?
+### ¿Qué hacer si la comprobación de la función `mail` falla?
 
 La comprobación de la funcionalidad mail es lo que más a menudo puede dar problemas, mostrándonos durante esta etapa una pantalla como la que sigue:
 
 ![Error en comprobación de función mail](https://i.imgur.com/ZT60YmV.png)
 
-Para poder realizar una mejor comprobación de la función `mail`, es necesario ingresar un correo electrónico que haya sido creado y habilitado desde el servidor donde se esté realizando la instalación (en opción `Emails`/`Administración de Correos electrónicos`). Si aún así, no es posible poder realizar la comprobación de la función `mail`, es posible que haya algo en el servidor que no esté adecuadamente configurado, o que la función `mail` haya sido permanentemente deshabilitada por el servidor, como medida de seguridad. Póngase en contacto con los administradores de su servidor para más ayuda.
+Para poder realizar una mejor comprobación de la función `mail`, es necesario ingresar un correo electrónico que haya sido creado y habilitado desde el servidor donde se esté realizando la instalación (en opción `Emails`/`Administración de Correos electrónicos`). Este correo será el `Correo de Remitente` que usted utilizará en el sistema, y es el único correo que podrá utilizar como tal. No puede utilizar direcciones de correo @gmail @hotmail o cualquier otro de los servicios convencionales. Puede habilitar tantos correos que desee desde su servidor para poderlos utilizar como `Correo de Remitente`.
 
-#### ¿Qué hacer si la comprobación de la extensión mysqli falla?
+Si aún así, no es posible poder realizar la comprobación de la función `mail`, es posible que haya algo en el servidor que no esté adecuadamente configurado, o que la función `mail` haya sido permanentemente deshabilitada por el servidor, como medida de seguridad. Póngase en contacto con los administradores de su servidor para más ayuda.
+
+### ¿Qué hacer si la comprobación de la extensión mysqli falla?
 
 Probablemente está usted usando un servidor que no tiene incorporado mysqli. Póngase en contacto con los administradores de su servidor para más ayuda.
 
-#### La comprobación de *instalación en directorio raíz* falla
+### La comprobación de *instalación en directorio raíz* falla
 
 Dirigirse al punto [Subiendo los archivos al servidor](#Subiendo-los-archivos-al-servidor)
 
