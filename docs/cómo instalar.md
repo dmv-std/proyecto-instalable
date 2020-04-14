@@ -2,21 +2,21 @@
 
 ## Índice:
 
-1. [Subiendo los archivos al servidor]()
-2. [Accediendo al asistente de instalación]()
-3. [Etapa de comprobación del sistema]()
+1. [Subiendo los archivos al servidor](#Subiendo-los-archivos-al-servidor)
+2. [Accediendo al asistente de instalación](#Accediendo-al-asistente-de-instalación)
+3. [Etapa de comprobación del sistema](Etapa-de-comprobación-del-sistema)
     1. [¿Qué hacer si la primera comprobación, la versión de Php falla?]()
     2. [¿Qué hacer si la comprobación de la función `mail` falla?]()
     3. [¿Qué hacer si la comprobación de la extensión mysqli falla?]()
     4. [La comprobación de *instalación en directorio raíz* falla]()
-4. [Reuniendo los datos del servidor]()
-    1. [Base de datos]()
-    2. [Datos de la página]()
-5. [Datos de la cuenta para el Administrador]()
-6. [Habilitando reCAPTCHA]()
-7. [Personalización de módulos]()
-8. [Instalación]()
-    1. [Posibles errores en la pantalla de instalación]()
+4. [Reuniendo los datos del servidor](#Reuniendo-los-datos-del-servidor)
+    1. [Base de datos](#Base-de-datos)
+    2. [Datos de la página](#Datos-de-la-página)
+5. [Datos de la cuenta para el Administrador](#Datos-de-la-cuenta-para-el-Administrador)
+6. [Habilitando reCAPTCHA](#Habilitando-reCAPTCHA)
+7. [Personalización de módulos](#Personalización-de-módulos)
+8. [Instalación](#Instalación)
+    1. [Posibles errores en la pantalla de instalación](#Posibles-errores-en-la-pantalla-de-instalación)
 
 ## Subiendo los archivos al servidor
 
