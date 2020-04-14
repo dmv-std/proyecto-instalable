@@ -57,7 +57,7 @@ Si aún así, no es posible poder realizar la comprobación de la función `mail
 
 ### ¿Qué hacer si la comprobación de la extensión mysqli falla?
 
-Probablemente está usted usando un servidor que no tiene incorporado mysqli. Póngase en contacto con los administradores de su servidor para más ayuda.
+Probablemente está usted usando un servidor que no tiene incorporado `mysqli`. Póngase en contacto con los administradores de su servidor para más ayuda.
 
 ### La comprobación de *instalación en directorio raíz* falla
 
