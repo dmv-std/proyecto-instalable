@@ -9,7 +9,8 @@
     2. [Función `mail`](#Qué-hacer-si-la-comprobación-de-la-función-mail-falla)
     3. [Extensión mysqli](#Qué-hacer-si-la-comprobación-de-la-extensión-mysqli-falla)
     4. [Instalación en directorio raíz](#La-comprobación-de-instalación-en-directorio-raíz-falla)
-    5. [Aclaratoria sobre la etapa de *Comprobación del Sistema*](#Aclaratoria-sobre-la-etapa-de-Comprobación-del-Sistema)
+    5. [Permisos de escritura](#Los-permisos-de-escritura-fallan)
+    6. [Aclaratoria sobre la etapa de *Comprobación del Sistema*](#Aclaratoria-sobre-la-etapa-de-Comprobación-del-Sistema)
 4. [Reuniendo los datos del servidor](#Reuniendo-los-datos-del-servidor)
     1. [Base de datos](#Base-de-datos)
     2. [Datos de la página](#Datos-de-la-página)
@@ -63,6 +64,12 @@ Probablemente está usted usando un servidor que no tiene incorporado `mysqli`. 
 ### La comprobación de *instalación en directorio raíz* falla
 
 Dirigirse al punto [Subiendo los archivos al servidor](#Subiendo-los-archivos-al-servidor)
+
+### Los permisos de escritura fallan
+
+Ya sea desde el gestor del Ftp en su servidor, o desde el `Fillezilla Client`, diríjase a las rutas que están fallando, y active permisos de escritura (En `Fillezilla Client`, click secundario en carpeta deseada > `Atributos de archivo`), y habilitar permisos de escritura en `Permisos de propietario`. O cambie el valor numérico a `777` para habilitar permisos totales.
+
+Para saber más, [aquí](https://www.google.com/search?q=ftp+cambiar+permisos+de+escritura).
 
 ### Aclaratoria sobre la etapa de *Comprobación del Sistema*
 
