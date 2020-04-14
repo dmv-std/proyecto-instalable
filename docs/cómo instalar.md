@@ -9,6 +9,7 @@
     2. [Función `mail`](#Qué-hacer-si-la-comprobación-de-la-función-mail-falla)
     3. [Extensión mysqli](#Qué-hacer-si-la-comprobación-de-la-extensión-mysqli-falla)
     4. [Instalación en directorio raíz](#La-comprobación-de-instalación-en-directorio-raíz-falla)
+    5. [Aclaratoria sobre la etapa de *Comprobación del Sistema*](#Aclaratoria-sobre-la-etapa-de-Comprobación-del-Sistema)
 4. [Reuniendo los datos del servidor](#Reuniendo-los-datos-del-servidor)
     1. [Base de datos](#Base-de-datos)
     2. [Datos de la página](#Datos-de-la-página)
@@ -63,7 +64,9 @@ Probablemente está usted usando un servidor que no tiene incorporado `mysqli`. 
 
 Dirigirse al punto [Subiendo los archivos al servidor](#Subiendo-los-archivos-al-servidor)
 
-**Importante:** Es necesario aclarar que esta etapa se encuentra en desarrollo y necesita ser probada en diversos sistemas para ir expandiendo todos parámetros que se necesitan comprobar para el correcto funcionamiento del sistema. Es posible que tu instalación apruebe todos los pasos realizados durante la comprobación y aún así, el server donde se instale arroje nuevos problemas.
+### Aclaratoria sobre la etapa de *Comprobación del Sistema*
+
+Es importante aclarar que esta etapa se encuentra en desarrollo y necesita ser probada en diversos sistemas para ir expandiendo todos parámetros que se necesitan comprobar para el correcto funcionamiento del sistema. Es posible que tu instalación apruebe todos los pasos realizados durante la comprobación y aún así, el server donde se instale arroje nuevos problemas.
 
 ## Reuniendo los datos del servidor
 
