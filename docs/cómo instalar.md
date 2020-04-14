@@ -125,17 +125,27 @@ Al llegar a este punto solo es cuestión de esperar a que finalice la instalaci�
 
 ### Posibles errores en la pantalla de instalación
 
-- Errores relacionados con problemas de conexión.
+- Errores relacionados con problemas de conexión (con la base de datos).
 
-asda
+Estos errores pueden estar relacionados a su conexión a internet. Revísela y reintente la instalación.
 
 - Falta el archivo `/instalador/config.json`.
 
-asda
+Reinicie la instalación.
 
 - Datos requeridos para la instalación faltantes.
+
+Reinicie la instalación.
+
 - Base de datos no ha podido ser creada automáticamente por falta de permisos.
+
+Debe crear la base de datos manualmente desde `phpMyAdmin`. Asegúrese que el nombre coincida con el nombre previamente ingresado en la etapa de los [datos del servidor](#Reuniendo-los-datos-del-servidor). Si eso no es posible, reinicie la instalación e ingrese correctamente el nombre de la base de datos ya creada.
+
 - La instalación no avanza, pero ningún mensaje de error es mostrado.
+
+Se trata de algún error inesperado. Desde su navegador, presione las teclas `CTRL`+`SHIFT`+`I`, se abrirá el inspeccionador de elementos del navedor. Diríjase a la pestaña `Cónsola`, tome una captura de pantalla (Tecla `ImprPant` o `PrintScr`), y abra un nuevo `Issue` en este repositorio:
+
+
 
 Una vez haya concluido, aparecerá la pantalla donde se notifica que la instalación ha concluido, y se suministra el enlace
 donde se puede hacer el primer login al sistema.
