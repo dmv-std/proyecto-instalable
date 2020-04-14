@@ -143,9 +143,9 @@ Debe crear la base de datos manualmente desde `phpMyAdmin`. Asegúrese que el no
 
 - La instalación no avanza, pero ningún mensaje de error es mostrado.
 
-Se trata de algún error inesperado. Desde su navegador, presione las teclas `CTRL`+`SHIFT`+`I`, se abrirá el inspeccionador de elementos del navedor. Diríjase a la pestaña `Cónsola`, tome una captura de pantalla (Tecla `ImprPant` o `PrintScr`), y abra un nuevo `Issue` en este repositorio:
+Se trata de algún error inesperado. Desde su navegador, presione las teclas `CTRL`+`SHIFT`+`I`, se abrirá el inspeccionador de elementos del navedor. Diríjase a la pestaña `Cónsola`, tome una captura de pantalla (Tecla `ImprPant` o `PrintScr`), y abra un nuevo `Issue` en este repositorio con su captura:
 
-
+![Crear un Issue](https://i.imgur.com/ZBnZRd4.png)
 
 Una vez haya concluido, aparecerá la pantalla donde se notifica que la instalación ha concluido, y se suministra el enlace
 donde se puede hacer el primer login al sistema.
