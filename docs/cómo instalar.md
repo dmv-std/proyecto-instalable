@@ -5,7 +5,7 @@
 1. [Subiendo los archivos al servidor](#Subiendo-los-archivos-al-servidor)
 2. [Accediendo al asistente de instalación](#Accediendo-al-asistente-de-instalación)
 3. [Etapa de comprobación del sistema](#Etapa-de-comprobación-del-sistema)
-    1. [Versión de Php](#Qué-hacer-si-la-primera-comprobación-la-versión-de-Php falla)
+    1. [Versión de Php](#Qué-hacer-si-la-primera-comprobación-la-versión-de-Php-falla)
     2. [Función `mail`](#Qué-hacer-si-la-comprobación-de-la-función-mail-falla)
     3. [Extensión mysqli](#Qué-hacer-si-la-comprobación-de-la-extensión-mysqli-falla)
     4. [Instalación en directorio raíz](#La-comprobación-de-instalación-en-directorio-raíz-falla)
