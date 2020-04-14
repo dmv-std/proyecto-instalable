@@ -94,7 +94,7 @@ tenerla creada, en cuyo caso, en este campo se puede ingresar el nombre que se d
 * **Usuario**: el nombre del usuario para hacer login en la base de datos.
 * **Contraseña**: la contraseña para hacer login en la base de datos.
 
-## Validación de los datos para la base de datos
+#### Validación de los datos para la base de datos
 
 Los datos de usuario y contraseña serán validados en esta etapa. Si son ingresados datos erróneos, serán notificados antes de avanzar a la siguiente etapa. También será comprobado si la base de datos puede ser creada automáticamente.
 
