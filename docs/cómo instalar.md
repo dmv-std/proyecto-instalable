@@ -47,14 +47,14 @@ Dirigirse al punto [Subiendo los archivos al servidor](#Subiendo-los-archivos-al
 
 **Importante:** Es necesario aclarar que esta etapa se encuentra en desarrollo y necesita ser probada en diversos sistemas para ir expandiendo todos parámetros que se necesitan comprobar para el correcto funcionamiento del sistema. Es posible que tu instalación apruebe todos los pasos realizados durante la comprobación y aún así, el server donde se instale arroje nuevos problemas.
 
-### Reuniendo los datos del servidor
+## Reuniendo los datos del servidor
 
 
 ![Datos de Servidor](https://i.imgur.com/6s2VpfY.png)
 
 Aqui los datos se dividen en 2 categorías: base de datos y página.
 
-#### Base de datos:
+### Base de datos:
 
 Para recaudar los datos que se necesita para la base de datos, si no se tienen a mano es necesario consultarlos desde el
 panel de control del servidor (sección `base de datos`).
@@ -68,12 +68,12 @@ tenerla creada, en cuyo caso, en este campo se puede ingresar el nombre que se d
 Los datos de usuario y contraseña para la base de datos serán validados en esta etapa. Si son ingresados datos erróneos,
 serán notificados antes de avanzar a la siguiente etapa.
 
-#### Datos de la página:
+### Datos de la página:
 
 * **Nombre de la página**: El nombre que tendrá la página. Aparecerá en los títulos en todas las páginas (pestaña del
 navegador), y en todas las áreas de la página donde corresponda.
 
-### Datos de la cuenta para el Administrador
+## Datos de la cuenta para el Administrador
 
 Luego de haber reunido los datos del servidor y haber hecho click en `Siguiente`, nos encontraremos con la pantalla de
 los datos para la cuenta de administrador. Aquí crearemos el usuario administrador del sistema, junto con sus datos
@@ -87,7 +87,7 @@ de login:
 * **Usuario**: El dato `usuario` para hacer login.
 * **Contraseña**: El dato `contraseña` para hacer login. Hay un campo adicional *Confirmar Contraseña* para poder validarla.
 
-### Habilitando reCAPTCHA
+## Habilitando reCAPTCHA
 
 El reCAPTCHA es un tipo especial de captcha que aparecerá en la página de login al sistema. Pero es necesario realizar un
 registro de nuestro dominio para que se nos permita habilitar el reCAPTCHA en nuestra página. En esta etapa validaremos
@@ -111,13 +111,13 @@ apreciar en las imágenes:
 Una vez se tenga acceso a las 2 claves, se ingresan en la pantalla de habilitar reCAPTCHA, para poder realizar la
 validación. Si ésta se ha hecho bien, se nos permitirá avanzar a la siguiente etapa.
 
-### Personalización de módulos
+## Personalización de módulos
 
 ![Personalizad módulos](https://i.imgur.com/gahMxjL.png)
 
 Se eligen los módulos que se desee instalar.
 
-### Instalación
+## Instalación
 
 Al llegar a este punto solo es cuestión de esperar a que finalice la instalación.
 
