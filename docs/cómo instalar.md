@@ -94,8 +94,11 @@ tenerla creada, en cuyo caso, en este campo se puede ingresar el nombre que se d
 * **Usuario**: el nombre del usuario para hacer login en la base de datos.
 * **Contraseña**: la contraseña para hacer login en la base de datos.
 
-Los datos de usuario y contraseña para la base de datos serán validados en esta etapa. Si son ingresados datos erróneos,
-serán notificados antes de avanzar a la siguiente etapa.
+## Validación de los datos para la base de datos
+
+Los datos de usuario y contraseña serán validados en esta etapa. Si son ingresados datos erróneos, serán notificados antes de avanzar a la siguiente etapa. También será comprobado si la base de datos puede ser creada automáticamente.
+
+Si la comprobación falla, será notificada durante esta etapa la necesidad de crear la base de datos manualmente desde `phpMyAdmin` antes de proseguir con la instalación. Si se llega a la etapa de la instalación sin haber creado aún la base de datos, será mostrado un mensaje de error notificando nuevamente que hay que crear la base de datos manualmente.
 
 ### Datos de la página:
 
