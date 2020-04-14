@@ -123,6 +123,16 @@ Al llegar a este punto solo es cuestión de esperar a que finalice la instalaci�
 
 ![Realizando Instalación](https://i.imgur.com/uxHAdwn.png)
 
+### Posibles errores en la pantalla de instalación
+
+- Errores relacionados con problemas de conexión.
+asda
+
+- Falta el archivo `/instalador/config.json`.
+- Datos requeridos para la instalación faltantes.
+- Base de datos no ha podido ser creada automáticamente por falta de permisos.
+- La instalación no avanza, pero ningún mensaje de error es mostrado.
+
 Una vez haya concluido, aparecerá la pantalla donde se notifica que la instalación ha concluido, y se suministra el enlace
 donde se puede hacer el primer login al sistema.
 
