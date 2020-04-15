@@ -25,7 +25,8 @@
 		// Cerrando la conexión con la base de datos
 		mysqli_close($mysqli);
 		
-        $instalados = explode("|", $modules);
+        $instalados = explode("|", $instalados);
+        include("modulos.php");
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]><html class="ie8"><![endif]-->
@@ -259,90 +260,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (in_array("calendario", $instalados)): ?>
-                                    <tr>
-                                        <td class="text-center">Calendario</td>
-                                        <td class="text-center"><button data-sistema="calendario" class="col-xs-12 btn btn-default clicktoogleonoffsistema calendario">SIN ACCION</button></td>
-                                    </tr>
-                                    <?php endif ?>
-                                    <?php if (true): ?>
                                     <tr>
                                         <td class="text-center">Chat</td>
                                         <td class="text-center"><button data-sistema="chat" class="col-xs-12 btn btn-default clicktoogleonoffsistema chat">SIN ACCION</button></td>
                                     </tr>
-                                    <?php endif ?>
-                                    <?php if (in_array("cotizador", $instalados)): ?>
-                                    <tr>
-                                        <td class="text-center">Cotizador</td>
-                                        <td class="text-center"><button data-sistema="cotizador" class="col-xs-12 btn btn-default clicktoogleonoffsistema cotizador">SIN ACCION</button></td>
-                                    </tr>
-                                    <?php endif ?>
-                                    <?php if (in_array("cotizador2", $instalados)): ?>
-                                    <tr>
-                                        <td class="text-center">Cotizador 2</td>
-                                        <td class="text-center"><button data-sistema="cotizador2" class="col-xs-12 btn btn-default clicktoogleonoffsistema cotizador2">SIN ACCION</button></td>
-                                    </tr>
-                                    <?php endif ?>
-                                    <?php if (in_array("crm", $instalados)): ?>
-                                    <tr>
-                                        <td class="text-center">CRM</td>
-                                        <td class="text-center"><button data-sistema="crm" class="col-xs-12 btn btn-default clicktoogleonoffsistema crm">SIN ACCION</button></td>
-                                    </tr>
-                                    <?php endif ?>
-                                    <?php if (in_array("formularios", $instalados)): ?>
-                                    <tr>
-                                        <td class="text-center">Formularios</td>
-                                        <td class="text-center"><button data-sistema="formularios" class="col-xs-12 btn btn-default clicktoogleonoffsistema formularios">SIN ACCION</button></td>
-                                    </tr>
-                                    <?php endif ?>
-                                    <?php if (in_array("listas", $instalados)): ?>
-                                    <tr>
-                                        <td class="text-center">Listas</td>
-                                        <td class="text-center"><button data-sistema="listas" class="col-xs-12 btn btn-default clicktoogleonoffsistema listas">SIN ACCION</button></td>
-                                    </tr>
-                                    <?php endif ?>
-                                    <?php if (in_array("out", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">OUT</td>
                                         <td class="text-center"><button data-sistema="outs" class="col-xs-12 btn btn-default clicktoogleonoffsistema outs">SIN ACCION</button></td>
                                     </tr>
-                                    <?php endif ?>
-                                    <?php if (in_array("pagos", $instalados)): ?>
-                                    <tr>
-                                        <td class="text-center">Pagos</td>
-                                        <td class="text-center"><button data-sistema="pagos" class="col-xs-12 btn btn-default clicktoogleonoffsistema pagos">SIN ACCION</button></td>
-                                    </tr>
-                                    <?php endif ?>
-                                    <?php if (in_array("produccion", $instalados)): ?>
-                                    <tr>
-                                        <td class="text-center">Produccion</td>
-                                        <td class="text-center"><button data-sistema="produccion" class="col-xs-12 btn btn-default clicktoogleonoffsistema produccion">SIN ACCION</button></td>
-                                    </tr>
-                                    <?php endif ?>
-                                    <?php if (in_array("presupuestos", $instalados)): ?>
-                                    <tr>
-                                        <td class="text-center">Presupuestos</td>
-                                        <td class="text-center"><button data-sistema="presupuestos" class="col-xs-12 btn btn-default clicktoogleonoffsistema presupuestos">SIN ACCION</button></td>
-                                    </tr>
-                                    <?php endif ?>
-                                    <?php if (in_array("respuestas", $instalados)): ?>
-                                    <tr>
-                                        <td class="text-center">Respuestas</td>
-                                        <td class="text-center"><button data-sistema="respuestas" class="col-xs-12 btn btn-default clicktoogleonoffsistema respuestas">SIN ACCION</button></td>
-                                    </tr>                                
-                                    <?php endif ?>
-                                    <?php if (in_array("stock", $instalados)): ?>
                                     <tr>
                                         <td class="text-center">Stock</td>
                                         <td class="text-center"><button data-sistema="stock" class="col-xs-12 btn btn-default clicktoogleonoffsistema stock">SIN ACCION</button></td>
                                     </tr>
-                                    <?php endif ?>
-                                    <?php if (in_array("rrhh", $instalados)): ?>
-                                    <tr>
-                                        <td class="text-center">RR. HH.</td>
-                                        <td class="text-center"><button data-sistema="rrhh" class="col-xs-12 btn btn-default clicktoogleonoffsistema rrhh">SIN ACCION</button></td>
-                                    </tr>
-                                    <?php endif ?>
+                                    <?php foreach ($modulos as $modulo): ?>
+                                        <?php if (in_array($modulo["nombre"], $instalados)): ?>
+                                        <tr>
+                                            <td class="text-center"><?php echo $modulo["titulo"] ?></td>
+                                            <td class="text-center"><button data-sistema="<?php echo $modulo["nombre"] ?>" class="col-xs-12 btn btn-default clicktoogleonoffsistema <?php echo $modulo["nombre"] ?>">SIN ACCION</button></td>
+                                        </tr>
+                                        <?php endif ?>
+                                    <?php endforeach ?>
                                 </tbody>
                             </table>
                         </div>
@@ -521,46 +458,20 @@
                
                     var obj = jQuery.parseJSON(respuesta);
 
-                    if(obj.calendario == 1){
-                        $('.calendario').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
+<?php foreach ($modulos as $modulo): ?>
+<?php if (in_array($modulo["nombre"], $instalados)): ?>
+                    if(obj['<?php echo $modulo["nombre"] ?>'] == 1){
+                        $('.<?php echo $modulo["nombre"] ?>').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
                     }else{
-                        $('.calendario').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
+                        $('.<?php echo $modulo["nombre"] ?>').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
                     }
+<?php endif ?>
+<?php endforeach ?>
 
                     if(obj.chat == 1){
                         $('.chat').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
                     }else{
                         $('.chat').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
-                    }
-
-                    if(obj.cotizador == 1){
-                        $('.cotizador').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
-                    }else{
-                        $('.cotizador').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
-                    }
-
-                    if(obj.cotizador2 == 1){
-                        $('.cotizador2').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
-                    }else{
-                        $('.cotizador2').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
-                    }
-
-                    if(obj.crm == 1){
-                        $('.crm').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
-                    }else{
-                        $('.crm').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
-                    }
-
-                    if(obj.formularios == 1){
-                        $('.formularios').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
-                    }else{
-                        $('.formularios').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
-                    }
-
-                    if(obj.listas == 1){
-                        $('.listas').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
-                    }else{
-                        $('.listas').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
                     }
 
                     if(obj.outs == 1){
@@ -569,40 +480,10 @@
                         $('.outs').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
                     }
 
-                    if(obj.pagos == 1){
-                        $('.pagos').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
-                    }else{
-                        $('.pagos').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
-                    }
-
-                    if(obj.produccion == 1){
-                        $('.produccion').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
-                    }else{
-                        $('.produccion').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
-                    }
-
-                    if(obj.presupuestos == 1){
-                        $('.presupuestos').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
-                    }else{
-                        $('.presupuestos').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
-                    }
-
-                    if(obj.respuestas == 1){
-                        $('.respuestas').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
-                    }else{
-                        $('.respuestas').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
-                    }
-
                     if(obj.stock == 1){
                         $('.stock').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
                     }else{
                         $('.stock').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
-                    }
-
-                    if(obj.rrhh == 1){
-                        $('.rrhh').removeClass('btn-default').removeClass('btn-danger').addClass('btn-success').text('ENCENDIDO');
-                    }else{
-                        $('.rrhh').removeClass('btn-success').removeClass('btn-default').addClass('btn-danger').text('APAGADO');
                     }
 
                     $('#modaleditarsistemasusuario').modal("show");     

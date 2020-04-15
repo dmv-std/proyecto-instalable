@@ -6,7 +6,8 @@
     if(empty($_SESSION['nombrePersona'])){
         header("location: login");
     } else {
-        $instalados = explode("|", $modules);
+        include("modulos.php");
+        $instalados = explode("|", $instalados);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]><html class="ie8"><![endif]-->
@@ -47,196 +48,27 @@
                 </div>
             </div> <!-- / .page-header -->
             <div class="col-md-12">
-                <?php if (in_array("calendario", $instalados)): ?>
-                    <?php if(($_SESSION['rolCalPersona'] <= 2||$_SESSION['permisosPersona'] == "admin")&& ($_SESSION['permisosPersona'] != "externo") || $rowK['rolCal'] == 1): ?>
-                    <div class="col-sm-3">
-                        <div class="stat-panel gh-calendario">
-                            <!-- Success background. vertically centered text -->
-                            <div class="stat-cell bg-primary valign-middle">
-                                <!-- Stat panel bg icon -->
-                                <i class="fa fa-calendar bg-icon"></i>
-                                <!-- Extra large text -->
-                                <span class="text-xlg"><strong>CALENDARIO</strong></span><br>
-                                <!-- Big text -->
-                                <span class="text-bg"></span><br>
-                                <!-- Small text -->
-                                <span class="text-sm"></span>
-                            </div> <!-- /.stat-cell -->
-                        </div> <!-- /.stat-panel -->
-                    </div>
+                <?php foreach ($modulos as $modulo): ?>
+                    <?php if (in_array($modulo['nombre'], $instalados)): ?>
+                        <?php if($modulo['permisos']()): ?>
+                        <div class="col-sm-3">
+                            <div class="stat-panel gh-<?php echo $modulo['nombre']?>">
+                                <!-- Success background. vertically centered text -->
+                                <div class="stat-cell bg-<?php echo $modulo['clase']?> valign-middle">
+                                    <!-- Stat panel bg icon -->
+                                    <i class="fa fa-<?php echo $modulo['icono']?> bg-icon"></i>
+                                    <!-- Extra large text -->
+                                    <span class="text-xlg"><strong><?php echo $modulo['titulo']?></strong></span><br>
+                                    <!-- Big text -->
+                                    <span class="text-bg"></span><br>
+                                    <!-- Small text -->
+                                    <span class="text-sm"></span>
+                                </div> <!-- /.stat-cell -->
+                            </div> <!-- /.stat-panel -->
+                        </div>
+                        <?php endif ?>
                     <?php endif ?>
-                <?php endif ?>
-                <?php if (in_array("cotizador", $instalados)): ?>
-                    <?php if (($_SESSION['permisosPersona'] != "no") && ($_SESSION['permisosPersona'] != "externo") || $rowK['cotizador'] == 1): ?>
-                    <div class="col-sm-3">
-                        <div class="stat-panel gh-cotizaciones">
-                            <!-- Success background. vertically centered text -->
-                            <div class="stat-cell bg-success valign-middle">
-                                <!-- Stat panel bg icon -->
-                                <i class="fa fa-usd bg-icon"></i>
-                                <!-- Extra large text -->
-                                <span class="text-xlg"><strong>COTIZACIONES</strong></span><br>
-                                <!-- Big text -->
-                                <span class="text-bg"></span><br>
-                                <!-- Small text -->
-                                <span class="text-sm"></span>
-                            </div> <!-- /.stat-cell -->
-                        </div> <!-- /.stat-panel -->
-                    </div>
-                    <?php endif ?>
-                <?php endif ?>
-                <?php if (in_array("cotizador2", $instalados)): ?>
-                    <?php if (($_SESSION['permisosPersona'] != "no") && ($_SESSION['permisosPersona'] != "externo") || $rowK['cotizador2'] == 1): ?>
-                    <div class="col-sm-3">
-                        <div class="stat-panel gh-cotizaciones2">
-                            <!-- Success background. vertically centered text -->
-                            <div class="stat-cell bg-success valign-middle">
-                                <!-- Stat panel bg icon -->
-                                <i class="fa fa-usd bg-icon"></i>
-                                <!-- Extra large text -->
-                                <span class="text-xlg"><strong>COTIZACIONES 2</strong></span><br>
-                                <!-- Big text -->
-                                <span class="text-bg"></span><br>
-                                <!-- Small text -->
-                                <span class="text-sm"></span>
-                            </div> <!-- /.stat-cell -->
-                        </div> <!-- /.stat-panel -->
-                    </div>
-                    <?php endif ?>
-                <?php endif ?>
-                <?php if (in_array("formularios", $instalados)): ?>
-                    <?php if (($_SESSION['permisosPersona'] != "no") || ($_SESSION['permisosPersona'] == "externo") || $rowK['formularios'] == 1): ?>
-                    <div class="col-sm-3">
-                        <div class="stat-panel gh-contactos">
-                            <!-- Success background. vertically centered text -->
-                            <div class="stat-cell bg-success valign-middle">
-                                <!-- Stat panel bg icon -->
-                                <i class="fa fa-envelope bg-icon"></i>
-                                <!-- Extra large text -->
-                                <span class="text-xlg"><strong>CONTACTOS</strong></span><br>
-                                <!-- Big text -->
-                                <span class="text-bg"></span><br>
-                                <!-- Small text -->
-                                <span class="text-sm"></span>
-                            </div> <!-- /.stat-cell -->
-                        </div> <!-- /.stat-panel -->
-                    </div>
-                    <?php endif ?>
-                <?php endif ?>
-                <?php if (in_array("crm", $instalados)): ?>
-                    <?php if (($_SESSION['permisosPersona'] != "no") || ($_SESSION['permisosPersona'] == "externo") || $rowK['crm'] == 1): ?>
-                    <div class="col-sm-3">
-                        <div class="stat-panel gh-crm">
-                            <!-- Success background. vertically centered text -->
-                            <div class="stat-cell bg-warning valign-middle">
-                                <!-- Stat panel bg icon -->
-                                <i class="fa fa-exchange bg-icon"></i>
-                                <!-- Extra large text -->
-                                <span class="text-xlg"><strong>CRM</strong></span><br>
-                                <!-- Big text -->
-                                <span class="text-bg"></span><br>
-                                <!-- Small text -->
-                                <span class="text-sm"></span>
-                            </div> <!-- /.stat-cell -->
-                        </div> <!-- /.stat-panel -->
-                    </div>
-                    <?php endif ?>
-                <?php endif ?>
-                <?php if (in_array("listas", $instalados)): ?>
-                    <?php if (($_SESSION['permisosPersona'] != "no") || ($_SESSION['permisosPersona'] == "externo") || $rowK['listas'] == 1): ?>
-                    <div class="col-sm-3">
-                        <div class="stat-panel gh-listasprecios">
-                            <!-- Success background. vertically centered text -->
-                            <div class="stat-cell bg-warning valign-middle">
-                                <!-- Stat panel bg icon -->
-                                <i class="fa fa-exchange bg-icon"></i>
-                                <!-- Extra large text -->
-                                <span class="text-xlg"><strong>LISTAS DE PRECIOS</strong></span><br>
-                                <!-- Big text -->
-                                <span class="text-bg"></span><br>
-                                <!-- Small text -->
-                                <span class="text-sm"></span>
-                            </div> <!-- /.stat-cell -->
-                        </div> <!-- /.stat-panel -->
-                    </div>
-                    <?php endif ?>
-                <?php endif ?>
-                <?php if (in_array("pagos", $instalados)): ?>
-                    <?php if (($_SESSION['rolPagPersona'] <= 2||$_SESSION['permisosPersona'] == "admin") && ($_SESSION['permisosPersona'] != "externo") || $rowK['pagos'] == 1): ?>
-                    <div class="col-sm-3">
-                        <div class="stat-panel gh-pagos">
-                            <!-- Success background. vertically centered text -->
-                            <div class="stat-cell bg-warning valign-middle">
-                                <!-- Stat panel bg icon -->
-                                <i class="fa fa-money bg-icon"></i>
-                                <!-- Extra large text -->
-                                <span class="text-xlg"><strong>PAGOS</strong></span><br>
-                                <!-- Big text -->
-                                <span class="text-bg"></span><br>
-                                <!-- Small text -->
-                                <span class="text-sm"></span>
-                            </div> <!-- /.stat-cell -->
-                        </div> <!-- /.stat-panel -->
-                    </div>
-                    <?php endif ?>
-                <?php endif ?>
-                <?php if (in_array("presupuestos", $instalados)): ?>
-                    <?php if(($_SESSION['rolProPersona'] <= 2 ||$_SESSION['permisosPersona'] == "admin") && ($_SESSION['permisosPersona'] != "externo") || $rowK['produccion'] == 1): ?>
-                    <div class="col-sm-3">
-                        <div class="stat-panel gh-presupuestos">
-                            <!-- Success background. vertically centered text -->
-                            <div class="stat-cell bg-primary valign-middle">
-                                <!-- Stat panel bg icon -->
-                                <i class="fa fa-usd bg-icon"></i>
-                                <!-- Extra large text -->
-                                <span class="text-xlg"><strong>PRESUPUESTOS</strong></span><br>
-                                <!-- Big text -->
-                                <span class="text-bg"></span><br>
-                                <!-- Small text -->
-                                <span class="text-sm"></span>
-                            </div> <!-- /.stat-cell -->
-                        </div> <!-- /.stat-panel -->
-                    </div>
-                    <?php endif ?>
-                <?php endif ?>
-                <?php if (in_array("produccion", $instalados)): ?>
-                    <?php if(($_SESSION['rolProPersona'] <= 2 ||$_SESSION['permisosPersona'] == "admin") && ($_SESSION['permisosPersona'] != "externo") || $rowK['produccion'] == 1): ?>
-                    <div class="col-sm-3">
-                        <div class="stat-panel gh-produccion">
-                            <!-- Success background. vertically centered text -->
-                            <div class="stat-cell bg-warning valign-middle">
-                                <!-- Stat panel bg icon -->
-                                <i class="fa fa-gears bg-icon"></i>
-                                <!-- Extra large text -->
-                                <span class="text-xlg"><strong>PRODUCCION</strong></span><br>
-                                <!-- Big text -->
-                                <span class="text-bg"></span><br>
-                                <!-- Small text -->
-                                <span class="text-sm"></span>
-                            </div> <!-- /.stat-cell -->
-                        </div> <!-- /.stat-panel -->
-                    </div>
-                    <?php endif ?>
-                <?php endif ?>
-                <?php if (in_array("respuestas", $instalados)): ?>
-                    <?php if(($_SESSION['rolCalPersona'] <= 2||$_SESSION['permisosPersona'] == "admin")&& ($_SESSION['permisosPersona'] != "externo") || $rowK['respuestas'] == 1): ?>
-                    <div class="col-sm-3">
-                        <div class="stat-panel gh-respuestas">
-                            <!-- Success background. vertically centered text -->
-                            <div class="stat-cell bg-primary valign-middle">
-                                <!-- Stat panel bg icon -->
-                                <i class="fa fa-calendar bg-icon"></i>
-                                <!-- Extra large text -->
-                                <span class="text-xlg"><strong>RESPUESTAS</strong></span><br>
-                                <!-- Big text -->
-                                <span class="text-bg"></span><br>
-                                <!-- Small text -->
-                                <span class="text-sm"></span>
-                            </div> <!-- /.stat-cell -->
-                        </div> <!-- /.stat-panel -->
-                    </div>
-                    <?php endif ?>
-                <?php endif ?>
+                <?php endforeach ?>
 				<?php
 					$mysqli = new mysqli($dbserver, $dbuser, $dbpass, $dbname);
 					if($mysqli->connect_errno > 0){
@@ -332,51 +164,17 @@
             // Javascript code here
         })
         window.PixelAdmin.start(init);
-        $(".gh-calendario").on( "click", function() {
-            var url = "calendario/"; 
-            $(location).attr('href',url);
+<?php foreach ($modulos as $modulo): ?>
+<?php if (in_array($modulo['nombre'], $instalados)): ?>
+        $(".gh-<?php echo $modulo['nombre'] ?>").on( "click", function() {
+            $(location).attr('href', "<?php echo $modulo['uri'] ?>");
         });
-        $(".gh-cotizaciones").on( "click", function() {
-            var url = "cotizador/admin/"; 
-            $(location).attr('href',url);
-        });
-		$(".gh-cotizaciones2").on( "click", function() {
-            var url = "cotizador2/admin/"; 
-            $(location).attr('href',url);
-        });
-		$(".gh-contactos").on( "click", function() {
-            var url = "formularios/contactos.php"; 
-            $(location).attr('href',url);
-        });
-        $(".gh-crm").on( "click", function() {
-            var url = "crm/"; 
-            $(location).attr('href',url);
-        });
-        $(".gh-pagos").on( "click", function() {
-            var url = "pagos/"; 
-            $(location).attr('href',url);
-        });
-	  	$(".gh-listasprecios").on( "click", function() {
-            var url = "listas/admin/"; 
-            $(location).attr('href',url);
-        });
-        $(".gh-presupuestos").on( "click", function() {
-            var url = "presupuestos/"; 
-            $(location).attr('href',url);
-        });
-        $(".gh-produccion").on( "click", function() {
-            var url = "produccion/"; 
-            $(location).attr('href',url);
-        });
+<?php endif ?>
+<?php endforeach ?>
         $(".gh-cerrar").on( "click", function() {
             var url = "cerrarSesion.php"; 
             $(location).attr('href',url);
         });
-        $(".gh-respuestas").on( "click", function() {
-            var url = "respuestas/"; 
-            $(location).attr('href',url);
-        });
-      
     </script>
 
 </body>
