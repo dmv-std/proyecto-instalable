@@ -17,6 +17,7 @@
  * | Se pueden ver más iconos en la url:
  * | https://fontawesome.com/v4.7.0/icons/
  * | Si el código del ícono es "fa fa-icono", sólo tomar "icono".
+ * | Algunos íconos podrían no funcionar.
  * --------------------------------------------------------------------------------
  * | El campo 'uri' indica la ruta relativa al módulo.
  * -------------------------------------------------------------------------------- */
