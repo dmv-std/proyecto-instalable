@@ -3,7 +3,7 @@
 /* --------------------------------------------------------------------------------
  *	Módulos
  * --------------------------------------------------------------------------------
- * | Editar campo 'títulos' para cambiar el nombre con el que el módulo aparecerá
+ * | Editar campo 'titulo' para cambiar el nombre con el que el módulo aparecerá
  * | en las interfaces del sistema.
  * --------------------------------------------------------------------------------
  * | El campo 'clase' muestra el color con el que aparecerá el módulo en el index (frontpage)
