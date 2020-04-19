@@ -42,7 +42,7 @@
 		'clase'		=> 'success',
 		'icono'		=> 'usd',
 		'uri'		=> 'cotizador/admin/',
-		'permisos'	=> function(){return ($_SESSION['permisosPersona'] != "no") && ($_SESSION['permisosPersona'] != "externo") || $_SESSION['cotizador'] == 1;},
+		'permisos'	=> function(){return ($_SESSION['permisosPersona'] != "no") && ($_SESSION['permisosPersona'] != "externo") && $_SESSION['cotizador'] == 1;},
 	],
 
 	[
@@ -66,7 +66,7 @@
 		'clase'		=> 'success',
 		'icono'		=> 'envelope',
 		'uri'		=> 'formularios/contactos.php',
-		'permisos'	=> function(){return ($_SESSION['permisosPersona'] != "no") || ($_SESSION['permisosPersona'] == "externo") || $_SESSION['formularios'] == 1;},
+		'permisos'	=> function(){return ($_SESSION['permisosPersona'] != "no") || ($_SESSION['permisosPersona'] == "externo") && $_SESSION['formularios'] == 1;},
 	],
 
 	[
@@ -78,7 +78,7 @@
 		'clase'		=> 'warning',
 		'icono'		=> 'exchange',
 		'uri'		=> 'crm/',
-		'permisos'	=> function(){return ($_SESSION['permisosPersona'] != "no") || ($_SESSION['permisosPersona'] == "externo") || $_SESSION['crm'] == 1;},
+		'permisos'	=> function(){return ($_SESSION['permisosPersona'] != "no") || ($_SESSION['permisosPersona'] == "externo") && $_SESSION['crm'] == 1;},
 	],
 
 	[
@@ -90,7 +90,7 @@
 		'clase'		=> 'warning',
 		'icono'		=> 'exchange',
 		'uri'		=> 'listas/admin/',
-		'permisos'	=> function(){return ($_SESSION['permisosPersona'] != "no") || ($_SESSION['permisosPersona'] == "externo") || $_SESSION['listas'] == 1;},
+		'permisos'	=> function(){return ($_SESSION['permisosPersona'] != "no") || ($_SESSION['permisosPersona'] == "externo") && $_SESSION['listas'] == 1;},
 	],
 
 	[
@@ -102,7 +102,7 @@
 		'clase'		=> 'warning',
 		'icono'		=> 'money',
 		'uri'		=> 'pagos/',
-		'permisos'	=> function(){return ($_SESSION['rolPagPersona'] <= 2||$_SESSION['permisosPersona'] == "admin") && ($_SESSION['permisosPersona'] != "externo") || $_SESSION['pagos'] == 1;},
+		'permisos'	=> function(){return ($_SESSION['rolPagPersona'] <= 2||$_SESSION['permisosPersona'] == "admin") && ($_SESSION['permisosPersona'] != "externo") && $_SESSION['pagos'] == 1;},
 	],
 
 	[
@@ -126,7 +126,7 @@
 		'clase'		=> 'warning',
 		'icono'		=> 'gears',
 		'uri'		=> 'produccion/',
-		'permisos'	=> function(){return ($_SESSION['rolProPersona'] <= 2 ||$_SESSION['permisosPersona'] == "admin") && ($_SESSION['permisosPersona'] != "externo") || $_SESSION['produccion'] == 1;},
+		'permisos'	=> function(){return ($_SESSION['rolProPersona'] <= 2 ||$_SESSION['permisosPersona'] == "admin") && ($_SESSION['permisosPersona'] != "externo") && $_SESSION['produccion'] == 1;},
 	],
 
 	[
@@ -138,7 +138,7 @@
 		'clase'		=> 'primary',
 		'icono'		=> 'calendar',
 		'uri'		=> 'respuestas/',
-		'permisos'	=> function(){return ($_SESSION['rolCalPersona'] <= 2||$_SESSION['permisosPersona'] == "admin")&& ($_SESSION['permisosPersona'] != "externo") || $_SESSION['respuestas'] == 1;},
+		'permisos'	=> function(){return ($_SESSION['rolCalPersona'] <= 2||$_SESSION['permisosPersona'] == "admin")&& ($_SESSION['permisosPersona'] != "externo") && $_SESSION['respuestas'] == 1;},
 	],
 
 	[
