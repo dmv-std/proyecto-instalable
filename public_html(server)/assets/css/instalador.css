@@ -1,0 +1,223 @@
+body {
+	background: #7979ff;
+	color: #fff;
+}
+
+body a:not(.btn) {
+    color: #fff;
+    text-decoration: underline;
+}
+
+body a:hover:not(.btn) {
+	color: #5656aa;
+    text-decoration: underline;
+}
+
+body li {
+    list-style-type: none;
+}
+
+body ul {
+    padding-left: 10px;
+}
+
+body code {
+    background: #6a6adb;
+    color: #fff;
+}
+
+body.flex-body{
+	display: flex;
+	justify-content: space-around;
+}
+
+section.sidebar{
+	display: flex;
+	flex-direction: column;
+	margin-left: 40px;
+	//margin-top: -20rem;
+	align-self: center;
+	flex-grow: 1;
+}
+
+section.main, section.main2{
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0 160px;
+}
+
+section.main2{
+	padding: 0;
+	margin-left: 30px;
+	flex-grow: 10;
+}
+
+.subtext{
+	margin-bottom: 44px;
+	color: #c7c7f7;
+}
+
+section.main > div:last-child{
+	display: flex;
+	align-self: center;
+	flex-direction: column;
+}
+
+.btn-continuar{
+	margin-bottom: 14px;
+}
+
+.form-label{
+	height: 30px;
+	line-height: 30px;
+	margin: 0;
+}
+
+.container {
+    width: auto;
+}
+
+.progress{
+	background-color: #9191ff;
+}
+
+.sidebar h3 {
+    margin-bottom: 18px;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+.sidebar li i.fa{
+	margin-right: 10px;
+}
+
+.form-group.recaptcha-group{
+	margin-top: 40px;
+}
+
+.form-group.recaptcha-group .recaptcha-input-group{
+	height: 78px;
+	margin-bottom: 15px;
+}
+
+.estado-de-instalacion h1{
+  color: #fff;
+  margin-top: -8px;
+}
+
+.text-red{
+  color:#ffbf00
+}
+
+.lista li{
+  margin-bottom: 4px;
+}
+
+.lista + .form-group {
+  margin-top: 14px;
+}
+
+.create-db-error{
+  width: 652px;
+  margin-top: 40px;
+  margin-bottom: 12px;
+}
+
+i.fa-question-circle[data-toggle="tooltip"] {
+  cursor: pointer;
+  color: #333;
+}
+
+.lista .text-red input[type="email"] {
+  color: #555;
+  width: 240px;
+  display: inline-block;
+}
+
+.lista .text-red.dark-bg {
+    background: rgba(0,0,0,0.15);
+    padding: 12px 20px;
+    width: 85%;
+    border-radius: 5px;
+}
+
+.lista .text-red button{
+  margin-top: -3px;
+}
+
+/*****************************************
+ *	STYLED CHECKBOXES:
+ *	https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
+ *****************************************/
+
+ /* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #1A7AC6;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+} 
