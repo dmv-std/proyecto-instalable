@@ -61,7 +61,7 @@
 			<h1>Bienvenido al asistente de instalación</h1>
 			<div class="subtext">Este asistente le guiará a través del proceso de instalación.</div>
 			<div>
-				<a class="btn btn-info btn-lg btn-continuar" href="?fase=2">Continuar</a>
+				<a class="btn btn-info btn-lg btn-continuar" href="?fase=1">Continuar</a>
 				<div><a href="">Guía de instalación</a></div>
 			</div>
 		</section>
@@ -70,17 +70,66 @@
 	<?php /*************************
 	* FASE: VALIDAR LICENCIA
 	********************************/ ?>
-		<section class="main2">
-			<h1>Validar licencia</h1>
-			<div class="subtext">Complete los campos con la información solicitada.</div>
-			<form id="form-validar-licencia">
-				<div class="form-group">
-					<label class="col-md-2 form-label text-right" for="licence-code">Licencia:</label>
-					<div class="col-md-8 input-group">
-						<input type="text" class="form-control" id="licence-code" placeholder="Serial de la licencia" required>
+		<div id="modal-validar-licencia" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static" style="display: none;">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title modal-title-user" id="myModalLabel">Validar Licencia</h4>
+					</div>
+					<div class="modal-body">
+						<i class="fa fa-exclamation-triangle"></i> <span></span>
+						<p style="margin-top:22px"><strong>Nota:</strong> <em>Si lo desea puede saltarse este paso (tendrá que validar la licencia más tarde para poder disfrutar de todas las características del producto).</em></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<a href="?fase=<?php echo $fase+1 ?>" class="btn btn-primary">Continuar sin validar licencia</a>
 					</div>
 				</div>
+			</div>
+		</div>
+		<section class="main2">
+			<?php if (!isset($_GET['validado'])): ?>
+			<h1>Validar licencia</h1>
+			<div class="subtext">
+				Adquiera la licencia en <a href="<?php echo $validar_licencia?>/licencias-demo.php"><?php echo $adquirir_licencia ?></a> y luego complete los campos con la información solicitada.
+			</div>
+			<form id="form-validar-licencia">
+				<div class="form-group">
+					<label class="col-md-2 form-label text-right" for="validator-url">
+						Url validación <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="El dominio de la página que realizará la validación."></i>:
+					</label>
+					<div class="col-md-8 input-group">
+						<input type="text" class="form-control" id="validator-url" placeholder="http(s)://dominio-de-la-pagina" value="<?php echo $validar_licencia ?>" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 form-label text-right" for="license-code">
+						Licencia <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Serial de la licencia."></i>:
+					</label>
+					<div class="col-md-8 input-group">
+						<input type="text" class="form-control" id="license-code" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" required>
+					</div>
+				</div>
+				<?php /* ?><div class="form-group">
+					<div class="col-md-7 col-md-offset-2 input-group">
+						<button type="submit" class="btn btn-info">Continuar</button>
+					</div>
+				</div><?php */ ?>
 			</form>
+			<div class="form-group">
+				<div class="col-md-7 col-md-offset-2 input-group">
+					<a href="?fase=<?php echo $fase+1 ?>" class="btn btn-info btn-validar-licencia">Continuar</a>
+				</div>
+			</div>
+			<?php else: ?>
+			<h1>Su licencia ha sido validada exitosamente <i class="fa fa-check"></i></h1>
+			<div class="form-group">
+				<div class="col-md-7 input-group">
+					<a href="?fase=<?php echo $fase+1 ?>" class="btn btn-info">Continuar</a>
+				</div>
+			</div>
+			<?php endif ?>
 		</section>
 
 	<?php elseif ($fase <= count($fases) && $fases[$fase-1]=='Comprobación del Sistema'): ?>
@@ -406,6 +455,44 @@
 
 		$('#form-validar-licencia').on('submit', function(e){
 			e.preventDefault()
+		})
+		$('.btn-validar-licencia').on('click', function(e){
+			e.preventDefault()
+
+			var thisButton = this;
+			var thisText = $(thisButton).text()
+			$(thisButton).attr('disabled', true).text('Validando licencia...')
+
+			let serial = $('#license-code').val(),
+				url = $('#validator-url').val();
+
+			if(!url || !serial) {
+				$('#modal-validar-licencia .modal-body span').text( "Falta uno o más datos." )
+				$('#modal-validar-licencia').modal('show')
+				$(thisButton).attr('disabled', false).text(thisText)
+			} else {
+
+				$.ajax({
+					dataType: 'jsonp',
+					data: {license: serial},
+					url: url+'/validar-licencia.php',
+					success : function(r) {
+						if (r.validated) {
+							// Pendiente: escribir en config.json la licencia y la url de la página de validación...
+							$(location).attr('href', `?fase=<?php echo $fase ?>&validado`)
+						} else {
+							$('#modal-validar-licencia .modal-body span').text( r.error )
+							$('#modal-validar-licencia').modal('show')
+							$(thisButton).attr('disabled', false).text(thisText)
+						}
+					},
+					error : function(xhr, status) {
+						alert('Disculpe, ocurrió un problema');
+						$(thisButton).attr('disabled', false).text(thisText)
+					},
+				})
+
+			}
 		})
 
 		$('.btn-verificar-correo').on('click', function(){

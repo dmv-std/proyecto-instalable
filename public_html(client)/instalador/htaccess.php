@@ -17,6 +17,7 @@ RewriteRule ^usuarios$ /usuarios.php
 RewriteRule ^usuarios-(.+)$ /usuarios.php?msg=$1
 RewriteRule ^acceso$ /usuariosAcceso.php
 RewriteRule ^banners$ /banners.php
+RewriteRule ^licencia$ /licencia.php
 RewriteRule ^salir$ /cerrarSesion.php
 
 RewriteRule ^cotizador2/admin/administracion$ cotizador2/admin/administracion.php

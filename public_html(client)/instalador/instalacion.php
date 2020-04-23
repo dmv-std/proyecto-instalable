@@ -145,6 +145,11 @@ if (isset($_POST['step'])) {
 
 function generarArchivoConfig($config_data) {
 $archivo = '<?php
+	// LICENSE-KEY
+	$licenseKey = "";
+	$license_validator_url = "http://mytemporalwebsite.000webhostapp.com";
+	$validator_name = "Licencias Demo";
+
 	// DATABASE INFORMATION
 	$dbserver = "' . $config_data['db-server'] . '";
 	$dbname = "' . $config_data['db-name'] . '";

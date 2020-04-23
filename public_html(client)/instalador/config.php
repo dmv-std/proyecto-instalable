@@ -1,5 +1,8 @@
 <?php
 
+$adquirir_licencia = "Licencias Demo";
+$validar_licencia = "http://mytemporalwebsite.000webhostapp.com";
+
 $basepath = $_SERVER['DOCUMENT_ROOT'];
 
 $assets_url = "../assets";

@@ -31,6 +31,10 @@ body.flex-body{
 	justify-content: space-around;
 }
 
+.modal-content {
+  color: #555;
+}
+
 section.sidebar{
 	display: flex;
 	flex-direction: column;

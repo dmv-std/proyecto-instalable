@@ -24,6 +24,7 @@
 			<?php if($_SESSION['permisosPersona'] == "admin") { ?>		<li><a href="<?php echo $basehttp ?>/acceso">Registro Accesos</a></li>			<?php } ?>
 			<?php /*if($_SESSION['permisosPersona'] == "admin") { ?><li><a href="http://sistemas.evamagic.com.ar/formularios/cron.php" target="_blank">CRON</a></li> <?php }*/ ?>
 			<?php if($_SESSION['permisosPersona'] == "admin") { ?>		<li><a href="<?php echo $basehttp ?>/banners">Personalizar banners</a></li>		<?php } ?>
+			<?php if($_SESSION['permisosPersona'] == "admin") { ?>		<li><a href="<?php echo $basehttp ?>/licencia">Licencia</a></li>		<?php } ?>
 			<li><a href="<?php echo $basehttp ?>/salir">Cerrar Sesión.</a></li>
 		</ul>
 	</div>
