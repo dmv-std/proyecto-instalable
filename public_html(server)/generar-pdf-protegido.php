@@ -23,6 +23,8 @@ if ( isset($_GET['license']) ) {
 		$row = $result->fetch_assoc();
 		if (date('Y-m-d')>$row['fecha_expiracion'])
 			die("Su licencia ha expirado.");
+		else if (!$row['activa'])
+			die("Su licencia es válida pero se encuentra inactiva. Consulte a su proveedor");
 	}
 
 	// Reading desired parameter urls

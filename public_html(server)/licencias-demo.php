@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 	include("config.php");
 	$conn = new mysqli($dbserver, $dbuser, $dbpass, $dbname);
 	if($conn->connect_errno > 0){
@@ -8,19 +8,20 @@
 	
 	$query = "SELECT * FROM licencias";
 	$result = $conn->query($query) or die($conn->error.__LINE__);
+	$licencias = array();
 	while($row = $result->fetch_assoc()) {
 		$licencias[] = $row;
 	}
 	
 	mysqli_close($conn);
 
-//id,nombre,apellido,serial,sitio,fecha_creacion,fecha_expiracion,activa
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8"/>
 	<title>Demo - Licencias</title>
+	<style type="text/css">table,th,td{border:1px solid #666}table{width:100%}</style>
 </head>
 <body>
 	<h1>Licencias</h1>
@@ -74,5 +75,9 @@
 			<input type="submit" value="Crear nueva licencia..."/>
 		</div>
 	</form>
+	<?php if (isset($_SESSION['msg'])): ?>
+		<p style="color:red;font-weight:bold"><?php echo $_SESSION['msg'] ?></p>
+		<?php unset($_SESSION['msg']) ?>
+	<?php endif ?>
 </body>
 </html>

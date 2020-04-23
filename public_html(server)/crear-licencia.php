@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 	if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['sitio'])) {
 
 		$nombre = $_POST['nombre'];
@@ -6,6 +6,14 @@
 		$sitio = $_POST['sitio'];
 		$fecha_creacion = date('Y-m-d');
 		$fecha_expiracion = date('Y-m-d', strtotime(date('Y-m-d') . ' +1 day'));
+
+		preg_match ("/^(?:https?:\/\/)?([^\/\:]+)(?:\/.*)?$/", $sitio, $matches);
+		if (!isset($matches[1])) {
+			$_SESSION['msg'] = "Ha ingresado una url no válida";
+			header("location: licencias-demo.php");
+			exit();
+		}
+		$sitio = $matches[1];
 
 		$serial = "";
 		for($i=0; $i<6; $i++)
@@ -31,6 +39,6 @@
 		
 		mysqli_close($conn);
 
-		header("location: licencias-demo.php"); // If you need a success message to be displayed, you can use $_SESSION to show it, and then destroy that $_SESSION var, instead of using $_GET and ?msg=success+message
+		header("location: licencias-demo.php");
 	}
 ?>

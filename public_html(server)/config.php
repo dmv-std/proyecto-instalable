@@ -1,9 +1,9 @@
 <?php
 	// DATABASE INFORMATION
 	$dbserver = "localhost";
-	$dbname = "id13175315_mybusiness";
-	$dbuser = "id13175315_admin";
-	$dbpass = "i]GI6@7VYq|?SY<>";
+	$dbname = "my_database_name";
+	$dbuser = "my_database_user";
+	$dbpass = "my_database_password";
 	
 	// WEBSITE INFORMATION
 	$basepath = "C:/xampp/htdocs/work/mybusiness";
