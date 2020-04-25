@@ -1,0 +1,5 @@
+RewriteEngine On
+
+RewriteRule ^validar-licencia$ /validar-licencia.php
+RewriteRule ^presupuestos/pdf$ presupuestos/generar-pdf.php
+RewriteRule ^cotizador2/pdf$ cotizador2/generar-pdf.php

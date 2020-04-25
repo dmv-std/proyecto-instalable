@@ -12,7 +12,7 @@ if ( isset($_GET['mode']) ) {
 	if ( $_GET['mode'] == "saveas" ) {
 		$html2pdf->output("$filename.pdf", 'D');
 	} else if ( $_GET['mode'] == "storein" ) {
-		$html2pdf->output("$filename"."_$id.pdf", 'F');
+		$html2pdf->output("$basepath/assets/pdf/$filename"."_$id.pdf", 'F');
 	} else $html2pdf->output("$filename.pdf");
 	
 }

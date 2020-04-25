@@ -7,4 +7,4 @@ public_html(client)/assets/pdf/*.pdf
 public_html(client)/assets/presupuestos/*
 public_html(client)/assets/banners/*
 public_html(client)/assets/logos/*
-public_html(client)/cotizador2/admin/archivos/*
+public_html(client)/assets/cotizador2/*
