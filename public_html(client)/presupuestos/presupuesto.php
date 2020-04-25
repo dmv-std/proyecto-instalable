@@ -583,35 +583,80 @@
             }
             if(revision=="true"){
                 $.ajax({
-                    url : 'enviarcorreo.php',
-                    data : params2,
+                    url : 'generar-pdf.php',
+                    data : {id: params2.id, getdata: 1},
                     type : 'GET',
-                    dataType : 'html',
+                    dataType : 'json',
                     success : function(respuesta) {
-						if (!respuesta.startsWith("Ocurrió un error inesperado tratando de enviar el correo")) {
-							$.ajax({
-								url : 'guardar-observacion.php',
-								data : params1,
-								type : 'GET',
-								dataType : 'html',
-								success : function(respuesta2) {
-									console.log("(reenviar mail): "+respuesta2);
-                                    var url = "presupuesto.php?id="+params2.id+"&msg="+respuesta; 
-                                    url = params2.id+"-"+respuesta; 
-									$(location).attr('href',url);
-								},
-								error : function(xhr, status) {
-									alert('El correo fue enviado pero ocurrió un error tratando de guardar observación.');
-									$("#guardarreenviar").attr("disabled", false).text(text);
-								},
-							});
-						}
+                        console.log('obteniendo datos para pdf...')
+                        respuesta.mode = 'storein';
+                        $.ajax({
+                            url : '<?php echo $license_server ?>/presupuestos/pdf',
+                            data : respuesta,
+                            dataType : 'jsonp',
+                            success : function() {
+                                console.log('pdf servidor generado...')
+                                params2.filename = respuesta.filename
+                                $.ajax({
+                                    url : 'enviarcorreo.php',
+                                    data : params2,
+                                    type : 'GET',
+                                    dataType : 'html',
+                                    success : function(respuesta) {
+                                        console.log('correo enviado...')
+                                        if (!respuesta.startsWith("Ocurrió un error inesperado tratando de enviar el correo")) {
+                                            console.log('removiendo pdf del servidor...')
+                                            $.ajax({
+                                                url : '<?php echo $license_server ?>/presupuestos/pdf',
+                                                data : {
+                                                    license: '<?php echo $license_key ?>',
+                                                    filename: params2.filename,
+                                                    id: params2.id,
+                                                    mode: 'delete',
+                                                },
+                                                dataType : 'jsonp',
+                                                success : function() {
+                                                    $.ajax({
+                                                        url : 'guardar-observacion.php',
+                                                        data : params1,
+                                                        type : 'GET',
+                                                        dataType : 'html',
+                                                        success : function(respuesta2) {
+                                                            console.log('observación guardada...')
+                                                            console.log("(reenviar mail): "+respuesta2);
+                                                            var url = "presupuesto.php?id="+params2.id+"&msg="+respuesta; 
+                                                            url = params2.id+"-"+respuesta; 
+                                                            $(location).attr('href',url);
+                                                        },
+                                                        error : function(xhr, status) {
+                                                            alert('El correo fue enviado pero ocurrió un error tratando de guardar observación.');
+                                                            $("#guardarreenviar").attr("disabled", false).text(text);
+                                                        },
+                                                    });
+                                                },
+                                                error : function(xhr, status) {
+                                                    alert('El correo fue enviado pero ocurrió un error tratando de guardar observación.');
+                                                    $("#guardarreenviar").attr("disabled", false).text(text);
+                                                },
+                                            })
+                                        }
+                                    },
+                                    error : function(xhr, status) {
+                                        alert('Disculpe, existió un problema');
+                                        $("#guardarreenviar").attr("disabled", false).text(text);
+                                    },
+                                });
+                            },
+                            error : function(xhr, status) {
+                                alert('(server-pdf): ocurrió un error. Contacte asistencia técnica.');
+                            },
+                        })
                     },
                     error : function(xhr, status) {
-                        alert('Disculpe, existió un problema');
-						$("#guardarreenviar").attr("disabled", false).text(text);
+                        alert('El correo fue enviado pero ocurrió un error tratando de guardar observación.');
+                        $("#guardarreenviar").attr("disabled", false).text(text);
                     },
-                });
+                })
             }else{
                 alert('Complete todos los datos');
 				$("#guardarreenviar").attr("disabled", false).text(text);

@@ -1,12 +1,15 @@
 <?php require_once("../config.php");
 	
-	if(isset($_GET['reenviarremitente'])&&isset($_GET['reenviarremitenteemail'])&&isset($_GET['reenviaremailemail'])&&isset($_GET['reenviarmensajeemail'])
-		|| isset($_GET['id'])&&isset($_GET['email'])){
+	if(isset($_GET['reenviarremitente'])&&isset($_GET['reenviarremitenteemail'])&&isset($_GET['reenviaremailemail'])&&isset($_GET['reenviarmensajeemail'])&&isset($_GET['filename'])&&isset($_GET['id'])
+		|| isset($_GET['id'])&&isset($_GET['email'])&&isset($_GET['filename'])){
 		$id = $_GET['id'];
+		$filename = $_GET['filename'];
 		
-		$_GET['mode']='storein';
-		include 'generar-pdf.php';
+		//$_GET['mode']='storein';
+		//include 'generar-pdf.php';
+		$file_url = "$license_server/assets/pdf/$filename"."_$id.pdf";
 		$file = "$pdf_path/$filename"."_$id.pdf";
+		file_put_contents($file, file_get_contents($file_url));
 		
 		ob_start();
 		include "email.php";

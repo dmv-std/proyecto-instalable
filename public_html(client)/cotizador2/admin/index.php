@@ -47,6 +47,9 @@
                     <div class="pull-right col-xs-12 col-sm-auto"><button class="btn btn-lg btn-info" id="btn-crearcotizacion" >CREAR COTIZACION</button></div>
                 </div>
             </div> <!-- / .page-header -->
+
+            <?php include("$basepath/assets/templates/licencia-aviso.php") ?>
+
             <div class="col-md-12">
                 <div class="col-sm-4">
                     <div class="stat-panel gh-cotizaciones">
@@ -138,6 +141,8 @@
             $(location).attr('href',url);
         });
     </script>
+
+    <?php include("$basepath/assets/templates/licencia-aviso-js.php") ?>
 
 </body>
 </html>

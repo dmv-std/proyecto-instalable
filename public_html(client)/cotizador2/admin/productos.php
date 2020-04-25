@@ -215,6 +215,12 @@
                                 <h4 class="modal-title" id="myModalLabel">Subir Archivo de Productos</h4>
                             </div>
                             <div class="modal-body">
+                                <div class="alert alert-warning license-alert" style="display: none">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    <strong>ALERTA:</strong>
+                                    La licencia de su producto se encuentra inactiva, por lo que no podrá disfrutar de esta característica.
+                                    <br>Active su producto para poder contar con esta funcionalidad.
+                                </div>
                                 <div class="alert alert-info">
                                     Seleccione el archivo que desea cargar
                                     <br/><br/>Obtenga un archivo ejemplo de aqui:
@@ -599,17 +605,35 @@
 			var text = button.text();
 			button.prop("disabled", "true").text("SUBIENDO...");
 			$.ajax({
-                url : 'guardarpaquete.php',
-                data : { 'archivo' : rutaarch },
-                type : 'GET',
-                dataType : 'html',
-                success : function(respuesta) {
-                    var url = "productos.php?msg="+respuesta; 
-                    var url = "productos-"+respuesta; 
-                    $(location).attr('href',url);
+                url : '<?php echo $license_server ?>/cotizador2/guardarpaquete.php',
+                data : { 'archivo' : rutaarch, 'license' : "<?php echo $license_key ?>" },
+                dataType : 'jsonp',
+                success : function(data) {
+                    if (!data.error) {
+                        $.ajax({
+                            url : 'guardarpaquete.php',
+                            data : {
+                                'data' : JSON.stringify(data.response),
+                                'file' : rutaarch.replace(/.*\//, ""),
+                            },
+                            type: 'GET',
+                            dataType : 'html',
+                            success : function(respuesta) {
+                                var url = "productos-"+respuesta; 
+                                $(location).attr('href',url);
+                            },
+                            error : function(xhr, status) {
+                                alert('Disculpe, existió un problema');
+                                button.attr("disabled", false).text( text );
+                            },
+                        });
+                    } else {
+                        alert(data.error)
+                        button.attr("disabled", false).text( text );
+                    }
                 },
                 error : function(xhr, status) {
-                    alert('Disculpe, existió un problema');
+                    alert('El servidor no respondió. Notifique este problema a su proveedor de licencias si persiste.');
 					button.attr("disabled", false).text( text );
                 },
             });
@@ -658,30 +682,8 @@
 			}
 		});
     </script>
-	
-	<!-- Flash es obsoleto -->
-	<!--<script type="text/javascript" src="<?php echo $js_url ?>/jquery.uploadify.v2.1.0.min.js"></script>
-	<script type="text/javascript" src="<?php echo $js_url ?>/swfobject.js"></script>
-	<script type="text/javascript">// <![CDATA[
-	$(document).ready(function() {
-		divResultado = document.getElementById('archivocargado');
-		$('#fileInput').uploadify({
-			'uploader'  : 'uploadify.swf',
-			'script'    : 'uploader.php',
-			'cancelImg' : 'cancel.png',
-			'auto'      : true,
-			'folder'    : 'archivos',
-			'fileExt'   : '*.xlsx;*.xls',
-			'fileDesc'  : 'Archivos Excel 2007 (.XLSX)',
-			'onComplete': function(event, queueID, fileObj, response, data) {
-				//$('#archivocargado').append(response);
-                divResultado.innerHTML=response; 
-			}
-		});
-	});
-	// ]]>
-	</script>-->
 
+    <?php include("$basepath/assets/templates/licencia-aviso-js.php") ?>
 </body>
 </html>
 <?php } ?>

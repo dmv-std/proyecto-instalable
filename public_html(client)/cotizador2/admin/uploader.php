@@ -4,11 +4,10 @@
 
 		$tempFile = $_FILES['Filedata']['tmp_name'];
 		$file_name = $_FILES['Filedata']['name'];
-		$targetPath = $basepath."/cotizador2/admin/archivos";
+		$targetPath = $basepath."/".$cotizador2_archivos_path;
 		$targetFile = $targetPath.'/'.$file_name;
 		
-		$folder ='archivos/';
-		$rutaarch = 'archivos/' . $file_name;
+		$rutaarch = $basehttp.'/'.$cotizador2_archivos_path.'/'.$file_name;
 		
 		if (!file_exists($targetPath))
 			mkdir($targetPath);

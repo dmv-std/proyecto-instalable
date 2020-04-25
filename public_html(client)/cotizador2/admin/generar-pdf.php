@@ -18,7 +18,7 @@ if ( count($_GET) > 0 && isset($_GET['id']) && is_numeric($_GET['id']) ) {
 	$row = $result->fetch_assoc();
 	
 	$empresa = $row['empresa'];
-	$direccion = preg_replace("/<br>/", "\n", $row['direccion']);
+	$direccion = $row['direccion']; //preg_replace("/<br>/", "\n", $row['direccion']);
 	$telefonos = $row['telefonos'];
 	$web = $row['web'];
 	$email = $row['email'];
@@ -59,6 +59,7 @@ if ( count($_GET) > 0 && isset($_GET['id']) && is_numeric($_GET['id']) ) {
 	while($row = $result->fetch_assoc()) {
 		$detalles[] = $row; // id, idcot, codigo, descripcion, cantidad, colores, precio, total
 	}
+	$detalles = json_encode($detalles);
 	
 	// Datos de Usuario
 	if ( $usuario != 'CLIENTE' ) {
@@ -94,12 +95,39 @@ if ( count($_GET) > 0 && isset($_GET['id']) && is_numeric($_GET['id']) ) {
 	
 	// Cerrando la conexión con la base de datos
 	mysqli_close($mysqli);
-
-	ob_start();
-	include "documento.php";
-	$html = ob_get_clean();
-
-	include "$pdf_path/generar-pdf.php";
 	
+	if (!isset($_GET['getdata'])) {
+		$params = "license=$license_key"
+			. "&empresa=$empresa&direccion=$direccion&telefonos=$telefonos&web=$web&email1=$email1&logo=$logo&iva=$iva&filename=$filename&id=$id"
+			. "&nombre=$nombre&apellidos=$apellidos&telefono=$telefono&email=$email&fecha=$fecha&descuentoporcentaje=$descuentoporcentaje&descuento=$descuento&total=$total&usuario=$usuario&estatus=$estatus&detalles=$detalles"
+			. "&usuario_nombre=$usuario_nombre&usuario_correo=$usuario_correo&usuario_telefono=$usuario_telefono"
+			. (isset($_GET['mode']) ? "&mode=".$_GET['mode'] : "");
+		header('location:'."$license_server/cotizador2/pdf?$params");
+	} /*else echo json_encode([
+		'license'				=> $license_key,
+		'empresa'				=> $empresa,
+		'direccion'				=> $direccion,
+		'telefonos'				=> $telefonos,
+		'web'					=> $web,
+		'email1'				=> $email1,
+		'logo'					=> $logo,
+		'iva'					=> $iva,
+		'filename'				=> $filename,
+		'id'					=> $id,
+		'nombre'				=> $nombre,
+		'apellidos'				=> $apellidos,
+		'telefono'				=> $telefono,
+		'email'					=> $email,
+		'fecha'					=> $fecha,
+		'descuentoporcentaje'	=> $descuentoporcentaje,
+		'descuento'				=> $descuento,
+		'total'					=> $total,
+		'usuario'				=> $usuario,
+		'estatus'				=> $estatus,
+		'usuario_nombre'		=> $usuario_nombre,
+		'usuario_correo'		=> $usuario_correo,
+		'usuario_telefono'		=> $usuario_telefono
+	]);*/
+
 } else header("location: $basehttp");
 ?>

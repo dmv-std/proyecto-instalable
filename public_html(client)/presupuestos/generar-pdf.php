@@ -1,7 +1,7 @@
 <?php
 
 // Generar documento a partir de la id del presupuesto
-if ( isset($_GET['id']) && is_numeric($_GET['id']) ) {
+if ( isset($_GET['id']) ) {
 	
 	$id = $_GET['id'];
 	include ("../config.php");
@@ -48,7 +48,7 @@ if ( isset($_GET['id']) && is_numeric($_GET['id']) ) {
 	$detalles = $row['detalles'];
 	$detalles = special_markups($detalles);
 	$detalles = markups($detalles);
-	$detalles = explode("<br>", $detalles);
+	//$detalles = explode("<br>", $detalles);
 	$condiciones = markups($row['condiciones']);
 	
 	$usuario_nombre = $row['user'];
@@ -74,13 +74,40 @@ if ( isset($_GET['id']) && is_numeric($_GET['id']) ) {
 	// Cerrando la conexión con la base de datos
 	mysqli_close($mysqli);
 
-	ob_start();
+	/*ob_start();
 	include "template.php";
 	$html = ob_get_clean();
 
-	include "$pdf_path/generar-pdf.php";
+	include "$pdf_path/generar-pdf.php";*/
 
-
+	if (!isset($_GET['getdata'])) {
+		$params = "license=$license_key"
+			. "&empresa=$empresa&direccion=$direccion&telefonos=$telefonos&web=$web&email=$email&logo=$logo"
+			. "&filename=$filename&id=$id&cliente=$cliente&correo=$correo&telefono=$telefono&detalles=$detalles&condiciones=$condiciones&fecha=$fecha"
+			. "&usuario_nombre=$usuario_nombre&usuario=$usuario&usuario_correo=$usuario_correo&usuario_telefono=$usuario_telefono"
+			. (isset($_GET['mode']) ? "&mode=".$_GET['mode'] : "");
+		header('location:'."$license_server/presupuestos/pdf?$params");
+	} else echo json_encode([
+		'license'			=> $license_key,
+		'empresa'			=> $empresa,
+		'direccion'			=> $direccion,
+		'telefonos'			=> $telefonos,
+		'web'				=> $web,
+		'email'				=> $email,
+		'logo'				=> $logo,
+		'filename'			=> $filename,
+		'id'				=> $id,
+		'cliente'			=> $cliente,
+		'correo'			=> $correo,
+		'telefono'			=> $telefono,
+		'detalles'			=> $detalles,
+		'condiciones'		=> $condiciones,
+		'fecha'				=> $fecha,
+		'usuario_nombre'	=> $usuario_nombre,
+		'usuario'			=> $usuario,
+		'usuario_correo'	=> $usuario_correo,
+		'usuario_telefono'	=> $usuario_telefono,
+	]);
 }
 
 // Generar vista previa del documento, a partir de los datos recogidos desde la página de crear nuevo presupuesto (nuevo.php)
@@ -129,7 +156,7 @@ else if ( isset($_GET['usuario']) && isset($_GET['nombre']) && isset($_GET['apel
 	$detalles = $_GET['detalles'];
 	$detalles = special_markups($detalles);
 	$detalles = markups($detalles);
-	$detalles = explode("<br>", $detalles);
+	//$detalles = explode("<br>", $detalles);
 	$condiciones = markups($_GET['condiciones']);
 	
 	$filename = "presupuesto-vista-previa";
@@ -137,12 +164,17 @@ else if ( isset($_GET['usuario']) && isset($_GET['nombre']) && isset($_GET['apel
 	// Cerrando la conexión con la base de datos
 	mysqli_close($mysqli);
 
-	ob_start();
+	/*ob_start();
 	include "template.php";
 	$html = ob_get_clean();
 
-	include "$pdf_path/generar-pdf.php";
+	include "$pdf_path/generar-pdf.php";*/
 
+	$params = "license=$license_key"
+		. "&empresa=$empresa&direccion=$direccion&telefonos=$telefonos&web=$web&email=$email&logo=$logo"
+		. "&filename=$filename&id=$id&cliente=$cliente&correo=$correo&telefono=$telefono&detalles=$detalles&condiciones=$condiciones&fecha=$fecha"
+		. "&usuario_nombre=$usuario_nombre&usuario=$usuario&usuario_correo=$usuario_correo&usuario_telefono=$usuario_telefono";
+	header('location:'."$license_server/presupuestos/pdf?$params");
 }
 
 // Generar vista previa del documento, desde la página de configuración de datos de la empresa
@@ -158,7 +190,7 @@ else if ( isset($_GET['empresa']) && isset($_GET['direccion']) && isset($_GET['t
 	$logo = $_GET['logo'];
 	
 	$id = "-";
-	$fecha = "";
+	/*$fecha = "";
 	$cliente = "";
 	$correo = "";
 	$telefono = "";
@@ -168,16 +200,21 @@ else if ( isset($_GET['empresa']) && isset($_GET['direccion']) && isset($_GET['t
 	$usuario_nombre = "";
 	$usuario = "";
 	$usuario_correo = "";
-	$usuario_telefono = "";
+	$usuario_telefono = "";*/
 	
 	$filename = "presupuesto-vista-previa";
 
-	ob_start();
+	/*ob_start();
 	include "template.php";
 	$html = ob_get_clean();
 
-	include "$pdf_path/generar-pdf.php";
+	include "$pdf_path/generar-pdf.php";*/
 	
+	$params = "license=$license_key"
+		. "&empresa=$empresa&direccion=$direccion&telefonos=$telefonos&web=$web&email=$email&logo=$logo"
+		. "&filename=$filename&id=$id";
+	header('location:'."$license_server/presupuestos/pdf?$params");
+
 } else header("location: $basehttp");
 
 function markups($s){

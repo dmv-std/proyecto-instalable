@@ -92,7 +92,7 @@
 			<?php if (!isset($_GET['validado'])): ?>
 			<h1>Validar licencia</h1>
 			<div class="subtext">
-				Adquiera la licencia en <a href="<?php echo $validar_licencia?>/licencias-demo.php"><?php echo $adquirir_licencia ?></a> y luego complete los campos con la información solicitada.
+				Adquiera la licencia en <a href="<?php echo $validar_licencia?>/licencias-demo.php" target="_blank"><?php echo $adquirir_licencia ?></a> y luego complete los campos con la información solicitada.
 			</div>
 			<form id="form-validar-licencia">
 				<div class="form-group">
@@ -472,14 +472,29 @@
 				$(thisButton).attr('disabled', false).text(thisText)
 			} else {
 
+				// Validar licencia en el servidor proveedor de licencias
 				$.ajax({
 					dataType: 'jsonp',
 					data: {license: serial},
-					url: url+'/validar-licencia.php',
+					url: url+'/validar-licencia',
 					success : function(r) {
 						if (r.validated) {
-							// Pendiente: escribir en config.json la licencia y la url de la página de validación...
-							$(location).attr('href', `?fase=<?php echo $fase ?>&validado`)
+							
+							// Guardar licencia validada en la configuración del instalador
+							$.ajax({
+								url: "crear-configuracion-licencia.php",
+								data: {server: url, serial: serial},
+								type: 'POST',
+								dataType: 'html',
+								success: function() {
+									$(location).attr('href', `?fase=<?php echo $fase ?>&validado`)
+								},
+								error: function(xhr, status) {
+									alert('Un error inesperado ha ocurrido.');
+									console.log({xhr:xhr, status:status})
+								},
+							})
+
 						} else {
 							$('#modal-validar-licencia .modal-body span').text( r.error )
 							$('#modal-validar-licencia').modal('show')

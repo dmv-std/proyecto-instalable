@@ -47,6 +47,9 @@
                     
                 </div>
             </div> <!-- / .page-header -->
+
+            <?php include("$basepath/assets/templates/licencia-aviso.php") ?>
+
             <div class="col-md-12">
                 <?php foreach ($modulos as $modulo): ?>
                     <?php if (in_array($modulo['nombre'], $instalados)): ?>
@@ -177,6 +180,7 @@
         });
     </script>
 
+    <?php include("$basepath/assets/templates/licencia-aviso-js.php") ?>
 </body>
 </html>
 <?php } ?>

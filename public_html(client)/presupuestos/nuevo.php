@@ -354,24 +354,69 @@
 		
 		function enviarCorreo(idpres, initial_text){
 			$.ajax({
-				url : 'enviarcorreo.php',
-				data : {
-					id: idpres,
-					email: $('#cliente-correo').val(),
-				},
-				type : 'GET',
-				dataType : 'html',
-				success : function() {
-					console.log("Correo enviado...")
-					let url = "nuevo.php?msg=" + "Presupuesto (" + idpres + ") creado con éxito!"; 
-					url = "nuevo-Presupuesto (" + idpres + ") creado con éxito!"; 
-					$(location).attr('href',url);
-				},
-				error : function(xhr, status) {
-					alert('Ha ocurrido un problema tratando de enviar el correo.');
+                url : 'generar-pdf.php',
+                data : {id: idpres, getdata: 1},
+                type : 'GET',
+                dataType : 'json',
+                success : function(respuesta) {
+                    console.log('obteniendo datos para pdf...')
+                    respuesta.mode = 'storein';
+                    $.ajax({
+                        url : '<?php echo $license_server ?>/presupuestos/pdf',
+                        data : respuesta,
+                        dataType : 'jsonp',
+                        success : function() {
+                            console.log('pdf servidor generado...')
+                            $.ajax({
+                                url : 'enviarcorreo.php',
+                                data : {
+									id: idpres,
+									email: $('#cliente-correo').val(),
+									filename: respuesta.filename,
+                                },
+                                type : 'GET',
+                                dataType : 'html',
+                                success : function(respuesta2) {
+                                    console.log('correo enviado...')
+                                    if (!respuesta2.startsWith("Ocurrió un error inesperado tratando de enviar el correo")) {
+                                        console.log('removiendo pdf del servidor...')
+                                        $.ajax({
+                                            url : '<?php echo $license_server ?>/presupuestos/pdf',
+                                            data : {
+                                                license: '<?php echo $license_key ?>',
+                                                filename: respuesta.filename,
+                                                id: idpres,
+                                                mode: 'delete',
+                                            },
+                                            dataType : 'jsonp',
+                                            success : function() {
+												let url = "nuevo-Presupuesto (" + idpres + ") creado con éxito!";
+												$(location).attr('href',url);
+                                            },
+                                            error : function(xhr, status) {
+                                                alert('El correo fue enviado pero ocurrió un error tratando de guardar observación.');
+												$('.btn-crear-presupuesto').prop('disabled', false).text(initial_text);
+                                            },
+                                        })
+                                    }
+                                },
+                                error : function(xhr, status) {
+                                    alert('Disculpe, existió un problema');
+									$('.btn-crear-presupuesto').prop('disabled', false).text(initial_text);
+                                },
+                            });
+                        },
+                        error : function(xhr, status) {
+                            alert('(server-pdf): ocurrió un error. Contacte asistencia técnica.');
+							$('.btn-crear-presupuesto').prop('disabled', false).text(initial_text);
+                        },
+                    })
+                },
+                error : function(xhr, status) {
+                    alert('El correo fue enviado pero ocurrió un error tratando de guardar observación.');
 					$('.btn-crear-presupuesto').prop('disabled', false).text(initial_text);
-				},
-			});
+                },
+            })
 		}
 		
 		$('.btn-agregar-archivo').on('click', function(){

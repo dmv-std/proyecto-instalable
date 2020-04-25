@@ -29,9 +29,9 @@ $writable_dirs = [
 	'assets/firmas',
 	'assets/pdf',
 	'assets/presupuestos',
+	'assets/cotizador2',
 	'assets/banners',
 	'assets/logos',
-	'cotizador2/admin/archivos',
 ];
 
 

@@ -33,7 +33,7 @@
 
 			include("config.php");
 			if(comprobarPermisosDB($dbserver, $dbuser, $dbpass)) {
-				echo "SUCCESS";				
+				echo "SUCCESS";
 			} else echo "SUCCESS_DB_ERROR";
 		} else {
 			echo "error";

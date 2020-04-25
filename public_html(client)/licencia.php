@@ -72,11 +72,11 @@
                 <h2 class="col-xs-12 col-sm-4 text-center text-left-sm">Licencia</h2>
             </div>
             <div class="row">
-                <input type="hidden" id="validator-url" value="<?php echo $license_validator_url ?>"/>
+                <input type="hidden" id="validator-url" value="<?php echo $license_server ?>"/>
                 <div class="form-group">
                     <label class="col-md-2 form-label text-right" for="license-code">Serial <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Si desea modificarlo, edite el archivo config.php"></i>:</label>
                     <div class="col-md-7 input-group">
-                        <input type="text" class="form-control" id="license-code" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" value="<?php echo $licenseKey ?>" readonly>
+                        <input type="text" class="form-control" id="license-code" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" value="<?php echo $license_key ?>" readonly>
                     </div>
                 </div>
                 <div class="form-group">
@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <p class="col-xs-12 col-sm-10 text-center text-left-sm">Renueve o active su licencia en <a href="<?php echo $license_validator_url ?>/licencias-demo.php"><?php echo $validator_name ?></a></p>
+                    <p class="col-xs-12 col-sm-10 text-center text-left-sm">Renueve o active su licencia en <a href="<?php echo $license_server ?>/licencias-demo.php" target="_blank"><?php echo $license_server_name ?></a></p>
                 </div>
             </div>
         </div>
@@ -145,17 +145,11 @@
                 $.ajax({
                     dataType: 'jsonp',
                     data: {license: serial},
-                    url: url+'/validar-licencia.php',
-                    success : function(r) {
-                        if (r.validated) {
-                            $('.license-active-div').html('<em>'+(r.actived?'Sí':'No')+'</em>')
-                            $('.expire-date-div').html('<em>'+r.expireDate+'</em>')
-                            $('.license-status-div').html(r.expired?'<em class="red">Expirada</em>':'<em>Vigente</em>')
-                        } else {
-                            $('.license-active-div').html('<em>-</em>')
-                            $('.expire-date-div').html('-')
-                            $('.license-status-div').html('<em>Inválida</em>')
-                        }
+                    url: url+'/validar-licencia',
+                    success : function(r) {console.log(r)
+                        $('.license-active-div').html('<em>'+(r.actived&&!r.error?'Sí':'No')+'</em>')
+                        $('.expire-date-div').html('<em>'+r.expire+'</em>')
+                        $('.license-status-div').html(r.expired?'<em class="red">Expirada</em>':'<em>Vigente</em>')
                     },
                     error : function(xhr, status) {
                         alert('Disculpe, ocurrió un problema');

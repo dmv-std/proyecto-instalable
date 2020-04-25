@@ -146,9 +146,9 @@ if (isset($_POST['step'])) {
 function generarArchivoConfig($config_data) {
 $archivo = '<?php
 	// LICENSE-KEY
-	$licenseKey = "";
-	$license_validator_url = "http://mytemporalwebsite.000webhostapp.com";
-	$validator_name = "Licencias Demo";
+	$license_key = "' . (isset($config_data['license-serial']) ? $config_data['license-serial'] : '') . '";
+	$license_server = "' . (isset($config_data['license-server']) ? $config_data['license-server'] : $validar_licencia) . '";
+	$license_server_name = "' . $adquirir_licencia . '";
 
 	// DATABASE INFORMATION
 	$dbserver = "' . $config_data['db-server'] . '";
@@ -180,6 +180,7 @@ $archivo = '<?php
 	
 	':'').(in_array("cotizador2", $config_data['modulos'])?'// Cotizador2
 	$cotizador2_pdf_logo = "/assets/logos/" . "cotizador2-logo";
+	$cotizador2_archivos_path = "/assets/cotizador2";
 	
 	':'').'// reCAPTCHA
 	$captcha_front_code = "' .  $config_data['captcha_front_code'] . '";
